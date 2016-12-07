@@ -5,4 +5,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+
+    <string name="slogan">How people build software</string>
+    <string name="copy_right">© 2016 GitHub, Inc. </string>
+
 </resources>

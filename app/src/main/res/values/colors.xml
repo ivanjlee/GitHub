@@ -5,7 +5,7 @@
     <color name="colorAccent">#76C457</color>
     <color name="textColorPrimary">#333333</color>
 
-
+    <color name="transparent">#00000000</color>
     <!--100% — FF-->
     <!--95% — F2-->
     <!--90% — E6-->
