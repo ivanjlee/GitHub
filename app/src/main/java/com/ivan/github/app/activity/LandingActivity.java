@@ -1,9 +1,12 @@
-package com.ivan.github;
+package com.ivan.github.app.activity;
 
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
+
+import com.ivan.github.R;
+import com.ivan.github.app.BaseActivity;
 
 public class LandingActivity extends BaseActivity {
 
@@ -15,7 +18,7 @@ public class LandingActivity extends BaseActivity {
         Handler handler = new Handler(getMainLooper()) {
             @Override
             public void handleMessage(Message msg) {
-                startActivity(new Intent(LandingActivity.this, MainActivity.class));
+                startActivity(new Intent(LandingActivity.this, SplashActivity.class));
                 LandingActivity.this.finish();
             }
         };
@@ -25,6 +28,7 @@ public class LandingActivity extends BaseActivity {
 
     @Override
     public void finish() {
+//        ActivityCompat.finishAfterTransition(this);
         super.finish();
     }
 }

@@ -6,8 +6,23 @@
 
     <string name="action_settings">Settings</string>
 
-
+    <!--Landing-->
     <string name="slogan">How people build software</string>
     <string name="copy_right">© 2016 GitHub, Inc. </string>
 
+    <!--Splash-->
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="splash_image_01">home_ill_build</string>
+    <string name="splash_title_01">For everything you build</string>
+    <string name="splash_dec_01">Host and manage your code on GitHub.\n You can keep your work private or share it\n with the world.</string>
+    <string name="splash_image_02">home_ill_work</string>
+    <string name="splash_title_02">A better way to work</string>
+    <string name="splash_dec_02">From hobbyists to professionals, GitHub\n helps developers simplify the way they\n build software.</string>
+    <string name="splash_image_03">home_ill_projects</string>
+    <string name="splash_title_03">Millions of projects</string>
+    <string name="splash_dec_03">GitHub is home to millions of open source\n projects. Try one out or get inspired to\n create your own.</string>
+    <string name="splash_image_04">home_ill_platform</string>
+    <string name="splash_title_04">One platform, from start to finish</string>
+    <string name="splash_dec_04">With hundreds of integrations, GitHub is\n flexible enough to be at the center of your\n development process.</string>
 </resources>
