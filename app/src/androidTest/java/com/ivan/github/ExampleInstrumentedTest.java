@@ -1,4 +1,4 @@
-package com.github;
+package com.ivan.github;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
