@@ -13,6 +13,8 @@ import com.ivan.github.app.model.SplashData;
 import java.util.ArrayList;
 import java.util.List;
 
+import github.design.widget.CirclePagerIndicator;
+
 public class SplashActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
@@ -29,6 +31,8 @@ public class SplashActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         SplashPageAdapter adapter = new SplashPageAdapter(this, getSplashData());
         mViewPager.setAdapter(adapter);
+        CirclePagerIndicator indicator = (CirclePagerIndicator) findViewById(R.id.indicator);
+        indicator.setViewPager(mViewPager);
     }
 
     private List<SplashData> getSplashData() {
