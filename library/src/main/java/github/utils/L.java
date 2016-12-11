@@ -7,9 +7,9 @@ import github.design.BuildConfig;
 /**
  * A tool class for Logcat
  *
- * @author  Ivan at 2016-12-11  17:13
- * @version v1.0
- * @since   v1.0
+ * @author      Ivan at 2016-12-11  17:13
+ * @version     v1.0
+ * @since       v1.0
  */
 
 public class L {

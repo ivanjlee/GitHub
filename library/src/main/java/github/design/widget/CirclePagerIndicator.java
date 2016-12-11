@@ -15,8 +15,8 @@ import github.design.R;
  * circle indicator for view pager
  *
  * @author      Ivan at 2016-12-09  15:41
- * @version     v1.0
- * @since       v1.0
+ * @version     v0.1
+ * @since       v0.1
  */
 
 public class CirclePagerIndicator extends View{
