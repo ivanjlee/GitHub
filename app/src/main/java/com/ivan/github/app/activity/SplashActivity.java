@@ -1,11 +1,13 @@
 package com.ivan.github.app.activity;
 
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.ivan.github.DebugActivity;
 import com.ivan.github.R;
 import com.ivan.github.app.adapter.SplashPageAdapter;
 import com.ivan.github.app.model.SplashData;
@@ -72,6 +74,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void signUp(View view) {
-        Snackbar.make(mViewPager, "Sign up", Snackbar.LENGTH_LONG).show();
+//        Snackbar.make(mViewPager, "Sign up", Snackbar.LENGTH_LONG).show();
+        startActivity(new Intent(SplashActivity.this, DebugActivity.class));
     }
 }
