@@ -11,3 +11,5 @@
 app/libs/
 library/libs/
 .idea/misc.xml
+app/build
+library/build

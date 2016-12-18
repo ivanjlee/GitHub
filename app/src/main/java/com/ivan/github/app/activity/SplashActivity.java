@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.ivan.github.DebugActivity;
+import com.ivan.github.debug.DebugActivity;
 import com.ivan.github.R;
 import com.ivan.github.app.adapter.SplashPageAdapter;
 import com.ivan.github.app.model.SplashData;

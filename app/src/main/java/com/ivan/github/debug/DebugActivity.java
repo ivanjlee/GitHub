@@ -1,8 +1,9 @@
-package com.ivan.github;
+package com.ivan.github.debug;
 
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.ivan.github.R;
 import com.ivan.github.app.BaseActivity;
 
 public class DebugActivity extends BaseActivity {
