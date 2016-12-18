@@ -9,3 +9,5 @@
 .externalNativeBuild
 /img
 app/libs/
+library/libs/
+.idea/misc.xml
