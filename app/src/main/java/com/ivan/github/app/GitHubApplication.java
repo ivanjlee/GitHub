@@ -18,5 +18,6 @@ public class GitHubApplication extends Application{
     public void onCreate() {
         super.onCreate();
         L.setDebugLog(L.VERBOSE);
+        App.init(this);
     }
 }

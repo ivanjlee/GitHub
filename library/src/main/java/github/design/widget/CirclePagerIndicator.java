@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import github.design.R;
+import github.utils.Utils;
 
 /**
  * circle indicator for view pager
@@ -19,10 +20,10 @@ import github.design.R;
  * @since       v0.1
  */
 
-public class CirclePagerIndicator extends View{
+public class CirclePagerIndicator extends View {
 
-    private int mDefaultCircleSize = 26;
-    private float mDefaultStrokeWidth = 4F;
+    private int mDefaultCircleSize = Utils.dp2px(10);
+    private float mDefaultStrokeWidth = Utils.dp2px(2f);
 
     private int mUnselectedColor = Color.GRAY;
     private int mSelectedColor = Color.DKGRAY;
