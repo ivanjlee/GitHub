@@ -1,6 +1,10 @@
 package github.utils;
 
+import android.text.TextUtils;
 import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import github.design.BuildConfig;
 
@@ -98,6 +102,10 @@ public class L {
         return DEBUG;
     }
 
+    public static void d(String tag, String msg, Object ... args) {
+        d(tag, formatString(msg, args));
+    }
+
     public static int i(String tag, String msg) {
         if (sLogInfoEnable) {
             return Log.i(tag, msg);
@@ -110,6 +118,10 @@ public class L {
             return Log.i(tag, msg, tr);
         }
         return INFO;
+    }
+
+    public static void i(String tag, String msg, Object ... args) {
+        i(tag, formatString(msg, args));
     }
 
     public static int w(String tag, String msg) {
@@ -133,6 +145,10 @@ public class L {
         return WARN;
     }
 
+    public static void w(String tag, String msg, Object ... args) {
+        w(tag, formatString(msg, args));
+    }
+
     public static int e(String tag, String msg) {
         if (sLogErrorEnable) {
             return Log.e(tag, msg);
@@ -145,6 +161,10 @@ public class L {
             return Log.e(tag, msg, tr);
         }
         return ERROR;
+    }
+
+    public static void e(String tag, String msg, Object ... args) {
+        e(tag, formatString(msg, args));
     }
 
     public static int wtf(String tag, String msg) {
@@ -166,5 +186,68 @@ public class L {
             return Log.wtf(tag, msg, tr);
         }
         return ASSERT;
+    }
+
+    public static void json(String tag, String jsonStr) {
+        if (sLogErrorEnable) {
+            if (TextUtils.isEmpty(jsonStr)) {
+                return;
+            }
+            try {
+                if (jsonStr.startsWith("{")) {
+                    json(tag, new JSONObject(jsonStr));
+                } else if (jsonStr.startsWith("[")) {
+                    json(tag, new JSONArray(jsonStr));
+                } else {
+                    e(tag, jsonStr);
+                }
+            } catch (Exception e) {
+                printStackTrace(e);
+            }
+        }
+    }
+
+    public static void json(String tag, JSONObject jsonObject) {
+        if (sLogErrorEnable) {
+            try {
+                String formattedJsonObject = jsonObject.toString(4);
+                if (formattedJsonObject.length() > 2048) {
+                    for (int i = 0; i < formattedJsonObject.length(); i += 2048) {
+                        e(tag, formattedJsonObject.substring(i, Math.min(i + 2048, formattedJsonObject.length())));
+                    }
+                } else {
+                    e(tag, formattedJsonObject);
+                }
+            } catch (Exception e) {
+                printStackTrace(e);
+            }
+        }
+    }
+
+    public static void json(String tag, JSONArray jsonArray) {
+        if (sLogErrorEnable) {
+            try {
+                String formattedJsonObject = jsonArray.toString(4);
+                if (formattedJsonObject.length() > 2048) {
+                    for (int i = 0; i < formattedJsonObject.length(); i += 2048) {
+                        e(tag, formattedJsonObject.substring(i, Math.min(i + 2048, formattedJsonObject.length())));
+                    }
+                } else {
+                    e(tag, formattedJsonObject);
+                }
+            } catch (Exception e) {
+                printStackTrace(e);
+            }
+        }
+    }
+
+    public static void printStackTrace(Exception e) {
+        if (sLogErrorEnable) {
+            e.printStackTrace();
+        }
+    }
+
+    static String formatString(String message, Object... args) {
+        return args.length == 0 ? message : String.format(message, args);
     }
 }
