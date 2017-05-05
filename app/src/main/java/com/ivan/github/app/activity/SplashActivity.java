@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.ivan.github.debug.DebugActivity;
 import com.ivan.github.R;
-import com.ivan.github.app.adapter.SplashPageAdapter;
+import com.ivan.github.app.view.adapter.SplashPageAdapter;
 import com.ivan.github.app.model.SplashData;
 
 import java.util.ArrayList;

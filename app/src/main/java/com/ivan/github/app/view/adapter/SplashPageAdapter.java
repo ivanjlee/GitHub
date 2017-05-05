@@ -1,4 +1,4 @@
-package com.ivan.github.app.adapter;
+package com.ivan.github.app.view.adapter;
 
 import android.content.Context;
 import android.net.Uri;
