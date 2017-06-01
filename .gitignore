@@ -3,6 +3,7 @@
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries
+.idea/markdown-navigator
 .DS_Store
 /build
 /captures
@@ -13,3 +14,4 @@ library/libs/
 .idea/misc.xml
 app/build
 library/build
+gradle/

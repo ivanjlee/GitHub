@@ -32,4 +32,8 @@ public class App {
         application = app;
     }
 
+    public static Application getApplication() {
+        return application;
+    }
+
 }
