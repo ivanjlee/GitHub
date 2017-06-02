@@ -3,10 +3,12 @@ package com.ivan.github.app.activity;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 
+import com.ivan.github.app.BaseActivity;
 import com.ivan.github.debug.DebugActivity;
 import com.ivan.github.R;
 import com.ivan.github.app.view.adapter.SplashPageAdapter;
@@ -17,15 +19,22 @@ import java.util.List;
 
 import github.design.widget.CirclePagerIndicator;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
 
     private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+        ViewGroup contentView = (ViewGroup) findViewById(android.R.id.content);
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        int statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+        contentView.setPadding(0, statusBarHeight, 0, 0);
+        contentView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
         initView();
     }
 

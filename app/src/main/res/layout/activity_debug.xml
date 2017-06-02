@@ -40,17 +40,22 @@
             android:button="@drawable/selector"
             android:paddingLeft="40dp"
             android:paddingRight="10dp"
-            android:text="优先在线预览" />
+            android:text="test!#$!" />
 
         <android.support.v7.widget.AppCompatRadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="40dp"
             android:paddingRight="10dp"
-            android:text="下载后用本地应用打开（需安装WPS）"
+            android:text="test"
             android:button="@drawable/selector"
             android:id="@+id/appCompatRadioButton" />
-
     </RadioGroup>
+
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="makeCrash"
+        android:text="crash me" />
 
 </LinearLayout>
