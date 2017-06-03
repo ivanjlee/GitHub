@@ -2,6 +2,8 @@ package com.ivan.github.app;
 
 import android.app.Application;
 
+import com.ivan.github.BuildConfig;
+
 import github.utils.L;
 
 /**
@@ -17,7 +19,15 @@ public class GitHubApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
-        L.setDebugLog(L.VERBOSE);
+        L.setDebugLog(L.ASSERT);
         App.init(this);
+        initCrashHandler();
+    }
+
+    private void initCrashHandler() {
+//        if (BuildConfig.DEBUG) {
+            CrashHandler handler = CrashHandler.getInstance();
+            handler.init(this);
+//        }
     }
 }

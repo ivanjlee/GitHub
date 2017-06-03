@@ -2,20 +2,21 @@ package com.ivan.github.app;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Build;
 
 import com.ivan.github.BuildConfig;
 
-import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 
-import github.net.NetworkUtils;
+import github.utils.L;
+
 
 /**
  * CrashHandler to handle crashes
@@ -25,27 +26,28 @@ import github.net.NetworkUtils;
  * @since   v1.0
  */
 
-public class CrashHandler implements Thread.UncaughtExceptionHandler {
+class CrashHandler implements Thread.UncaughtExceptionHandler {
 
-    private volatile CrashHandler mInstance;
+    @SuppressLint("StaticFieldLeak")
+    private static volatile CrashHandler sInstance;
     private Thread.UncaughtExceptionHandler mDefaultCrashHandler;
     private Context mContext;
 
     private static final String TAG = "CrashHandler";
-    private static String LOG_PATH = App.getApplication().getExternalFilesDir(null) + "/crash";
+    private static String LOG_PATH = App.getApplication().getExternalFilesDir(null) + "/crash/";
 
     private CrashHandler() {
     }
 
-    public CrashHandler getInstance() {
-        if (mInstance == null) {
+    public static CrashHandler getInstance() {
+        if (sInstance == null) {
             synchronized (CrashHandler.class) {
-                if (mInstance == null) {
-                    mInstance = new CrashHandler();
+                if (sInstance == null) {
+                    sInstance = new CrashHandler();
                 }
             }
         }
-        return mInstance;
+        return sInstance;
     }
 
     public void init(Context context) {
@@ -56,11 +58,11 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     @Override
     public void uncaughtException(Thread t, Throwable e) {
+        dumpLog(e);
+        report(e);
         if (mDefaultCrashHandler != null) {
             mDefaultCrashHandler.uncaughtException(t, e);
         }
-        dumpLog(e);
-        report(e);
     }
 
     /**
@@ -71,22 +73,18 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         @SuppressLint("SimpleDateFormat")
         String filename = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(System.currentTimeMillis()) + ".log";
         File file = new File(LOG_PATH, filename);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
+        PrintWriter pw = null;
         try {
-            FileWriter fw = new FileWriter(filename, true);
-            fw.write("crash at: " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(System.currentTimeMillis()));
-            fw.write(e.getMessage());
-            fw.write("\nCause: \n");
-            Throwable cause = e.getCause();
-            while (cause != null) {
-                fw.write(cause.toString());
+            pw = new PrintWriter(file);
+            pw.write("crash at: " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(System.currentTimeMillis()) + "\n");
+            e.printStackTrace(pw);
+            pw.flush();
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        } finally {
+            if (pw != null) {
+                pw.close();
             }
-            fw.flush();
-            fw.close();
-        } catch (IOException io) {
-            io.printStackTrace();
         }
     }
 

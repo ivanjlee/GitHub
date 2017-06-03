@@ -68,9 +68,9 @@ public class L {
             sLogVerboseEnable = true;
         }else if (level == DEBUG) {
             sLogDebugEnable = true;
-            sLogAssertEnable = true;
+            sLogVerboseEnable = true;
         } if (level == VERBOSE){
-            sLogAssertEnable = true;
+            sLogVerboseEnable = true;
         }
     }
 

@@ -1,6 +1,7 @@
 package com.ivan.github.debug;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.ivan.github.R;
@@ -22,4 +23,7 @@ public class DebugActivity extends BaseActivity {
         tv2.setText(debugStr);
     }
 
+    public void makeCrash(View view) {
+        int a = 10 / 0;
+    }
 }
