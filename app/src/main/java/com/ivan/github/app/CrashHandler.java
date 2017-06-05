@@ -1,21 +1,19 @@
 package com.ivan.github.app;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationManager;
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.support.v4.app.NotificationCompat;
 
 import com.ivan.github.BuildConfig;
+import com.ivan.github.R;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.text.SimpleDateFormat;
-
-import github.utils.L;
 
 
 /**
@@ -32,6 +30,7 @@ class CrashHandler implements Thread.UncaughtExceptionHandler {
     private static volatile CrashHandler sInstance;
     private Thread.UncaughtExceptionHandler mDefaultCrashHandler;
     private Context mContext;
+    private boolean mReportToLocal;
 
     private static final String TAG = "CrashHandler";
     private static String LOG_PATH = App.getApplication().getExternalFilesDir(null) + "/crash/";
@@ -56,12 +55,33 @@ class CrashHandler implements Thread.UncaughtExceptionHandler {
         Thread.setDefaultUncaughtExceptionHandler(this);
     }
 
+    public void setReportToLocal(boolean reportToLocal) {
+        this.mReportToLocal = reportToLocal;
+    }
+
     @Override
     public void uncaughtException(Thread t, Throwable e) {
         dumpLog(e);
         report(e);
+        reportToLocal(e);
         if (mDefaultCrashHandler != null) {
             mDefaultCrashHandler.uncaughtException(t, e);
+        }
+    }
+
+    /**
+     * send a notification to show a crash information
+     */
+    private void reportToLocal(Throwable e) {
+        if (mReportToLocal) {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext)
+                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher))
+                    .setSmallIcon(R.drawable.ic_warning)
+                    .setTicker(mContext.getText(R.string.crash_ticker))
+                    .setContentTitle(mContext.getString(R.string.crash_content_title))
+                    .setContentText(mContext.getString(R.string.crash_content_text));
+            NotificationManager mNotificationManager = (NotificationManager)mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            mNotificationManager.notify(0, builder.build());
         }
     }
 

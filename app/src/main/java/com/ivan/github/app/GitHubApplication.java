@@ -28,6 +28,7 @@ public class GitHubApplication extends Application{
 //        if (BuildConfig.DEBUG) {
             CrashHandler handler = CrashHandler.getInstance();
             handler.init(this);
+            handler.setReportToLocal(true);
 //        }
     }
 }
