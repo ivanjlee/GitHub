@@ -34,4 +34,8 @@
 
     <string name="debug_text">中文汉-字中文-aqe21nd13n34b1!23中文汉字-中文汉字-aqe21-n@k13n34b1!232中文汉-字中文-aqe21nd13n34b1!23中文汉字-中文#h$汉字-aqe21-n@k13n34b1!232中文汉-字中文-aqe21nd13n34b1!23中文汉字-中文汉字-aqe21-n@k13n34b1!232中文汉-字中文-aqe21nd13n34b1!23中文汉字-中文汉字-aqe21-n@k13n34b1!232中文汉-字中文-aqe21nd13n34b1!23中文汉字-中文汉字-aqe21-n@k13n34b1!232中文汉-字中文-aqe21nd13n34b1!23中文汉字-中文汉字-aqe21-n@k13n34b1!232中文汉-字中文-aqe21nd13n34b1!23中文汉字-中文汉字-aqe21-n@k13n34b1!232</string>
     <string name="debug_text2">中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字</string>
+    <string name="version_code">Version Code:</string>
+    <string name="version_name">Version Name:</string>
+    <string name="details">Details:</string>
+    <string name="copied">Copied</string>
 </resources>

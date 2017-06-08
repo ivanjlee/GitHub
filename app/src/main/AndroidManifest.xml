@@ -8,11 +8,12 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".app.activity.LandingActivity">
+        android:theme="@style/AppTheme"
+        android:fullBackupContent="@xml/backup_descriptor">
+        <activity android:name=".app.activity.LandingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -20,8 +21,11 @@
             android:name=".app.activity.MainActivity"
             android:label="@string/app_name" />
         <activity android:name=".app.BaseActivity" />
-        <activity android:name=".app.activity.SplashActivity"/>
-        <activity android:name=".debug.DebugActivity"/>
+        <activity android:name=".app.activity.SplashActivity" />
+        <activity android:name=".debug.DebugActivity" />
+        <activity
+            android:name=".debug.CrashInfoViewActivity"
+            android:launchMode="singleInstance" />
     </application>
 
 </manifest>
