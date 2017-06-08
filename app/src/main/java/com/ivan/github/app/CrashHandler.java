@@ -2,13 +2,17 @@ package com.ivan.github.app;
 
 import android.annotation.SuppressLint;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
 import com.ivan.github.BuildConfig;
 import com.ivan.github.R;
+import com.ivan.github.debug.CrashInfoViewActivity;
+import com.ivan.github.tools.ExceptionUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -74,12 +78,18 @@ class CrashHandler implements Thread.UncaughtExceptionHandler {
      */
     private void reportToLocal(Throwable e) {
         if (mReportToLocal) {
+            Intent resultIntent = new Intent(mContext, CrashInfoViewActivity.class);
+            resultIntent.putExtra(CrashInfoViewActivity.EXTRA_DETAIL, e);
+            PendingIntent intent = PendingIntent.getActivity(mContext, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext)
                     .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher))
                     .setSmallIcon(R.drawable.ic_warning)
                     .setTicker(mContext.getText(R.string.crash_ticker))
                     .setContentTitle(mContext.getString(R.string.crash_content_title))
-                    .setContentText(mContext.getString(R.string.crash_content_text));
+                    .setContentText(mContext.getString(R.string.crash_content_text))
+                    .setContentIntent(intent)
+                    .setAutoCancel(true);
+
             NotificationManager mNotificationManager = (NotificationManager)mContext.getSystemService(Context.NOTIFICATION_SERVICE);
             mNotificationManager.notify(0, builder.build());
         }
@@ -112,25 +122,7 @@ class CrashHandler implements Thread.UncaughtExceptionHandler {
      * report exception
      */
     private void report(Throwable e) {
-        String detail = getDetails(e);
+        String detail = ExceptionUtils.getCrashInfo(e);
         // TODO: 2017/6/1 report details
-    }
-
-    /**
-     * get crash details
-     */
-    @SuppressLint("SimpleDateFormat")
-    private String getDetails(Throwable e) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("time: ").append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(System.currentTimeMillis()))
-                .append("version code: ").append(BuildConfig.VERSION_CODE).append('\n')
-                .append("version name: ").append(BuildConfig.VERSION_NAME).append('\n')
-                .append("flavor: ").append(BuildConfig.FLAVOR).append('\n')
-                .append("os version: ").append(Build.VERSION.SDK_INT).append('\n')
-                .append("vendor: ").append(Build.MODEL).append('\n')
-                .append("brand: ").append(Build.BRAND).append('\n')
-                .append("message: ").append(e.getMessage()).append('\n')
-                .append("cause: ").append(e.getCause()).append('\n');
-        return stringBuilder.toString();
     }
 }

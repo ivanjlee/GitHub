@@ -91,14 +91,18 @@
                     android:layout_weight="1"
                     android:text="@string/details"
                     android:textColor="@color/black" />
-
-                <TextView
-                    android:id="@+id/tv_detail"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    tools:text="NullPointerException\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n caused " />
             </TableRow>
+
+            <TextView
+                android:id="@+id/tv_detail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:paddingBottom="10dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="5dp"
+                tools:text="NullPointerException\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n caused " />
         </TableLayout>
     </android.support.v4.widget.NestedScrollView>
 
