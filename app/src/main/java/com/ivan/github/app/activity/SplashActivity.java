@@ -13,6 +13,7 @@ import com.ivan.github.debug.DebugActivity;
 import com.ivan.github.R;
 import com.ivan.github.app.view.adapter.SplashPageAdapter;
 import com.ivan.github.app.model.SplashData;
+import com.ivan.github.web.WebActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class SplashActivity extends BaseActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
-        ViewGroup contentView = (ViewGroup) findViewById(android.R.id.content);
+        ViewGroup contentView = findViewById(android.R.id.content);
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
         int statusBarHeight = getResources().getDimensionPixelSize(resourceId);
         contentView.setPadding(0, statusBarHeight, 0, 0);
@@ -39,10 +40,10 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void initView() {
-        mViewPager = (ViewPager) findViewById(R.id.view_pager);
+        mViewPager = findViewById(R.id.view_pager);
         SplashPageAdapter adapter = new SplashPageAdapter(this, getSplashData());
         mViewPager.setAdapter(adapter);
-        CirclePagerIndicator indicator = (CirclePagerIndicator) findViewById(R.id.indicator);
+        CirclePagerIndicator indicator = findViewById(R.id.indicator);
         indicator.setViewPager(mViewPager);
     }
 
@@ -85,5 +86,9 @@ public class SplashActivity extends BaseActivity {
     public void signUp(View view) {
 //        Snackbar.make(mViewPager, "Sign up", Snackbar.LENGTH_LONG).show();
         startActivity(new Intent(SplashActivity.this, DebugActivity.class));
+    }
+
+    public void explore(View view) {
+        WebActivity.start(this, "https://github.com/", "GitHub");
     }
 }

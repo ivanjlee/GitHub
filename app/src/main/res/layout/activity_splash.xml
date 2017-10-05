@@ -37,10 +37,12 @@
         android:orientation="horizontal">
 
     <Button
-        style="?android:attr/buttonBarStyle"
+        style="?android:attr/buttonBarButtonStyle"
         android:id="@+id/btn_sign_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:textColor="@color/gray_66"
         android:text="@string/sign_in"
         android:onClick="signIn"/>
 
@@ -51,8 +53,24 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent"
         android:text="@string/sign_up"
         android:onClick="signUp"/>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_explore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout"
+        android:padding="10dp"
+        android:layout_marginTop="-50dp"
+        android:textSize="12sp"
+        android:textColor="@color/text_color_blue_selector"
+        android:layout_centerHorizontal="true"
+        android:onClick="explore"
+        android:text="@string/explore_on_github"
+        />
 
 </RelativeLayout>

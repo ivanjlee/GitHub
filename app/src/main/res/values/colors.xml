@@ -28,5 +28,17 @@
     <color name="transparent">#00000000</color>
 
     <color name="red">#F44336</color>
-    <color name="gray">#9E9E9E</color>
+    <color name="blue">#0A4DCC</color>
+
+    <color name="gray_9e">#9E9E9E</color>
+    <color name="gray_33">#333333</color>
+    <color name="gray_66">#666666</color>
+    <color name="gray_99">#999999</color>
+
+    <!--black-->
+    <color name="black">#FF000000</color>
+    <color name="black_p95">#F2000000</color>
+    <color name="black_p90">#E6000000</color>
+    <color name="black_p20">#33000000</color>
+
 </resources>

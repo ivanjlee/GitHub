@@ -1,16 +1,4 @@
 <resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColorPrimary">@color/textColorPrimary</item>
-        <item name="colorControlActivated">@color/textColorPrimary</item>
-        <item name="android:windowAnimationStyle">@style/AppAnimation.Activity</item>
-    </style>
-
     <!--set transaction animation fot all the Activities-->
     <style name="AppAnimation.Activity" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/no_anim</item>
@@ -30,37 +18,15 @@
         <item name="android:windowExitAnimation">@anim/no_anim</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="AppTheme.TransparentBackground" parent="@style/AppTheme">
-        <item name="android:windowBackground">@color/transparent</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:backgroundDimEnabled">false</item>
-    </style>
-
-    <style name="AppTheme.Transparent">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowBackground">@color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@style/AppAnimation.Activity</item>
-        <item name="colorPrimary">@color/transparent</item>
-        <item name="colorPrimaryDark">@color/transparent</item>
-        <item name="colorAccent">@color/transparent</item>
-    </style>
-
-    <style name="AppTheme.FullScreen" parent="@style/AppTheme">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowAnimationStyle">@style/AppAnimation.Activity.Alpha</item>
-    </style>
-
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.ToolBar">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="titleTextColor">@color/gray_33</item>
+        <item name="subtitleTextColor">@color/gray_33</item>
+        <item name="elevation">8dp</item>
+    </style>
 
 </resources>

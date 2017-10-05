@@ -38,4 +38,9 @@
     <string name="version_name">Version Name:</string>
     <string name="details">Details:</string>
     <string name="copied">Copied</string>
+    <string name="refresh">Refresh</string>
+    <string name="share">Share</string>
+    <string name="open_in_browser">Open in Browser</string>
+    <string name="not_app_found_to_open_the_link">No App found to open the link</string>
+    <string name="explore_on_github">Explore on GitHub</string>
 </resources>
