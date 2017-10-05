@@ -18,15 +18,28 @@
         <item name="android:windowExitAnimation">@anim/no_anim</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="AppTheme.ToolBar">
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="titleTextColor">@color/gray_33</item>
-        <item name="subtitleTextColor">@color/gray_33</item>
-        <item name="elevation">8dp</item>
+    <style name="ActionButtonOverflowStyle" parent="@android:style/Widget.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_more_vert_black</item>
+        <item name="android:contentDescription">@string/action_menu_overflow_description</item>
+        <item name="tooltipText">@string/action_menu_overflow_description</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" >
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!-- color of the menu overflow icon -->
+        <item name="android:textColorSecondary">@color/black</item>
+        <!--<item name="actionOverflowButtonStyle">@style/ActionButtonOverflowStyle</item>-->
+        <!--<item name="android:actionButtonStyle">@style/ActionButtonStyle</item>-->
+        <!--<item name="titleTextColor">@color/gray_33</item>-->
+        <!--<item name="subtitleTextColor">@color/gray_33</item>-->
+        <!--<item name="elevation">8dp</item>-->
+    </style>
+
+    <style name="ActionButtonStyle" parent="Widget.AppCompat.ActionButton">
+        <item name="android:minWidth">24dp</item>
+        <item name="android:maxWidth">24dp</item>
+        <item name="android:width">24dp</item>
+    </style>
 </resources>

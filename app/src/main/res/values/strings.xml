@@ -43,4 +43,6 @@
     <string name="open_in_browser">Open in Browser</string>
     <string name="not_app_found_to_open_the_link">No App found to open the link</string>
     <string name="explore_on_github">Explore on GitHub</string>
+
+    <string name="action_menu_overflow_description">More options</string>
 </resources>

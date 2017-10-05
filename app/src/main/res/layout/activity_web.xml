@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        android:elevation="4dp"
         app:navigationIcon="@drawable/ic_close_black"
         app:layout_scrollFlags="scroll|enterAlways"
         tools:title="GitHub" />
