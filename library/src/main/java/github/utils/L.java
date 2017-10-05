@@ -18,6 +18,8 @@ import github.design.BuildConfig;
 
 public class L {
 
+    private static final String DEFAULT_TAG = BuildConfig.APPLICATION_ID;
+
     public static final int VERBOSE = 2;
     public static final int DEBUG   = 3;
     public static final int INFO    = 4;
@@ -165,6 +167,18 @@ public class L {
 
     public static void e(String tag, String msg, Object ... args) {
         e(tag, formatString(msg, args));
+    }
+
+    public static int e(String tag, Throwable tr) {
+        if (sLogErrorEnable) {
+            Log.e(DEFAULT_TAG, Log.getStackTraceString(tr));
+        }
+        return ERROR;
+    }
+
+    public static int e(Throwable tr) {
+        e(DEFAULT_TAG, tr);
+        return ERROR;
     }
 
     public static int wtf(String tag, String msg) {
