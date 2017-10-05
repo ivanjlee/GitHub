@@ -5,5 +5,4 @@
     <item android:color="#800A4DCC" android:state_focused="true" />
     <item android:color="#FF0A4DCC" />
 
-
 </selector>
