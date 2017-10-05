@@ -3,24 +3,24 @@ apply plugin: 'com.android.application'
 dependencies {
     compile project(":library")
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile rootProject.ext.dependencies['appcompat-v7']
+    compile rootProject.ext.dependencies['design']
+    compile rootProject.ext.dependencies['constraint-layout']
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion rootProject.ext.config.compileSdkVersion
+    buildToolsVersion rootProject.ext.config.buildToolsVersion
     defaultConfig {
-        applicationId "com.ivan.github"
-        minSdkVersion 14
-        targetSdkVersion 25
-        versionCode 1
-        versionName "0.1"
+        applicationId rootProject.ext.config.applicationId
+        minSdkVersion rootProject.ext.config.minSdkVersion
+        targetSdkVersion rootProject.ext.config.targetSdkVersion
+        versionCode rootProject.ext.config.versionCode
+        versionName rootProject.ext.config.versionName
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         jackOptions {
@@ -29,6 +29,11 @@ android {
     }
     buildTypes {
         release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        beta {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

@@ -1,0 +1,26 @@
+ext {
+
+    /**
+     * android config
+     */
+    config = [
+            applicationId    : 'com.ivan.github',
+            compileSdkVersion: 25,
+            buildToolsVersion: '25.0.3',
+            minSdkVersion    : 14,
+            targetSdkVersion : 25,
+            versionCode      : 1,
+            versionName      : '0.1',
+    ]
+
+    /**
+     * dependencies
+     */
+    dependencies = [
+            'appcompat-v7'     : 'com.android.support:appcompat-v7:25.3.1',
+            'design'           : 'com.android.support:design:25.3.1',
+            'constraint-layout': 'com.android.support.constraint:constraint-layout:1.0.2',
+            'retrofit2'        : 'com.squareup.retrofit2:retrofit:2.1.0'
+    ]
+
+}
