@@ -25,8 +25,8 @@
     <color name="colorPrimaryDark">#40000000</color>
     <color name="colorAccent">#76C457</color>
     <color name="textColorPrimary">#333333</color>
-    <color name="transparent">#00000000</color>
 
+    <color name="transparent">#00000000</color>
     <color name="red">#F44336</color>
     <color name="blue">#0A4DCC</color>
 

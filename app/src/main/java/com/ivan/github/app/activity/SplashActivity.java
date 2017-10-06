@@ -1,5 +1,6 @@
 package com.ivan.github.app.activity;
 
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
+import com.ivan.github.account.LoginActivity;
 import com.ivan.github.app.BaseActivity;
 import com.ivan.github.R;
 import com.ivan.github.app.view.adapter.SplashPageAdapter;
@@ -79,7 +81,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     public void signIn(View view) {
-        Snackbar.make(mViewPager, "Sign in", Snackbar.LENGTH_LONG).show();
+        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
     }
 
     public void signUp(View view) {

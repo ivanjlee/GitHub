@@ -2,12 +2,14 @@ package com.ivan.github.app;
 
 import android.content.Intent;
 import android.support.annotation.AnimRes;
+import android.support.annotation.IdRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.View;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -23,7 +25,19 @@ public class BaseActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
         }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+    }
+
+    protected void initToolbar(@IdRes int id) {
+        Toolbar toolbar = findViewById(id);
+        initToolbar(toolbar);
     }
 
     @Override
