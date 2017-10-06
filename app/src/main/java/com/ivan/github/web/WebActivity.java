@@ -65,6 +65,12 @@ public class WebActivity extends BaseActivity {
         WebSettings settings = mWebView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setSupportZoom(true);
+        settings.setBuiltInZoomControls(true);
+        settings.setDisplayZoomControls(false);
+        settings.setUseWideViewPort(true);
+        settings.setLoadWithOverviewMode(true);
+        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
         mWebView.setWebViewClient(new GHWebViewClient());
         mWebView.setWebChromeClient(new GHWebChromeClient());
     }
@@ -112,8 +118,9 @@ public class WebActivity extends BaseActivity {
     public void onBackPressed() {
         if (mWebView.canGoBack()) {
             mWebView.goBack();
+        } else {
+            super.onBackPressed();
         }
-        super.onBackPressed();
     }
 
     private class GHWebViewClient extends BaseWebViewClient {

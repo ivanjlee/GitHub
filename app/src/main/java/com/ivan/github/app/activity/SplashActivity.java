@@ -1,6 +1,5 @@
 package com.ivan.github.app.activity;
 
-import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
@@ -9,10 +8,10 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import com.ivan.github.app.BaseActivity;
-import com.ivan.github.debug.DebugActivity;
 import com.ivan.github.R;
 import com.ivan.github.app.view.adapter.SplashPageAdapter;
 import com.ivan.github.app.model.SplashData;
+import com.ivan.github.web.UrlConst;
 import com.ivan.github.web.WebActivity;
 
 import java.util.ArrayList;
@@ -84,11 +83,10 @@ public class SplashActivity extends BaseActivity {
     }
 
     public void signUp(View view) {
-//        Snackbar.make(mViewPager, "Sign up", Snackbar.LENGTH_LONG).show();
-        startActivity(new Intent(SplashActivity.this, DebugActivity.class));
+        WebActivity.start(this, UrlConst.GITHUB_REGISTER, "Join GitHub");
     }
 
     public void explore(View view) {
-        WebActivity.start(this, "https://github.com/", "GitHub");
+        WebActivity.start(this, UrlConst.GITHUB_BASE_URL, "GitHub");
     }
 }
