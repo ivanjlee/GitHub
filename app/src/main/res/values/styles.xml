@@ -43,4 +43,23 @@
         <item name="android:maxWidth">24dp</item>
         <item name="android:width">24dp</item>
     </style>
+
+
+    <!--Common Widget Styles-->
+    <style name="ToolbarStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="elevation">4dp</item>
+    </style>
+
+    <style name="HorizontalProgressBar" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:background">@color/black_p20</item>
+        <item name="android:progressDrawable">@drawable/progress_drawable</item>
+        <item name="android:max">100</item>
+    </style>
+
 </resources>
