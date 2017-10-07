@@ -11,7 +11,7 @@
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="4dp"
+        app:elevation="4dp"
         android:fitsSystemWindows="true">
 
         <android.support.v7.widget.Toolbar
@@ -34,13 +34,15 @@
         android:id="@+id/login_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         android:padding="16dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
         <LinearLayout
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
             android:orientation="vertical">
 
             <ImageView
@@ -48,7 +50,8 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 app:srcCompat="@drawable/ic_launcher"
-                android:contentDescription="@null" />
+                android:contentDescription="@null"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -62,7 +65,8 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone">
 
                 <AutoCompleteTextView
                     android:id="@+id/email"
@@ -77,7 +81,8 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone">
 
                 <EditText
                     android:id="@+id/password"
@@ -93,15 +98,176 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <Button
-                android:id="@+id/sign_in_button"
+
+            <TextView
+                android:id="@+id/tv_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:textSize="12sp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:drawableRight="@drawable/selector_error_close"
+                android:drawableEnd="@drawable/selector_error_close"
+                android:textColor="@color/dark_red_error"
+                android:background="@drawable/card_light_red_bg"
+                android:text="Incorrect username or password."/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_white_bg"
                 android:layout_marginTop="16dp"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:text="@string/action_sign_in"
-                android:textStyle="bold" />
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="20dp">
+
+                <TextView
+                    android:id="@+id/user_name_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/gray_33"
+                    android:layout_marginTop="10dp"
+                    android:textStyle="bold"
+                    android:text="@string/user_name_or_email"/>
+
+                <AutoCompleteTextView
+                    android:id="@+id/tv_username"
+                    android:background="@drawable/edit_text_bg"
+                    android:layout_below="@id/user_name_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_33"
+                    android:layout_marginTop="10dp"
+                    tools:text="tom@gmail.com"
+                    />
+
+                <TextView
+                    android:id="@+id/user_password_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_username"
+                    android:textSize="14sp"
+                    android:textColor="@color/gray_33"
+                    android:layout_marginTop="20dp"
+                    android:textStyle="bold"
+                    android:text="@string/password"/>
+
+                <TextView
+                    android:id="@+id/tv_forget_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end|right"
+                    android:layout_below="@id/tv_username"
+                    android:textSize="14sp"
+                    android:textColor="@color/selector_text_color_blue"
+                    android:layout_marginTop="20dp"
+                    android:textStyle="bold"
+                    android:text="@string/forget_password"/>
+
+                <AutoCompleteTextView
+                    android:id="@+id/tv_password"
+                    android:background="@drawable/edit_text_bg"
+                    android:layout_below="@id/user_password_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_33"
+                    android:inputType="textPassword"
+                    android:layout_marginTop="10dp"
+                    tools:text="1234567787"
+                    />
+
+                <Button
+                    android:id="@+id/sign_in_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_password"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:padding="10dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/selector_button_default"
+                    android:enabled="true"
+                    android:text="@string/action_sign_in"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/card_white_bg"
+                android:padding="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/new_to_github"
+                    android:textSize="14sp"
+                    android:textColor="@color/gray_33"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/selector_text_color_blue"
+                    android:text="@string/create_an_account"/>
+                
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center|bottom"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/terms"
+                    android:textColor="@color/selector_text_color_gray"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/privacy"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/selector_text_color_gray"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/security"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/selector_text_color_gray"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="@string/contact_github"
+                    android:textColor="@color/selector_text_color_gray"/>
+
+            </LinearLayout>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

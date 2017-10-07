@@ -67,7 +67,7 @@
         android:padding="10dp"
         android:layout_marginTop="-50dp"
         android:textSize="12sp"
-        android:textColor="@color/text_color_blue_selector"
+        android:textColor="@color/selector_text_color_blue"
         android:layout_centerHorizontal="true"
         android:onClick="explore"
         android:text="@string/explore_on_github"
