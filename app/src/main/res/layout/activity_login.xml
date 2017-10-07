@@ -144,9 +144,14 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:textSize="12sp"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:inputType="textAutoComplete"
                     android:textColor="@color/gray_33"
                     android:layout_marginTop="10dp"
-                    tools:text="tom@gmail.com"
+                    android:imeOptions="actionNext"
+                    android:nextFocusDown="@+id/tv_password"
+                    tools:text="tom@gmail.com\nand what..."
                     />
 
                 <TextView
@@ -180,6 +185,9 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:textSize="12sp"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:imeOptions="actionDone"
                     android:textColor="@color/gray_33"
                     android:inputType="textPassword"
                     android:layout_marginTop="10dp"
