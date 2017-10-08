@@ -13,4 +13,10 @@ public class UrlConst {
     public static final String GITHUB_BASE_URL = "https://github.com/";
 
     public static final String GITHUB_REGISTER = "https://github.com/join/";
+
+    public static final String GITHUB_FORGET_PASSWORD = "https://github.com/password_reset";
+    public static final String GITHUB_TERMS = "https://help.github.com/articles/github-terms-of-service/";
+    public static final String GITHUB_PRIVACY = "https://help.github.com/articles/github-privacy-statement/";
+    public static final String GITHUB_SECURITY = "https://help.github.com/articles/github-security/";
+    public static final String GITHUB_CONTACT_GITHUB = "https://github.com/contact";
 }

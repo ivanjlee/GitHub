@@ -85,7 +85,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     public void signUp(View view) {
-        WebActivity.start(this, UrlConst.GITHUB_REGISTER, "Join GitHub");
+        WebActivity.start(this, UrlConst.GITHUB_REGISTER, getString(R.string.join_github));
     }
 
     public void explore(View view) {

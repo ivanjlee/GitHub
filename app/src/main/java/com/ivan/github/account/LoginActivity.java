@@ -1,23 +1,14 @@
 package com.ivan.github.account;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
-import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.app.LoaderManager.LoaderCallbacks;
 
-import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.AsyncTask;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -35,8 +26,10 @@ import java.util.List;
 
 import com.ivan.github.R;
 import com.ivan.github.app.BaseActivity;
+import com.ivan.github.web.UrlConst;
+import com.ivan.github.web.WebActivity;
 
-import static android.Manifest.permission.READ_CONTACTS;
+import github.design.widget.CompoundDrawablesTextView;
 
 /**
  * A login screen that offers login via email/password.
@@ -46,17 +39,13 @@ import static android.Manifest.permission.READ_CONTACTS;
  * @since   v1.0
  */
 
-public class LoginActivity extends BaseActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends BaseActivity implements LoaderCallbacks<Cursor>, OnClickListener {
 
     /**
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
@@ -67,10 +56,10 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
 
     // UI references.
     private Toolbar mToolbar;
-    private AutoCompleteTextView mEmailView;
-    private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
+    private CompoundDrawablesTextView mTvMessage;
+    private AutoCompleteTextView mTVUsername;
+    private EditText mTVPassword;
+    private Button mBtnSignIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,14 +67,25 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
         setContentView(R.layout.activity_login);
         setupActionBar();
         // Set up the login form.
-        mEmailView = findViewById(R.id.email);
+        initView();
         populateAutoComplete();
+        initLinks();
+    }
 
-        mPasswordView = findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+    private void initView() {
+        mTVUsername = findViewById(R.id.tv_username);
+        mTvMessage = findViewById(R.id.tv_msg);
+        mTvMessage.setDrawableRightClickListener(new CompoundDrawablesTextView.OnDrawableRightClickListener() {
+            @Override
+            public void onDrawableRightClick(View view) {
+                mTvMessage.setVisibility(View.GONE);
+            }
+        });
+        mTVPassword = findViewById(R.id.tv_password);
+        mTVPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                if (id == R.id.btn_sign_in || id == EditorInfo.IME_ACTION_DONE) {
                     attemptLogin();
                     return true;
                 }
@@ -93,46 +93,26 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
             }
         });
 
-        Button mEmailSignInButton = findViewById(R.id.sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        mBtnSignIn = findViewById(R.id.btn_sign_in);
+        mBtnSignIn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
             }
         });
-
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
     }
 
     private void populateAutoComplete() {
-        if (!mayRequestContacts()) {
-            return;
-        }
-
         getLoaderManager().initLoader(0, null, this);
     }
 
-    private boolean mayRequestContacts() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return true;
-        }
-        if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        }
-        if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new View.OnClickListener() {
-                        @Override
-                        @TargetApi(Build.VERSION_CODES.M)
-                        public void onClick(View v) {
-                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-                        }
-                    });
-        } else {
-            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-        }
-        return false;
+    private void initLinks() {
+        findViewById(R.id.tv_forget_password).setOnClickListener(this);
+        findViewById(R.id.tv_create_an_account).setOnClickListener(this);
+        findViewById(R.id.tv_terms).setOnClickListener(this);
+        findViewById(R.id.tv_privacy).setOnClickListener(this);
+        findViewById(R.id.tv_security).setOnClickListener(this);
+        findViewById(R.id.tv_contact_github).setOnClickListener(this);
     }
 
     /**
@@ -141,11 +121,6 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_READ_CONTACTS) {
-            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                populateAutoComplete();
-            }
-        }
     }
 
     private void setupActionBar() {
@@ -162,33 +137,33 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
         if (mAuthTask != null) {
             return;
         }
-
         // Reset errors.
-        mEmailView.setError(null);
-        mPasswordView.setError(null);
+        mTVUsername.setError(null);
+        mTVPassword.setError(null);
+        setErrorMsg(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        String username = mTVUsername.getText().toString();
+        String password = mTVPassword.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
+            setErrorMsg(getString(R.string.error_incorrect_password));
+            focusView = mTVPassword;
             cancel = true;
         }
 
         // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
+        if (TextUtils.isEmpty(username)) {
+            setErrorMsg(getString(R.string.error_incorrect_password));
+            focusView = mTVUsername;
             cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
+        } else if (!isEmailValid(username)) {
+            setErrorMsg(getString(R.string.error_invalid_email));
+            focusView = mTVUsername;
             cancel = true;
         }
 
@@ -200,7 +175,7 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
+            mAuthTask = new UserLoginTask(username, password);
             mAuthTask.execute((Void) null);
         }
     }
@@ -213,68 +188,41 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
         return password.length() > 4;
     }
 
-    /**
-     * Shows the progress UI and hides the login form.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
+    private void setErrorMsg(String msg) {
+        if (TextUtils.isEmpty(msg)) {
+            mTvMessage.setVisibility(View.GONE);
         } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mTvMessage.setText(msg);
+            mTvMessage.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void showProgress(final boolean show) {
+        if (show) {
+            mBtnSignIn.setText(R.string.action_sign_in_in_progress);
+            mBtnSignIn.setEnabled(false);
+        } else {
+            mBtnSignIn.setText(R.string.action_sign_in);
+            mBtnSignIn.setEnabled(true);
         }
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return new CursorLoader(this,
-                // Retrieve data rows for the device user's 'profile' contact.
-                Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
-                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
-
-                // Select only email addresses.
-                ContactsContract.Contacts.Data.MIMETYPE +
-                        " = ?", new String[]{ContactsContract.CommonDataKinds.Email
-                .CONTENT_ITEM_TYPE},
-
-                // Show primary email addresses first. Note that there won't be
-                // a primary email address if the user hasn't specified one.
-                ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
+        return null;
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         List<String> emails = new ArrayList<>();
+        if (cursorLoader == null || cursor == null) {
+            return;
+        }
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             emails.add(cursor.getString(ProfileQuery.ADDRESS));
             cursor.moveToNext();
         }
-
         addEmailsToAutoComplete(emails);
     }
 
@@ -284,12 +232,35 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
     }
 
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<>(LoginActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
-        mEmailView.setAdapter(adapter);
+        mTVUsername.setAdapter(adapter);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.tv_forget_password:
+                WebActivity.start(this, UrlConst.GITHUB_FORGET_PASSWORD, getString(R.string.reset_your_password));
+                break;
+            case R.id.tv_create_an_account:
+                WebActivity.start(this, UrlConst.GITHUB_REGISTER, getString(R.string.join_github));
+                break;
+            case R.id.tv_terms:
+                WebActivity.start(this, UrlConst.GITHUB_TERMS, getString(R.string.github_terms_of_service));
+                break;
+            case R.id.tv_privacy:
+                WebActivity.start(this, UrlConst.GITHUB_PRIVACY, getString(R.string.github_privacy_statement));
+                break;
+            case R.id.tv_security:
+                WebActivity.start(this, UrlConst.GITHUB_SECURITY, getString(R.string.github_security));
+                break;
+            case R.id.tv_contact_github:
+                WebActivity.start(this, UrlConst.GITHUB_CONTACT_GITHUB, getString(R.string.get_help_with_github));
+                break;
+        }
     }
 
 
@@ -319,7 +290,6 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
 
             try {
                 // Simulate network access.
@@ -331,12 +301,9 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
                     return pieces[1].equals(mPassword);
                 }
             }
-
-            // TODO: register the new account here.
             return true;
         }
 
@@ -344,12 +311,11 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
-
             if (success) {
                 finish();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+                setErrorMsg(getString(R.string.error_incorrect_password));
+                mTVPassword.requestFocus();
             }
         }
 
