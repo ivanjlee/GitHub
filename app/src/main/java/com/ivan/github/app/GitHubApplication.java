@@ -19,7 +19,7 @@ public class GitHubApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
-        L.setDebugLog(L.ASSERT);
+        L.setDebugLog(BuildConfig.DEBUG, L.VERBOSE);
         App.init(this);
         initCrashHandler();
     }

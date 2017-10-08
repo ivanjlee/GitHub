@@ -38,8 +38,8 @@ public class L {
     private static boolean sLogErrorEnable = false;
     private static boolean sLogAssertEnable = false;
 
-    public static void setDebugLog(int level) {
-        if (!BuildConfig.DEBUG) {
+    public static void setDebugLog(boolean debug, int level) {
+        if (!debug) {
             return;
         }
         if (level < VERBOSE || level > ASSERT) {
@@ -48,30 +48,30 @@ public class L {
         }
         if (level == ASSERT) {
             sLogAssertEnable = true;
-            sLogErrorEnable = true;
-            sLogWarnEnable = true;
-            sLogInfoEnable = true;
-            sLogDebugEnable = true;
-            sLogVerboseEnable = true;
         } else if (level == ERROR) {
+            sLogAssertEnable = true;
+            sLogErrorEnable = true;
+        } else if (level == WARN) {
+            sLogAssertEnable = true;
+            sLogErrorEnable = true;
+            sLogWarnEnable = true;
+        } else if (level == INFO) {
+            sLogAssertEnable = true;
+            sLogErrorEnable = true;
+            sLogWarnEnable = true;
+            sLogInfoEnable = true;
+        }else if (level == DEBUG) {
+            sLogAssertEnable = true;
             sLogErrorEnable = true;
             sLogWarnEnable = true;
             sLogInfoEnable = true;
             sLogDebugEnable = true;
-            sLogVerboseEnable = true;
-        } else if (level == WARN) {
+        } if (level == VERBOSE){
+            sLogAssertEnable = true;
+            sLogErrorEnable = true;
             sLogWarnEnable = true;
             sLogInfoEnable = true;
             sLogDebugEnable = true;
-            sLogVerboseEnable = true;
-        } else if (level == INFO) {
-            sLogInfoEnable = true;
-            sLogDebugEnable = true;
-            sLogVerboseEnable = true;
-        }else if (level == DEBUG) {
-            sLogDebugEnable = true;
-            sLogVerboseEnable = true;
-        } if (level == VERBOSE){
             sLogVerboseEnable = true;
         }
     }

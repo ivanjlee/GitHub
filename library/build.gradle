@@ -11,6 +11,9 @@ android {
         versionName rootProject.ext.config.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    publishNonDefault true
+
     buildTypes {
         release {
             minifyEnabled false
