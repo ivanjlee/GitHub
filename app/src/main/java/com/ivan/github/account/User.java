@@ -9,6 +9,7 @@ package com.ivan.github.account;
  */
 
 public class User {
+
     public String login;
     public int id;
     public String avatarUrl;
