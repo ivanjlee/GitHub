@@ -1,4 +1,4 @@
-package github.design;
+package com.github.design;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("github.design.test", appContext.getPackageName());
+        assertEquals("com.github.design.test", appContext.getPackageName());
     }
 }

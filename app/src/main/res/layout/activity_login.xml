@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="com.ivan.github.account.LoginActivity">
+    tools:context="com.ivan.com.github.account.LoginActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar_layout"
@@ -51,7 +51,7 @@
                 android:textColor="@color/gray_33"
                 android:textSize="20sp" />
 
-            <github.design.widget.CompoundDrawablesTextView
+            <com.github.design.widget.CompoundDrawablesTextView
                 android:id="@+id/tv_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

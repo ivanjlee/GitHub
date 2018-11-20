@@ -20,7 +20,7 @@ import android.widget.ProgressBar;
 import com.ivan.github.R;
 import com.ivan.github.app.BaseActivity;
 
-import github.utils.L;
+import com.github.utils.L;
 
 /**
  * a class used to hold some constant values

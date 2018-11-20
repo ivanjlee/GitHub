@@ -1,17 +1,5 @@
 apply plugin: 'com.android.application'
 
-dependencies {
-    implementation project(":library")
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation rootProject.ext.dependencies['appcompat-v7']
-    implementation rootProject.ext.dependencies['design']
-    implementation rootProject.ext.dependencies['constraint-layout']
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testImplementation 'junit:junit:4.12'
-}
-
 android {
     compileSdkVersion rootProject.ext.config.compileSdkVersion
     buildToolsVersion rootProject.ext.config.buildToolsVersion
@@ -46,4 +34,20 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
         incremental true
     }
+}
+
+dependencies {
+    implementation project(":library")
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation rootProject.ext.dependencies['appcompat-v7']
+    implementation rootProject.ext.dependencies['design']
+    implementation rootProject.ext.dependencies['constraint-layout']
+
+    implementation 'com.google.dagger:dagger:2.19'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.19'
+
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testImplementation 'junit:junit:4.12'
 }

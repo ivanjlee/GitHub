@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="com.ivan.github.debug.DebugActivity">
+    tools:context="com.ivan.com.github.debug.DebugActivity">
 
     <TextView
         android:id="@+id/debug_text"
@@ -20,7 +20,7 @@
         android:visibility="gone"
         android:text="@string/debug_text2"/>
 
-    <github.design.widget.FillLineTextView
+    <com.github.design.widget.FillLineTextView
         android:id="@+id/debug_text2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

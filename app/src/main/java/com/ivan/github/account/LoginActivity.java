@@ -29,7 +29,7 @@ import com.ivan.github.app.BaseActivity;
 import com.ivan.github.web.UrlConst;
 import com.ivan.github.web.WebActivity;
 
-import github.design.widget.CompoundDrawablesTextView;
+import com.github.design.widget.CompoundDrawablesTextView;
 
 /**
  * A login screen that offers login via email/password.

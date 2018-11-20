@@ -4,7 +4,7 @@ ext {
      * android config
      */
     config = [
-            applicationId    : 'com.ivan.github',
+            applicationId    : 'com.ivan.com.github',
             compileSdkVersion: 28,
             buildToolsVersion: '28.0.3',
             minSdkVersion    : 14,

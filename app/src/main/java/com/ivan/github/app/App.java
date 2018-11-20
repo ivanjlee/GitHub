@@ -11,6 +11,7 @@ import android.content.res.Resources;
  * @since   v0.1
  */
 
+@Deprecated
 public class App {
 
     private static Application application;
@@ -28,7 +29,7 @@ public class App {
 
     }
 
-    static void init(Application app) {
+    public static void init(Application app) {
         application = app;
     }
 

@@ -1,4 +1,4 @@
-package github.utils;
+package com.github.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
