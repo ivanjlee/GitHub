@@ -2,14 +2,9 @@ package com.ivan.github;
 
 import android.app.Application;
 
-import com.ivan.github.app.App;
-
 import com.github.utils.L;
+import com.ivan.github.app.App;
 import com.ivan.github.app.CrashHandler;
-import com.ivan.github.core.AppComponent;
-import com.ivan.github.core.AppModule;
-import com.ivan.github.core.DaggerAppComponent;
-import com.ivan.github.core.net.NetModule;
 
 /**
  * Custom Application
@@ -31,10 +26,10 @@ public class GitHubApplication extends Application{
     }
 
     private void initCrashHandler() {
-//        if (BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             CrashHandler handler = CrashHandler.getInstance();
             handler.init(this);
             handler.setReportToLocal(true);
-//        }
+        }
     }
 }
