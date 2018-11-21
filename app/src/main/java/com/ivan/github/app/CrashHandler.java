@@ -6,10 +6,9 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
-import com.ivan.github.BuildConfig;
+import com.ivan.github.GitHub;
 import com.ivan.github.R;
 import com.ivan.github.debug.CrashInfoViewActivity;
 import com.ivan.github.tools.ExceptionUtils;
@@ -28,7 +27,7 @@ import java.text.SimpleDateFormat;
  * @since   v1.0
  */
 
-class CrashHandler implements Thread.UncaughtExceptionHandler {
+public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     @SuppressLint("StaticFieldLeak")
     private static volatile CrashHandler sInstance;
@@ -37,7 +36,7 @@ class CrashHandler implements Thread.UncaughtExceptionHandler {
     private boolean mReportToLocal;
 
     private static final String TAG = "CrashHandler";
-    private static String LOG_PATH = App.getApplication().getExternalFilesDir(null) + "/crash/";
+    private static String LOG_PATH = GitHub.appComponent().application().getExternalFilesDir(null) + "/crash/";
 
     private CrashHandler() {
     }

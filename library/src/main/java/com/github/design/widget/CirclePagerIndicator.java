@@ -1,4 +1,4 @@
-package github.design.widget;
+package com.github.design.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -9,8 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 
-import github.design.R;
-import github.utils.Utils;
+import com.github.design.R;
+import com.github.utils.Utils;
 
 /**
  * circle indicator for view pager

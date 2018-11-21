@@ -1,14 +1,12 @@
 package com.ivan.github.account;
 
-import android.support.annotation.NonNull;
 import android.app.LoaderManager.LoaderCallbacks;
-
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.AsyncTask;
-
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -21,22 +19,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.github.design.widget.CompoundDrawablesTextView;
 import com.ivan.github.R;
 import com.ivan.github.app.BaseActivity;
 import com.ivan.github.web.UrlConst;
 import com.ivan.github.web.WebActivity;
 
-import github.design.widget.CompoundDrawablesTextView;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A login screen that offers login via email/password.
  *
- * @author  lijun on 2017/10/6 19:45.
+ * @author  Ivan on 2017/10/6 19:45.
  * @version v0.1
- * @since   v1.0
+ * @since   v0.1
  */
 
 public class LoginActivity extends BaseActivity implements LoaderCallbacks<Cursor>, OnClickListener {

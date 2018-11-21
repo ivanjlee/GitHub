@@ -19,7 +19,7 @@ import com.ivan.github.web.WebActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import github.design.widget.CirclePagerIndicator;
+import com.github.design.widget.CirclePagerIndicator;
 
 public class SplashActivity extends BaseActivity {
 

@@ -1,4 +1,4 @@
-package github.design.widget;
+package com.github.design.widget;
 
 import android.content.Context;
 import android.graphics.RectF;
@@ -10,7 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 
-import github.utils.L;
+import com.github.utils.L;
 
 /**
  * TextView whose drawables can be clicked

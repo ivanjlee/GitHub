@@ -1,4 +1,4 @@
-package github.utils;
+package com.github.utils;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -6,7 +6,7 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import github.design.BuildConfig;
+import com.github.design.BuildConfig;
 
 /**
  * A tool class for Logcat

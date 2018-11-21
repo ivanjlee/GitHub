@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:fitsSystemWindows="true"
-    tools:context="com.ivan.github.app.activity.SplashActivity">
+    tools:context="com.ivan.com.github.app.activity.SplashActivity">
 
     <View
         android:visibility="gone"
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <github.design.widget.CirclePagerIndicator
+    <com.github.design.widget.CirclePagerIndicator
         android:id="@+id/indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

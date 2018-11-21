@@ -4,21 +4,21 @@ ext {
      * android config
      */
     config = [
-            applicationId    : 'com.ivan.github',
-            compileSdkVersion: 27,
-            buildToolsVersion: '27.0.3',
+            applicationId    : 'com.ivan.com.github',
+            compileSdkVersion: 28,
+            buildToolsVersion: '28.0.3',
             minSdkVersion    : 14,
-            targetSdkVersion : 26,
-            versionCode      : 1,
-            versionName      : '0.1',
+            targetSdkVersion : 28,
+            versionCode      : 010000,
+            versionName      : '0.1.0',
     ]
 
     /**
      * dependencies
      */
     dependencies = [
-            'appcompat-v7'     : 'com.android.support:appcompat-v7:26.1.0',
-            'design'           : 'com.android.support:design:26.1.0',
+            'appcompat-v7'     : 'com.android.support:appcompat-v7:28.0.0',
+            'design'           : 'com.android.support:design:28.0.0',
             'constraint-layout': 'com.android.support.constraint:constraint-layout:1.0.2',
             'retrofit2'        : 'com.squareup.retrofit2:retrofit:2.1.0'
     ]

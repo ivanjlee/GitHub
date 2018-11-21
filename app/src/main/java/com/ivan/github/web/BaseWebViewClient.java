@@ -5,7 +5,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import github.utils.L;
+import com.github.utils.L;
 
 /**
  * WebViewClient for the WebViews

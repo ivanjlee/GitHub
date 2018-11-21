@@ -1,4 +1,4 @@
-package github.design;
+package com.github.design;
 
 import org.junit.Test;
 

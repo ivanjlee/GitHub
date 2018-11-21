@@ -1,4 +1,4 @@
-package github.design.widget;
+package com.github.design.widget;
 
 import android.content.Context;
 import android.graphics.Paint;

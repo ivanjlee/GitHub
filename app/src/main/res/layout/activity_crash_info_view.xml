@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ivan.github.debug.CrashInfoViewActivity">
+    tools:context="com.ivan.com.github.debug.CrashInfoViewActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

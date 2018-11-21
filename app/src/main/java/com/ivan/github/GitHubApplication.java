@@ -1,10 +1,10 @@
-package com.ivan.github.app;
+package com.ivan.github;
 
 import android.app.Application;
 
-import com.ivan.github.BuildConfig;
-
-import github.utils.L;
+import com.github.utils.L;
+import com.ivan.github.app.App;
+import com.ivan.github.app.CrashHandler;
 
 /**
  * Custom Application
@@ -19,16 +19,17 @@ public class GitHubApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
+        GitHub.init(this);
         L.setDebugLog(BuildConfig.DEBUG, L.VERBOSE);
         App.init(this);
         initCrashHandler();
     }
 
     private void initCrashHandler() {
-//        if (BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             CrashHandler handler = CrashHandler.getInstance();
             handler.init(this);
             handler.setReportToLocal(true);
-//        }
+        }
     }
 }

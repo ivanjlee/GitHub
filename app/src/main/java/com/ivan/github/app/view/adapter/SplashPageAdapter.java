@@ -2,6 +2,7 @@ package com.ivan.github.app.view.adapter;
 
 import android.content.Context;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,7 @@ import java.util.List;
  * @since   v1.0
  */
 
-public class SplashPageAdapter extends PagerAdapter{
+public class SplashPageAdapter extends PagerAdapter {
 
     private Context mContext;
     private List<SplashData> mData;
@@ -32,8 +33,9 @@ public class SplashPageAdapter extends PagerAdapter{
         this.mContext = context;
     }
 
+    @NonNull
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
         SplashData data = mData.get(position);
         View view = LayoutInflater.from(mContext).inflate(R.layout.splash_item, container, false);
         ViewHolder holder = new ViewHolder(view);
@@ -56,7 +58,7 @@ public class SplashPageAdapter extends PagerAdapter{
     }
 
     @Override
-    public boolean isViewFromObject(View view, Object object) {
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view == object;
     }
 
@@ -66,9 +68,9 @@ public class SplashPageAdapter extends PagerAdapter{
         TextView mTVDescription;
 
         ViewHolder(View itemView) {
-            mImageView = (ImageView) itemView.findViewById(R.id.image);
-            mTVTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            mTVDescription = (TextView) itemView.findViewById(R.id.tv_desc);
+            mImageView = itemView.findViewById(R.id.image);
+            mTVTitle = itemView.findViewById(R.id.tv_title);
+            mTVDescription = itemView.findViewById(R.id.tv_desc);
         }
     }
 
