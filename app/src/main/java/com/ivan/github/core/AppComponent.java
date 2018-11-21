@@ -1,9 +1,7 @@
 package com.ivan.github.core;
 
-import android.app.Application;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.support.annotation.StringRes;
 
 import com.ivan.github.GitHubApplication;
 import com.ivan.github.core.net.NetModule;
@@ -11,6 +9,7 @@ import com.ivan.github.core.net.NetModule;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import retrofit2.Retrofit;
 
 /**
  * AppComponent
@@ -28,5 +27,7 @@ public interface AppComponent {
     SharedPreferences preference();
 
     Resources resources();
+
+    Retrofit retrofit();
 
 }

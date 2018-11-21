@@ -1,5 +1,9 @@
 package com.ivan.github.account;
 
+import android.text.TextUtils;
+
+import com.ivan.github.GitHub;
+
 /**
  * Singleton, to save account information
  *
@@ -10,10 +14,12 @@ package com.ivan.github.account;
 
 public class Account {
 
+    private static final String AUTH_KEY = "auth_key";
+
     private volatile static Account sInstance;
 
     private User mUser;
-    private String mToken;
+    private String mAuthorization;
 
     public static Account getInstance() {
         if (sInstance == null) {
@@ -26,16 +32,20 @@ public class Account {
         return sInstance;
     }
 
-    public void init(User user, String token) {
+    public void init(User user, String auth) {
         this.mUser = user;
-        this.mToken = token;
+        this.mAuthorization = auth;
+        GitHub.appComponent().preference().edit().putString(AUTH_KEY, auth).apply();
     }
 
     public User getUser() {
         return mUser;
     }
 
-    public String getToken() {
-        return mToken;
+    public String getAuthorization() {
+        if (TextUtils.isEmpty(mAuthorization)) {
+            mAuthorization = GitHub.appComponent().preference().getString(AUTH_KEY, "");
+        }
+        return mAuthorization;
     }
 }

@@ -3,6 +3,7 @@ package com.ivan.github;
 import com.ivan.github.core.AppComponent;
 import com.ivan.github.core.AppModule;
 import com.ivan.github.core.DaggerAppComponent;
+import com.ivan.github.core.net.NetConfig;
 import com.ivan.github.core.net.NetModule;
 
 /**
@@ -24,7 +25,7 @@ public final class GitHub {
     private GitHub(GitHubApplication application) {
         mDaggerAppComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(application))
-                .netModule(new NetModule())
+                .netModule(new NetModule(NetConfig.defaultConfig()))
                 .build();
     }
 
