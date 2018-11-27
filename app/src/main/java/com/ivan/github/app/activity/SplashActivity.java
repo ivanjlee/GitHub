@@ -1,25 +1,23 @@
 package com.ivan.github.app.activity;
 
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
+import com.github.design.widget.CirclePagerIndicator;
+import com.ivan.github.R;
 import com.ivan.github.account.LoginActivity;
 import com.ivan.github.app.BaseActivity;
-import com.ivan.github.R;
-import com.ivan.github.app.view.adapter.SplashPageAdapter;
 import com.ivan.github.app.model.SplashData;
+import com.ivan.github.app.view.adapter.SplashPageAdapter;
 import com.ivan.github.web.UrlConst;
 import com.ivan.github.web.WebActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.github.design.widget.CirclePagerIndicator;
 
 public class SplashActivity extends BaseActivity {
 

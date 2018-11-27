@@ -34,7 +34,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation rootProject.ext.dependencies['retrofit2']
     implementation rootProject.ext.dependencies['appcompat-v7']
 
     testImplementation 'junit:junit:4.12'

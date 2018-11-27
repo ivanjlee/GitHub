@@ -10,13 +10,13 @@ package com.ivan.github.web;
 
 public class UrlConst {
 
-    public static final String GITHUB_BASE_URL = "https://com.github.com/";
+    public static final String GITHUB_BASE_URL = "https://github.com/";
 
-    public static final String GITHUB_REGISTER = "https://com.github.com/join/";
+    public static final String GITHUB_REGISTER = "https://github.com/join/";
 
-    public static final String GITHUB_FORGET_PASSWORD = "https://com.github.com/password_reset";
-    public static final String GITHUB_TERMS = "https://help.com.github.com/articles/com.github-terms-of-service/";
-    public static final String GITHUB_PRIVACY = "https://help.com.github.com/articles/com.github-privacy-statement/";
-    public static final String GITHUB_SECURITY = "https://help.com.github.com/articles/com.github-security/";
-    public static final String GITHUB_CONTACT_GITHUB = "https://com.github.com/contact";
+    public static final String GITHUB_FORGET_PASSWORD = "https://github.com/password_reset";
+    public static final String GITHUB_TERMS = "https://help.github.com/articles/com.github-terms-of-service/";
+    public static final String GITHUB_PRIVACY = "https://help.github.com/articles/com.github-privacy-statement/";
+    public static final String GITHUB_SECURITY = "https://help.github.com/articles/com.github-security/";
+    public static final String GITHUB_CONTACT_GITHUB = "https://github.com/contact";
 }

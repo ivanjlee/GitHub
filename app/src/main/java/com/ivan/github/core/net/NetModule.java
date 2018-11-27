@@ -3,6 +3,7 @@ package com.ivan.github.core.net;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.ivan.github.api.GitHubService;
 
 import java.util.concurrent.TimeUnit;
 
@@ -13,6 +14,7 @@ import dagger.Provides;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -43,6 +45,7 @@ public class NetModule {
                 .baseUrl(mNetConfig.getUrl())
                 .client(provideOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create(provideGson()))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         return retrofit;
     }
@@ -64,6 +67,12 @@ public class NetModule {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
         return gsonBuilder.create();
+    }
+
+    @Provides
+    @Singleton
+    GitHubService provideGitHubService() {
+        return provideRetrofit().create(GitHubService.class);
     }
 
 }

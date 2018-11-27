@@ -1,15 +1,16 @@
 package com.ivan.github.account;
 
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
@@ -17,16 +18,26 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.design.widget.CompoundDrawablesTextView;
+import com.github.utils.KeyboardUtils;
+import com.github.utils.L;
+import com.ivan.github.GitHub;
 import com.ivan.github.R;
 import com.ivan.github.app.BaseActivity;
+import com.ivan.github.app.activity.MainActivity;
 import com.ivan.github.web.UrlConst;
 import com.ivan.github.web.WebActivity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Credentials;
+import retrofit2.Call;
+import retrofit2.HttpException;
+import retrofit2.Response;
 
 /**
  * A login screen that offers login via email/password.
@@ -38,6 +49,7 @@ import java.util.List;
 
 public class LoginActivity extends BaseActivity implements LoaderCallbacks<Cursor>, OnClickListener {
 
+    private static final String TAG = LoginActivity.class.getSimpleName();
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -69,34 +81,31 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
         initLinks();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mAuthTask != null) {
+            mAuthTask.cancel(true);
+            mAuthTask = null;
+        }
+    }
+
     private void initView() {
         mTVUsername = findViewById(R.id.tv_username);
         mTvMessage = findViewById(R.id.tv_msg);
-        mTvMessage.setDrawableRightClickListener(new CompoundDrawablesTextView.OnDrawableRightClickListener() {
-            @Override
-            public void onDrawableRightClick(View view) {
-                mTvMessage.setVisibility(View.GONE);
-            }
-        });
+        mTvMessage.setDrawableRightClickListener(view -> mTvMessage.setVisibility(View.GONE));
         mTVPassword = findViewById(R.id.tv_password);
-        mTVPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.btn_sign_in || id == EditorInfo.IME_ACTION_DONE) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
+        mTVPassword.setOnEditorActionListener((textView, id, keyEvent) -> {
+            if (id == R.id.btn_sign_in || id == EditorInfo.IME_ACTION_DONE) {
+                attemptLogin();
+                KeyboardUtils.hideSoftKeyboard(mTVPassword);
+                return true;
             }
+            return false;
         });
 
         mBtnSignIn = findViewById(R.id.btn_sign_in);
-        mBtnSignIn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
+        mBtnSignIn.setOnClickListener(view -> attemptLogin());
     }
 
     private void populateAutoComplete() {
@@ -275,7 +284,7 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    private class UserLoginTask extends AsyncTask<Void, Void, Pair<Boolean, Throwable>> {
 
         private final String mEmail;
         private final String mPassword;
@@ -286,33 +295,56 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
         }
 
         @Override
-        protected Boolean doInBackground(Void... params) {
-
+        protected Pair<Boolean, Throwable> doInBackground(Void... params) {
+            final String auth = Credentials.basic(mEmail, mPassword);
+            Call<List<Authorization>> call = GitHub.appComponent().githubService().listAuthorizations(auth);
             try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    return pieces[1].equals(mPassword);
+                Response<List<Authorization>> response = call.execute();
+                if (response.isSuccessful()) {
+                    Call<User> userCall = GitHub.appComponent().githubService().getAuthorizedUser(auth);
+                    Response<User> userResponse = userCall.execute();
+                    if (userResponse.isSuccessful()) {
+                        Account.getInstance().init(userResponse.body(), auth);
+                        return new Pair<>(true, null);
+                    } else {
+                        return new Pair<>(false, new HttpException(userResponse));
+                    }
+                } else {
+                    return new Pair<>(false, new HttpException(response));
                 }
+            } catch (IOException e) {
+                L.e(TAG, e);
+                return new Pair<>(false, e);
             }
-            return true;
         }
 
         @Override
-        protected void onPostExecute(final Boolean success) {
+        protected void onPostExecute(final Pair<Boolean, Throwable> result) {
             mAuthTask = null;
             showProgress(false);
-            if (success) {
-                finish();
-            } else {
-                setErrorMsg(getString(R.string.error_incorrect_password));
+            if (result.first == null) {
+                setErrorMsg(getString(R.string.error_network_error));
                 mTVPassword.requestFocus();
+            } else if (result.first) {
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_LONG).show();
+                LoginActivity.this.finish();
+            } else if (result.second instanceof HttpException) {
+                if (((HttpException) result.second).code() == 401) {
+                    setErrorMsg(getString(R.string.error_incorrect_password));
+                    mTVPassword.requestFocus();
+                } else {
+                    setErrorMsg(((HttpException) result.second).message());
+                    mTVPassword.requestFocus();
+                }
+            } else {
+                if (result.second != null) {
+                    setErrorMsg(result.second.getLocalizedMessage());
+                    mTVPassword.requestFocus();
+                } else {
+                    setErrorMsg(getString(R.string.error_network_error));
+                    mTVPassword.requestFocus();
+                }
             }
         }
 
@@ -323,4 +355,3 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
         }
     }
 }
-

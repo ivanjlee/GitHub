@@ -3,10 +3,10 @@ package com.github.utils;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.github.design.BuildConfig;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import com.github.design.BuildConfig;
 
 /**
  * A tool class for Logcat

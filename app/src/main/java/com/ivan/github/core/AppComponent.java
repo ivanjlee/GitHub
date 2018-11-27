@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 
 import com.ivan.github.GitHubApplication;
+import com.ivan.github.api.GitHubService;
 import com.ivan.github.core.net.NetModule;
 
 import javax.inject.Singleton;
@@ -29,5 +30,7 @@ public interface AppComponent {
     Resources resources();
 
     Retrofit retrofit();
+
+    GitHubService githubService();
 
 }

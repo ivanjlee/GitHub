@@ -17,10 +17,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
+import com.github.utils.L;
 import com.ivan.github.R;
 import com.ivan.github.app.BaseActivity;
-
-import com.github.utils.L;
 
 /**
  * a class used to hold some constant values

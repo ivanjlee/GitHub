@@ -3,10 +3,8 @@ package com.ivan.github.core;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.support.annotation.StringRes;
 
 import com.ivan.github.GitHubApplication;
-
 
 import javax.inject.Singleton;
 
