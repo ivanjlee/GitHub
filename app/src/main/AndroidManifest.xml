@@ -18,26 +18,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".app.activity.LandingActivity">
+        <activity android:name=".app.login.LandingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".app.activity.MainActivity"
+            android:name=".app.main.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"/>
         <activity android:name=".app.BaseActivity" />
-        <activity android:name=".app.activity.SplashActivity" />
+        <activity android:name=".app.login.SplashActivity" />
         <activity android:name=".debug.DebugActivity" />
         <activity
             android:name=".debug.CrashInfoViewActivity"
             android:launchMode="singleInstance" />
         <activity android:name=".web.WebActivity" />
         <activity
-            android:name=".account.LoginActivity"
+            android:name=".app.login.LoginActivity"
             android:label="@string/title_activity_login">
         </activity>
     </application>

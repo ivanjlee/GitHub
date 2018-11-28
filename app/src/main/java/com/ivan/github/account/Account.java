@@ -7,9 +7,9 @@ import com.ivan.github.GitHub;
 /**
  * Singleton, to save account information
  *
- * @author  lijun on 2017/10/6 01:12.
+ * @author  Ivan on 2017/10/6 01:12.
  * @version v0.1
- * @since   v1.0
+ * @since   v0.1.0
  */
 
 public class Account {

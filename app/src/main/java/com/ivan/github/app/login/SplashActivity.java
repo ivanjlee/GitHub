@@ -1,4 +1,4 @@
-package com.ivan.github.app.activity;
+package com.ivan.github.app.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,10 +9,8 @@ import android.view.WindowManager;
 
 import com.github.design.widget.CirclePagerIndicator;
 import com.ivan.github.R;
-import com.ivan.github.account.LoginActivity;
 import com.ivan.github.app.BaseActivity;
-import com.ivan.github.app.model.SplashData;
-import com.ivan.github.app.view.adapter.SplashPageAdapter;
+import com.ivan.github.app.login.model.SplashData;
 import com.ivan.github.web.UrlConst;
 import com.ivan.github.web.WebActivity;
 

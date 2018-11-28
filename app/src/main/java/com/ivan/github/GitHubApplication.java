@@ -3,8 +3,7 @@ package com.ivan.github;
 import android.app.Application;
 
 import com.github.utils.L;
-import com.ivan.github.app.App;
-import com.ivan.github.app.CrashHandler;
+import com.ivan.github.core.CrashHandler;
 
 /**
  * Custom Application
@@ -21,7 +20,6 @@ public class GitHubApplication extends Application{
         super.onCreate();
         GitHub.init(this);
         L.setDebugLog(BuildConfig.DEBUG, L.VERBOSE);
-        App.init(this);
         initCrashHandler();
     }
 

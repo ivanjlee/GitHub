@@ -1,4 +1,4 @@
-package com.ivan.github.app.activity;
+package com.ivan.github.app.main;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

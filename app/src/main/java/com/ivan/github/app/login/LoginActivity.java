@@ -1,4 +1,4 @@
-package com.ivan.github.account;
+package com.ivan.github.app.login;
 
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Intent;
@@ -25,8 +25,11 @@ import com.github.utils.KeyboardUtils;
 import com.github.utils.L;
 import com.ivan.github.GitHub;
 import com.ivan.github.R;
+import com.ivan.github.account.Account;
+import com.ivan.github.account.Authorization;
+import com.ivan.github.account.User;
 import com.ivan.github.app.BaseActivity;
-import com.ivan.github.app.activity.MainActivity;
+import com.ivan.github.app.main.MainActivity;
 import com.ivan.github.web.UrlConst;
 import com.ivan.github.web.WebActivity;
 
@@ -44,7 +47,7 @@ import retrofit2.Response;
  *
  * @author  Ivan on 2017/10/6 19:45.
  * @version v0.1
- * @since   v0.1
+ * @since   v0.1.0
  */
 
 public class LoginActivity extends BaseActivity implements LoaderCallbacks<Cursor>, OnClickListener {
@@ -329,6 +332,7 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_LONG).show();
                 LoginActivity.this.finish();
+
             } else if (result.second instanceof HttpException) {
                 if (((HttpException) result.second).code() == 401) {
                     setErrorMsg(getString(R.string.error_incorrect_password));

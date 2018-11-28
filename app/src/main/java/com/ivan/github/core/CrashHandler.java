@@ -1,4 +1,4 @@
-package com.ivan.github.app;
+package com.ivan.github.core;
 
 import android.annotation.SuppressLint;
 import android.app.NotificationManager;

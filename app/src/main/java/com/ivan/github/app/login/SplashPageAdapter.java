@@ -1,4 +1,4 @@
-package com.ivan.github.app.view.adapter;
+package com.ivan.github.app.login;
 
 import android.content.Context;
 import android.net.Uri;
@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ivan.github.R;
-import com.ivan.github.app.model.SplashData;
+import com.ivan.github.app.login.model.SplashData;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author  Ivan at 2016-12-08  22:09
  * @version v1.0
- * @since   v1.0
+ * @since   v0.1.0
  */
 
 public class SplashPageAdapter extends PagerAdapter {
@@ -28,7 +28,7 @@ public class SplashPageAdapter extends PagerAdapter {
     private Context mContext;
     private List<SplashData> mData;
 
-    public SplashPageAdapter(Context context, List<SplashData> data) {
+    SplashPageAdapter(Context context, List<SplashData> data) {
         this.mData = data;
         this.mContext = context;
     }
@@ -48,7 +48,7 @@ public class SplashPageAdapter extends PagerAdapter {
     }
 
     @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
+    public void destroyItem(@NonNull ViewGroup container, int position, Object object) {
         container.removeView((View) object);
     }
 
