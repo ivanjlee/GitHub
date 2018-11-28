@@ -1,4 +1,4 @@
-package com.ivan.github.account;
+package com.ivan.github.account.model;
 
 import com.ivan.github.core.net.NetModel;
 
@@ -11,6 +11,7 @@ import java.util.List;
  * @version v0.1
  * @since v0.1.0
  */
+@SuppressWarnings("unused")
 public class Authorization implements NetModel {
     /*
 

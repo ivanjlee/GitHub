@@ -2,6 +2,7 @@ package com.ivan.github.app.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +78,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     public void signIn(View view) {
-        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+        startActivityForResult(new Intent(SplashActivity.this, LoginActivity.class), LoginConsts.REQUEST_CODE_LOGIN);
     }
 
     public void signUp(View view) {
@@ -86,5 +87,13 @@ public class SplashActivity extends BaseActivity {
 
     public void explore(View view) {
         WebActivity.start(this, UrlConst.GITHUB_BASE_URL, "GitHub");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == LoginConsts.REQUEST_CODE_LOGIN &&  resultCode == LoginConsts.RESULT_CODE_FINISH) {
+            this.finish();
+        }
     }
 }

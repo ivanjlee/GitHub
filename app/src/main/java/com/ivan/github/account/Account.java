@@ -3,6 +3,7 @@ package com.ivan.github.account;
 import android.text.TextUtils;
 
 import com.ivan.github.GitHub;
+import com.ivan.github.account.model.User;
 
 /**
  * Singleton, to save account information

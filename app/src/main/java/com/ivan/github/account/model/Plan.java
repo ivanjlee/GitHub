@@ -1,4 +1,4 @@
-package com.ivan.github.account;
+package com.ivan.github.account.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ivan.github.core.net.NetModel;

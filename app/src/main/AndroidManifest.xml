@@ -38,7 +38,8 @@
         <activity android:name=".web.WebActivity" />
         <activity
             android:name=".app.login.LoginActivity"
-            android:label="@string/title_activity_login">
+            android:label="@string/title_activity_login"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" >
         </activity>
     </application>
 

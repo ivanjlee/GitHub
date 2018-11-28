@@ -1,7 +1,7 @@
 package com.ivan.github;
 
 
-import com.ivan.github.account.Authorization;
+import com.ivan.github.account.model.Authorization;
 import com.ivan.github.core.net.HttpClient;
 
 import org.junit.Before;

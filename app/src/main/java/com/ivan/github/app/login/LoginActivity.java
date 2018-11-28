@@ -1,12 +1,9 @@
 package com.ivan.github.app.login;
 
-import android.app.LoaderManager.LoaderCallbacks;
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.Toolbar;
@@ -21,13 +18,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.github.design.widget.CompoundDrawablesTextView;
+import com.github.utils.CollectionUtils;
 import com.github.utils.KeyboardUtils;
 import com.github.utils.L;
 import com.ivan.github.GitHub;
 import com.ivan.github.R;
 import com.ivan.github.account.Account;
-import com.ivan.github.account.Authorization;
-import com.ivan.github.account.User;
+import com.ivan.github.account.model.Authorization;
+import com.ivan.github.account.model.User;
 import com.ivan.github.app.BaseActivity;
 import com.ivan.github.app.main.MainActivity;
 import com.ivan.github.web.UrlConst;
@@ -35,7 +33,9 @@ import com.ivan.github.web.WebActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import okhttp3.Credentials;
 import retrofit2.Call;
@@ -50,17 +50,12 @@ import retrofit2.Response;
  * @since   v0.1.0
  */
 
-public class LoginActivity extends BaseActivity implements LoaderCallbacks<Cursor>, OnClickListener {
+public class LoginActivity extends BaseActivity implements OnClickListener {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
-    /**
-     * Id to identity READ_CONTACTS permission request.
-     */
-    private static final int REQUEST_READ_CONTACTS = 0;
 
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
+    private Set<String> mEmails = new LinkedHashSet<>();
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -112,7 +107,8 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
     }
 
     private void populateAutoComplete() {
-        getLoaderManager().initLoader(0, null, this);
+        Set<String> recentAccounts = LoginSettings.getRecentUsers();
+        addEmailsToAutoComplete(new ArrayList<>(recentAccounts));
     }
 
     private void initLinks() {
@@ -216,36 +212,15 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
         }
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return null;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        List<String> emails = new ArrayList<>();
-        if (cursorLoader == null || cursor == null) {
-            return;
-        }
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            emails.add(cursor.getString(ProfileQuery.ADDRESS));
-            cursor.moveToNext();
-        }
-        addEmailsToAutoComplete(emails);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> cursorLoader) {
-
-    }
-
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<>(LoginActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-
         mTVUsername.setAdapter(adapter);
+        if (!CollectionUtils.isEmpty(emailAddressCollection)) {
+            mTVUsername.setText(emailAddressCollection.get(0));
+            mTVUsername.setSelection(mTVUsername.getText().length());
+        }
     }
 
     @Override
@@ -272,21 +247,11 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
         }
     }
 
-
-    private interface ProfileQuery {
-        String[] PROJECTION = {
-                ContactsContract.CommonDataKinds.Email.ADDRESS,
-                ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
-        };
-
-        int ADDRESS = 0;
-        int IS_PRIMARY = 1;
-    }
-
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
+    @SuppressLint("StaticFieldLeak")
     private class UserLoginTask extends AsyncTask<Void, Void, Pair<Boolean, Throwable>> {
 
         private final String mEmail;
@@ -329,10 +294,11 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
                 setErrorMsg(getString(R.string.error_network_error));
                 mTVPassword.requestFocus();
             } else if (result.first) {
+                LoginSettings.saveUser(mEmail);
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_LONG).show();
+                setResult(LoginConsts.RESULT_CODE_FINISH);
                 LoginActivity.this.finish();
-
             } else if (result.second instanceof HttpException) {
                 if (((HttpException) result.second).code() == 401) {
                     setErrorMsg(getString(R.string.error_incorrect_password));

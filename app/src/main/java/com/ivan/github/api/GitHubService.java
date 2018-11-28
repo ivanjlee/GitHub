@@ -1,7 +1,7 @@
 package com.ivan.github.api;
 
-import com.ivan.github.account.Authorization;
-import com.ivan.github.account.User;
+import com.ivan.github.account.model.Authorization;
+import com.ivan.github.account.model.User;
 
 import java.util.List;
 
