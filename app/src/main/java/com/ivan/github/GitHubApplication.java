@@ -13,7 +13,7 @@ import com.ivan.github.core.CrashHandler;
  * @since   v0.1
  */
 
-public class GitHubApplication extends Application{
+public class GitHubApplication extends Application {
 
     @Override
     public void onCreate() {
