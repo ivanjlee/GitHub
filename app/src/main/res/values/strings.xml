@@ -77,4 +77,11 @@
     <string name="github_privacy_statement">GitHub Privacy Statement</string>
     <string name="github_security">GitHub Security</string>
     <string name="get_help_with_github">Get help with GitHub</string>
+
+    <string name="test">test</string>
+    <string name="test1">test!#$!</string>
+    <string name="crash_me">crash me</string>
+    <string name="crash_info">Crash Information</string>
+    <string name="get_phone_information">Get Phone Information</string>
+    <string name="phone_information">Phone Information</string>
 </resources>

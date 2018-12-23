@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.ivan.github.BuildConfig;
 import com.ivan.github.R;
-import com.ivan.github.app.BaseActivity;
+import com.ivan.github.app.ToolbarActivity;
 import com.ivan.github.tools.ExceptionUtils;
 
 /**
@@ -24,7 +24,7 @@ import com.ivan.github.tools.ExceptionUtils;
  * @version v0.1
  * @since   v1.0
  */
-public class CrashInfoViewActivity extends BaseActivity implements View.OnClickListener {
+public class CrashInfoViewActivity extends ToolbarActivity implements View.OnClickListener {
     public static final String EXTRA_DETAIL = CrashInfoViewActivity.class.getName() + ".detail";
 
     private TextView mTvTvDetail;
@@ -50,16 +50,17 @@ public class CrashInfoViewActivity extends BaseActivity implements View.OnClickL
      * initialize the view
      */
     private void initView() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.crash_info);
         ActionBar actionBar = getSupportActionBar();
         setSupportActionBar(toolbar);
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        TextView tvVersionCode = (TextView) findViewById(R.id.tv_version_code);
-        TextView tvVersionName = (TextView) findViewById(R.id.tv_version_name);
-        mTvTvDetail = (TextView) findViewById(R.id.tv_detail);
-        FloatingActionButton mFab = (FloatingActionButton) findViewById(R.id.fab);
+        TextView tvVersionCode = findViewById(R.id.tv_version_code);
+        TextView tvVersionName = findViewById(R.id.tv_version_name);
+        mTvTvDetail = findViewById(R.id.tv_detail);
+        FloatingActionButton mFab = findViewById(R.id.fab);
 
         tvVersionCode.setText(String.valueOf(BuildConfig.VERSION_CODE));
         tvVersionName.setText(BuildConfig.VERSION_NAME);

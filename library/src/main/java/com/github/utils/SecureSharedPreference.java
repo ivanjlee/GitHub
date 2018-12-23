@@ -37,7 +37,7 @@ public class SecureSharedPreference implements SharedPreferences {
     }
 
     @SuppressLint("HardwareIds")
-    private static String getDeviceSerialNumber(Context context) {
+    public static String getDeviceSerialNumber(Context context) {
         // We're using the Reflection API because Build.SERIAL is only available
         // since API Level 9 (Gingerbread, Android 2.3).
         try {

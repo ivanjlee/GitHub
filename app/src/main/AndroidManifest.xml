@@ -41,6 +41,8 @@
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" >
         </activity>
+        <activity android:name=".debug.PhoneInformationActivity" />
+        <activity android:name=".app.ToolbarActivity" />
     </application>
 
 </manifest>

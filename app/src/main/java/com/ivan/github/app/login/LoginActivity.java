@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
@@ -15,12 +16,14 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.github.design.widget.CompoundDrawablesTextView;
 import com.github.utils.CollectionUtils;
 import com.github.utils.KeyboardUtils;
 import com.github.utils.L;
+import com.ivan.github.BuildConfig;
 import com.ivan.github.GitHub;
 import com.ivan.github.R;
 import com.ivan.github.account.Account;
@@ -28,6 +31,7 @@ import com.ivan.github.account.model.Authorization;
 import com.ivan.github.account.model.User;
 import com.ivan.github.app.BaseActivity;
 import com.ivan.github.app.main.MainActivity;
+import com.ivan.github.debug.DebugActivity;
 import com.ivan.github.web.UrlConst;
 import com.ivan.github.web.WebActivity;
 
@@ -67,6 +71,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     private AutoCompleteTextView mTVUsername;
     private EditText mTVPassword;
     private Button mBtnSignIn;
+    private ImageView mIVLogo;
+
+    private int mCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +111,21 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
         mBtnSignIn = findViewById(R.id.btn_sign_in);
         mBtnSignIn.setOnClickListener(view -> attemptLogin());
+        if (BuildConfig.DEBUG) {
+            initDebug();
+        }
+    }
+
+    private void initDebug() {
+        mIVLogo = findViewById(R.id.iv_logo);
+        mIVLogo.setOnClickListener(view -> {
+            mCounter++;
+            Log.d(TAG, "mCount " + mCounter);
+            if (mCounter >= 6) {
+                startActivity(new Intent(LoginActivity.this, DebugActivity.class));
+            }
+            mIVLogo.postDelayed(() -> mCounter = 0, 1500);
+        });
     }
 
     private void populateAutoComplete() {
@@ -124,8 +146,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
      * Callback received when a permissions request has been completed.
      */
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
     }
 
     private void setupActionBar() {
