@@ -278,9 +278,18 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         private final String mEmail;
         private final String mPassword;
 
+        private long start;
+        private long end;
+
         UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            start = System.currentTimeMillis();
         }
 
         @Override
@@ -337,6 +346,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                     mTVPassword.requestFocus();
                 }
             }
+            end = System.currentTimeMillis();
+            L.v(TAG, "login time duration: " + (end - start) + "ms");
         }
 
         @Override

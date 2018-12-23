@@ -18,19 +18,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".app.login.LandingActivity">
+
+        <activity android:name=".app.login.SplashActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".app.login.LandingActivity"/>
         <activity
             android:name=".app.main.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"/>
         <activity android:name=".app.BaseActivity" />
-        <activity android:name=".app.login.SplashActivity" />
         <activity android:name=".debug.DebugActivity" />
         <activity
             android:name=".debug.CrashInfoViewActivity"

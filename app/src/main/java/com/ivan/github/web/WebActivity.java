@@ -26,7 +26,7 @@ import com.ivan.github.app.BaseActivity;
  *
  * @author  Ivan at 2017-10-05 17:38
  * @version v0.1
- * @since   v0.1
+ * @since   v0.1.0
  */
 
 public class WebActivity extends BaseActivity {
