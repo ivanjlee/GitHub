@@ -5,12 +5,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.ivan.github.R;
+import com.ivan.github.account.Account;
+import com.ivan.github.app.AppSettings;
 import com.ivan.github.app.BaseActivity;
+import com.ivan.github.app.main.MainActivity;
 
 public class SplashActivity extends BaseActivity {
     @Override
@@ -27,12 +31,26 @@ public class SplashActivity extends BaseActivity {
         Handler handler = new Handler(getMainLooper()) {
             @Override
             public void handleMessage(Message msg) {
-                startActivity(new Intent(SplashActivity.this, LandingActivity.class), R.anim.alpha_in, R.anim.alpha_out);
-                SplashActivity.this.finish();
+                navigation();
             }
         };
 
         handler.sendEmptyMessageDelayed(0, 1000);
+    }
+
+    private void navigation() {
+        if (AppSettings.isFristLogin()) {
+            startActivity(new Intent(SplashActivity.this, LandingActivity.class), R.anim.alpha_in, R.anim.alpha_out);
+        } else {
+            String auth = Account.getInstance().getAuthorization();
+            if (TextUtils.isEmpty(auth)) {
+                startActivity(new Intent(SplashActivity.this, LoginActivity.class), R.anim.alpha_in, R.anim.alpha_out);
+            } else {
+                Account.getInstance().loadUser();
+                startActivity(new Intent(SplashActivity.this, MainActivity.class), R.anim.alpha_in, R.anim.alpha_out);
+            }
+        }
+        SplashActivity.this.finish();
     }
 
     @Override

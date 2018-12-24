@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 
+import com.github.utils.SecureSharedPreference;
 import com.ivan.github.GitHubApplication;
 
 import javax.inject.Singleton;
@@ -43,5 +44,11 @@ public class AppModule {
     @Singleton
     Resources provideResources() {
         return mApplication.getResources();
+    }
+
+    @Provides
+    @Singleton
+    SecureSharedPreference provideSecureSharedPreference() {
+        return new SecureSharedPreference(mApplication, "app_settings", Context.MODE_PRIVATE);
     }
 }

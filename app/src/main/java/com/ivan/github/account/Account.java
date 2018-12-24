@@ -15,6 +15,7 @@ import com.ivan.github.account.model.User;
 
 public class Account {
 
+    private static final String USER_DETAIL = "user_detail";
     private static final String AUTH_KEY = "auth_key";
 
     private volatile static Account sInstance;
@@ -36,7 +37,7 @@ public class Account {
     public void init(User user, String auth) {
         this.mUser = user;
         this.mAuthorization = auth;
-        GitHub.appComponent().preference().edit().putString(AUTH_KEY, auth).apply();
+        GitHub.appComponent().secureSharedPreference().edit().putString(AUTH_KEY, auth).apply();
     }
 
     public User getUser() {
@@ -45,8 +46,23 @@ public class Account {
 
     public String getAuthorization() {
         if (TextUtils.isEmpty(mAuthorization)) {
-            mAuthorization = GitHub.appComponent().preference().getString(AUTH_KEY, "");
+            mAuthorization = GitHub.appComponent().secureSharedPreference().getString(AUTH_KEY, "");
         }
         return mAuthorization;
+    }
+
+    public void saveUser() {
+        if (mUser != null) {
+            String user = GitHub.appComponent().gson().toJson(mUser);
+            GitHub.appComponent().secureSharedPreference().edit().putString(USER_DETAIL, user).apply();
+        }
+    }
+
+    public void loadUser() {
+        String user = GitHub.appComponent().secureSharedPreference().getString(USER_DETAIL, null);
+        if (!TextUtils.isEmpty(user)) {
+            mUser = GitHub.appComponent().gson().fromJson(user, User.class);
+            mAuthorization = GitHub.appComponent().secureSharedPreference().getString(AUTH_KEY, "");
+        }
     }
 }

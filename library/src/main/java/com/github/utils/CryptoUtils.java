@@ -52,6 +52,9 @@ public class CryptoUtils {
     }
 
     public static String AESEncrypt(String key, String content) {
+        if (content == null || content.isEmpty()) {
+            return content;
+        }
         try {
             Cipher cipher = Cipher.getInstance("AES/CFB/NoPadding");
             SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), "AES");
@@ -85,6 +88,9 @@ public class CryptoUtils {
     }
 
     public static String AESDecrypt(String key, String encryptedContent) {
+        if (encryptedContent == null || encryptedContent.isEmpty()) {
+            return encryptedContent;
+        }
         try {
             Cipher cipher = Cipher.getInstance("AES/CFB/NoPadding");
             SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), "AES");

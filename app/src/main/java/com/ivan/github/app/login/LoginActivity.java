@@ -29,6 +29,7 @@ import com.ivan.github.R;
 import com.ivan.github.account.Account;
 import com.ivan.github.account.model.Authorization;
 import com.ivan.github.account.model.User;
+import com.ivan.github.app.AppSettings;
 import com.ivan.github.app.BaseActivity;
 import com.ivan.github.app.main.MainActivity;
 import com.ivan.github.debug.DebugActivity;
@@ -239,8 +240,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
         mTVUsername.setAdapter(adapter);
         if (!CollectionUtils.isEmpty(emailAddressCollection)) {
-            mTVUsername.setText(emailAddressCollection.get(0));
+            String email = emailAddressCollection.get(0);
+            mTVUsername.setText(email);
             mTVUsername.setSelection(mTVUsername.getText().length());
+            mTVPassword.setText(LoginSettings.getSavedPassword(email));
+            mTVPassword.requestFocus();
         }
     }
 
@@ -303,6 +307,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                     Response<User> userResponse = userCall.execute();
                     if (userResponse.isSuccessful()) {
                         Account.getInstance().init(userResponse.body(), auth);
+                        Account.getInstance().saveUser();
                         return new Pair<>(true, null);
                     } else {
                         return new Pair<>(false, new HttpException(userResponse));
@@ -324,7 +329,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                 setErrorMsg(getString(R.string.error_network_error));
                 mTVPassword.requestFocus();
             } else if (result.first) {
-                LoginSettings.saveUser(mEmail);
+                LoginSettings.saveUser(mEmail, mPassword);
+                AppSettings.setFirstLogin(false);
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_LONG).show();
                 setResult(LoginConsts.RESULT_CODE_FINISH);
