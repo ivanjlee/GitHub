@@ -1,4 +1,4 @@
-package com.ivan.github.tools;
+package com.ivan.github.util;
 
 import android.annotation.SuppressLint;
 import android.os.Build;

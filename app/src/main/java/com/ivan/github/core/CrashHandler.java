@@ -11,7 +11,7 @@ import android.support.v4.app.NotificationCompat;
 import com.ivan.github.GitHub;
 import com.ivan.github.R;
 import com.ivan.github.debug.CrashInfoViewActivity;
-import com.ivan.github.tools.ExceptionUtils;
+import com.ivan.github.util.ExceptionUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.ivan.github.BuildConfig;
 import com.ivan.github.R;
 import com.ivan.github.app.ToolbarActivity;
-import com.ivan.github.tools.ExceptionUtils;
+import com.ivan.github.util.ExceptionUtils;
 
 /**
  * display crash information
