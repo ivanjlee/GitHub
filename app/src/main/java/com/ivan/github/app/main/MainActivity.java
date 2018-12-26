@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -31,16 +33,18 @@ import com.ivan.github.account.model.User;
 import com.ivan.github.app.BaseActivity;
 import com.ivan.github.app.login.SplashActivity;
 import com.ivan.github.util.BitmapUtils;
+import com.ivan.github.widget.BridgeActionProvider;
 
 /**
  * Home Page of the App
  */
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ViewGroup mProfileBackgroud;
+    private ViewGroup mProfileBackground;
     private ImageView mIVAvatar;
     private TextView mTVUsername;
     private TextView mTVEmail;
+    private BridgeActionProvider mBridgeActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +69,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         navigationView.setNavigationItemSelectedListener(this);
 
         View headerView = navigationView.getHeaderView(0);
-        mProfileBackgroud = headerView.findViewById(R.id.ll_profile_background);
+        mProfileBackground = headerView.findViewById(R.id.ll_profile_background);
         mIVAvatar = headerView.findViewById(R.id.iv_avatar);
         mTVUsername = headerView.findViewById(R.id.tv_username);
         mTVEmail = headerView.findViewById(R.id.tv_email);
@@ -75,7 +79,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             Glide.with(this)
                     .asBitmap()
                     .load(user.getAvatarUrl())
-                    .into(new CustomViewTarget<View, Bitmap>(mProfileBackgroud) {
+                    .into(new CustomViewTarget<View, Bitmap>(mProfileBackground) {
                         @Override
                         public void onLoadFailed(@Nullable Drawable errorDrawable) {
 
@@ -85,9 +89,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                             Bitmap bitmap = BitmapUtils.renderScriptBlur(MainActivity.this, resource, 5, 1/64f);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                                mProfileBackgroud.setBackground(new BitmapDrawable(getResources(), bitmap));
+                                mProfileBackground.setBackground(new BitmapDrawable(getResources(), bitmap));
                             } else {
-                                mProfileBackgroud.setBackgroundDrawable(new BitmapDrawable(getResources(), bitmap));
+                                mProfileBackground.setBackgroundDrawable(new BitmapDrawable(getResources(), bitmap));
                             }
                         }
 
@@ -122,7 +126,18 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_notification);
+        mBridgeActionProvider = (BridgeActionProvider) MenuItemCompat.getActionProvider(menuItem);
         return true;
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        mBridgeActionProvider.setIcon(R.drawable.ic_menu_notification);
+        mBridgeActionProvider.setBridgeRes(R.drawable.ic_dot_blue);
+//        mBridgeActionProvider.setBridgeNum(99);
+        mBridgeActionProvider.setOnClickListener(v -> Toast.makeText(MainActivity.this, "notification action clicked", Toast.LENGTH_SHORT).show());
     }
 
     @Override

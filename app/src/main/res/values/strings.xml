@@ -84,4 +84,7 @@
     <string name="crash_info">Crash Information</string>
     <string name="get_phone_information">Get Phone Information</string>
     <string name="phone_information">Phone Information</string>
+    <string name="notifications">Notifications</string>
+    <string name="home">Home</string>
+    <string name="settings">Settings</string>
 </resources>
