@@ -6,10 +6,13 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -31,7 +34,10 @@ import com.ivan.github.R;
 import com.ivan.github.account.Account;
 import com.ivan.github.account.model.User;
 import com.ivan.github.app.BaseActivity;
+import com.ivan.github.app.events.FeedFragment;
 import com.ivan.github.app.login.SplashActivity;
+import com.ivan.github.app.notification.NotificationFragment;
+import com.ivan.github.app.settings.SettingsFragment;
 import com.ivan.github.util.BitmapUtils;
 import com.ivan.github.widget.BridgeActionProvider;
 
@@ -39,6 +45,8 @@ import com.ivan.github.widget.BridgeActionProvider;
  * Home Page of the App
  */
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final String TAG = "MainActivity";
 
     private ViewGroup mProfileBackground;
     private ImageView mIVAvatar;
@@ -110,6 +118,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             startActivity(new Intent(MainActivity.this, SplashActivity.class));
             this.finish();
         }
+        switchFragment(R.id.nav_home);
     }
 
     @Override
@@ -160,7 +169,27 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        switchFragment(id);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 
+    private void switchFragment(@IdRes int id) {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(id);
+        if (fragment == null) {
+            fragment = newFragment(id);
+        }
+        if (fragment == null) {
+            return;
+        }
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_main, fragment);
+        transaction.commit();
+    }
+
+    private @Nullable Fragment newFragment(@IdRes int id) {
+        Fragment fragment = null;
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
@@ -173,10 +202,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         } else if (id == R.id.nav_send) {
 
+        } else if (id == R.id.nav_home) {
+            fragment = FeedFragment.newInstance();
+        } else if (id == R.id.nav_notification) {
+            fragment = NotificationFragment.newInstance();
+        } else if (id == R.id.nav_settings) {
+            fragment = SettingsFragment.newInstance();
         }
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+        return fragment;
     }
 }

@@ -87,4 +87,9 @@
     <string name="notifications">Notifications</string>
     <string name="home">Home</string>
     <string name="settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="feed_fragment">Feeds</string>
+    <string name="notification_fragment">Notification</string>
+    <string name="settings_fragment">Settings</string>
 </resources>
