@@ -18,6 +18,7 @@ import com.ivan.github.R;
  * to handle interaction events.
  * Use the {@link SettingsFragment#newInstance} factory method to
  * create an instance of this fragment.
+ * @author Ivan
  */
 public class SettingsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match

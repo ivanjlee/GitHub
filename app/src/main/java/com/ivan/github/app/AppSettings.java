@@ -20,7 +20,7 @@ public class AppSettings {
         GitHub.appComponent().preference().edit().putBoolean(KEY_FIRST_LOGIN, firstLogin).apply();
     }
 
-    public static boolean isFristLogin() {
+    public static boolean isFirstLogin() {
         return GitHub.appComponent().preference().getBoolean(KEY_FIRST_LOGIN, true);
     }
 }

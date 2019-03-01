@@ -29,7 +29,7 @@ public class LoginSettings {
         GitHub.appComponent().preference().edit().putStringSet(KEY_RECENT_ACCOUNTS, recentAccounts).apply();
     }
 
-    public static void saveUser(String email, String password) {
+    static void saveUser(String email, String password) {
         Set<String> recentAccounts = getRecentUsers();
         recentAccounts.remove(email);
         recentAccounts.add(email);
@@ -37,11 +37,11 @@ public class LoginSettings {
         GitHub.appComponent().secureSharedPreference().edit().putString(KEY_PASSWORD + email, password).apply();
     }
 
-    public static String getSavedPassword(String email) {
+    static String getSavedPassword(String email) {
         return GitHub.appComponent().secureSharedPreference().getString(KEY_PASSWORD + email, "");
     }
 
-    public static Set<String> getRecentUsers() {
+    static Set<String> getRecentUsers() {
         Set<String> recentAccounts = GitHub.appComponent().preference().getStringSet(KEY_RECENT_ACCOUNTS, Collections.emptySet());
         if (CollectionUtils.isEmpty(recentAccounts)) {
             recentAccounts = new LinkedHashSet<>();

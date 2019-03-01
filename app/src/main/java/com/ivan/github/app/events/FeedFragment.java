@@ -14,6 +14,7 @@ import com.ivan.github.app.BaseFragment;
  * A simple {@link Fragment} subclass.
  * Use the {@link FeedFragment#newInstance} factory method to
  * create an instance of this fragment.
+ * @author Ivan J. Lee
  */
 public class FeedFragment extends BaseFragment {
 

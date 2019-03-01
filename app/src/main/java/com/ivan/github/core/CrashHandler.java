@@ -102,18 +102,12 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         @SuppressLint("SimpleDateFormat")
         String filename = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(System.currentTimeMillis()) + ".log";
         File file = new File(LOG_PATH, filename);
-        PrintWriter pw = null;
-        try {
-            pw = new PrintWriter(file);
+        try (PrintWriter pw = new PrintWriter(file)) {
             pw.write("crash at: " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(System.currentTimeMillis()) + "\n");
             e.printStackTrace(pw);
             pw.flush();
         } catch (FileNotFoundException e1) {
             e1.printStackTrace();
-        } finally {
-            if (pw != null) {
-                pw.close();
-            }
         }
     }
 

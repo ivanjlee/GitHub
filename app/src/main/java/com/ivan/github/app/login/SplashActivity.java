@@ -16,6 +16,9 @@ import com.ivan.github.app.AppSettings;
 import com.ivan.github.app.BaseActivity;
 import com.ivan.github.app.main.MainActivity;
 
+/**
+ * @author Ivan J. Lee
+ */
 public class SplashActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void navigation() {
-        if (AppSettings.isFristLogin()) {
+        if (AppSettings.isFirstLogin()) {
             startActivity(new Intent(SplashActivity.this, LandingActivity.class), R.anim.alpha_in, R.anim.alpha_out);
         } else {
             String auth = Account.getInstance().getAuthorization();
@@ -55,7 +58,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void finish() {
-//        ActivityCompat.finishAfterTransition(this);
+// ActivityCompat.finishAfterTransition(this);
         super.finish();
     }
 }

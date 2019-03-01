@@ -14,6 +14,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 
+/**
+ * BaseActivity
+ *
+ * @author Ivan
+ */
 public class BaseActivity extends AppCompatActivity {
 
     protected static final String TAG = BaseActivity.class.getName();
@@ -73,6 +78,7 @@ public class BaseActivity extends AppCompatActivity {
             case KeyEvent.KEYCODE_HOME:
                 onHomePressed();
                 break;
+            default:
         }
         return super.onKeyDown(keyCode, event);
     }

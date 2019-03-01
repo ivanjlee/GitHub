@@ -7,9 +7,9 @@ package com.ivan.github.app.login;
  * @version v0.1
  * @since   v0.1.0
  */
-public class LoginConsts {
+class LoginConsts {
 
-    public static final int REQUEST_CODE_LOGIN = 0x10;
+    static final int REQUEST_CODE_LOGIN = 0x10;
 
-    public static final int RESULT_CODE_FINISH  = 0x20;
+    static final int RESULT_CODE_FINISH  = 0x20;
 }

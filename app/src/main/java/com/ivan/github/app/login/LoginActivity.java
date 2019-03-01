@@ -66,7 +66,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
      */
     private UserLoginTask mAuthTask = null;
 
-    // UI references.
+    /**
+     * UI references.
+     */
     private Toolbar mToolbar;
     private CompoundDrawablesTextView mTvMessage;
     private AutoCompleteTextView mTVUsername;
@@ -268,6 +270,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                 break;
             case R.id.tv_contact_github:
                 WebActivity.start(this, UrlConst.GITHUB_CONTACT_GITHUB, getString(R.string.get_help_with_github));
+                break;
+            default:
                 break;
         }
     }

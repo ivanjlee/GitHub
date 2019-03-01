@@ -8,6 +8,9 @@ import android.widget.TextView;
 import com.ivan.github.R;
 import com.ivan.github.app.ToolbarActivity;
 
+/**
+ * @author Ivan
+ */
 public class DebugActivity extends ToolbarActivity {
 
     @Override

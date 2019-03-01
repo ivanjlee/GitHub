@@ -18,11 +18,10 @@ import com.ivan.github.web.WebActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Ivan
+ */
 public class LandingActivity extends BaseActivity {
-
-
-
-    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +39,7 @@ public class LandingActivity extends BaseActivity {
     }
 
     private void initView() {
-        mViewPager = findViewById(R.id.view_pager);
+        ViewPager mViewPager = findViewById(R.id.view_pager);
         SplashPageAdapter adapter = new SplashPageAdapter(this, getSplashData());
         mViewPager.setAdapter(adapter);
         CirclePagerIndicator indicator = findViewById(R.id.indicator);

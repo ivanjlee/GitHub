@@ -43,6 +43,7 @@ import com.ivan.github.widget.BridgeActionProvider;
 
 /**
  * Home Page of the App
+ * @author Ivan
  */
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
