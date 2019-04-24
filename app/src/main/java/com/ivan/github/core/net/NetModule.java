@@ -3,6 +3,7 @@ package com.ivan.github.core.net;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.ivan.github.api.EventService;
 import com.ivan.github.api.GitHubService;
 
 import java.util.concurrent.TimeUnit;
@@ -73,6 +74,12 @@ public class NetModule {
     @Singleton
     GitHubService provideGitHubService() {
         return provideRetrofit().create(GitHubService.class);
+    }
+
+    @Provides
+    @Singleton
+    EventService provideEventService() {
+        return provideRetrofit().create(EventService.class);
     }
 
 }

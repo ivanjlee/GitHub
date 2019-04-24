@@ -21,6 +21,18 @@ android {
             res.srcDirs = ['src/main/res', 'src/main/res/base']
             jniLibs.srcDirs = ['libs']
         }
+
+        beta {
+            res.srcDirs = ['src/beta/res']
+            jniLibs.srcDirs = ['libs']
+            java.srcDirs = ['src/beta/java']
+        }
+
+        debug {
+            res.srcDirs = ['src/debug/res']
+            jniLibs.srcDirs = ['libs']
+            java.srcDirs = ['src/debug/java']
+        }
     }
 
     buildTypes {

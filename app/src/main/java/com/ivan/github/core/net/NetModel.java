@@ -3,7 +3,7 @@ package com.ivan.github.core.net;
 /**
  * net model, all class exte
  *
- * @author  ivan on 2018-11-23 00:18.
+ * @author  Ivan on 2018-11-23 00:18.
  * @version v0.1
  * @since   v0.1.0
  */
