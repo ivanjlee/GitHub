@@ -94,5 +94,6 @@
 
     <string name="notification_fragment">Notification</string>
     <string name="settings_fragment">Settings</string>
+    <string name="at">at</string>
 
 </resources>
