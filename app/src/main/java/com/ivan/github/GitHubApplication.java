@@ -3,7 +3,9 @@ package com.ivan.github;
 import android.app.Application;
 
 import com.github.utils.L;
-import com.ivan.github.core.CrashHandler;
+import com.ivan.github.core.perf.CrashHandler;
+import com.ivan.github.core.perf.DefaultCrashReporter;
+import com.ivan.github.core.perf.PerformanceProvider;
 
 /**
  * Custom Application
@@ -27,7 +29,7 @@ public class GitHubApplication extends Application {
         if (BuildConfig.DEBUG) {
             CrashHandler handler = CrashHandler.getInstance();
             handler.init(this);
-            handler.setReportToLocal(true);
+            handler.setReporter(PerformanceProvider.provideCrashReporter());
         }
     }
 }

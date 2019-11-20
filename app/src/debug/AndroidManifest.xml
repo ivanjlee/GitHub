@@ -31,18 +31,30 @@
             android:label="@string/app_name"
             android:launchMode="singleTask"/>
         <activity android:name=".app.BaseActivity" />
-        <activity android:name="io.github.debug." />
-        <activity
-            android:name="io.github.debug.CrashInfoViewActivity"
-            android:launchMode="singleInstance" />
         <activity android:name=".web.WebActivity" />
+        <activity android:name=".app.ToolbarActivity" />
         <activity
             android:name=".app.login.LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" >
         </activity>
+
+        <activity android:name="io.github.debug.DebugActivity">
+            <intent-filter>
+                <action android:name="io.github.debug.dashboard"/>
+                <category android:name="io.github.category.DEBUG"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="io.github.debug.CrashInfoViewActivity"
+            android:launchMode="singleInstance">
+
+            <intent-filter>
+                <action android:name="io.github.debug.crash_info"/>
+                <category android:name="io.github.category.DEBUG"/>
+            </intent-filter>
+        </activity>
         <activity android:name="io.github.debug.PhoneInformationActivity" />
-        <activity android:name=".app.ToolbarActivity" />
     </application>
 
 </manifest>

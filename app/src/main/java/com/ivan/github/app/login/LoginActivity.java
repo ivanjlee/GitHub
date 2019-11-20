@@ -32,7 +32,6 @@ import com.ivan.github.account.model.User;
 import com.ivan.github.app.AppSettings;
 import com.ivan.github.app.BaseActivity;
 import com.ivan.github.app.main.MainActivity;
-import com.ivan.github.debug.DebugActivity;
 import com.ivan.github.web.UrlConst;
 import com.ivan.github.web.WebActivity;
 
@@ -125,7 +124,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
             mCounter++;
             Log.d(TAG, "mCount " + mCounter);
             if (mCounter >= 6) {
-                startActivity(new Intent(LoginActivity.this, DebugActivity.class));
+                Intent intent = new Intent()
+                        .setAction("io.github.debug.dashboard")
+                        .addCategory("io.github.category.DEBUG");
+                startActivity(intent);
             }
             mIVLogo.postDelayed(() -> mCounter = 0, 1500);
         });

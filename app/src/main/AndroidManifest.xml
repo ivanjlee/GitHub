@@ -31,17 +31,12 @@
             android:label="@string/app_name"
             android:launchMode="singleTask"/>
         <activity android:name=".app.BaseActivity" />
-        <activity android:name=".debug.DebugActivity" />
-        <activity
-            android:name=".debug.CrashInfoViewActivity"
-            android:launchMode="singleInstance" />
         <activity android:name=".web.WebActivity" />
         <activity
             android:name=".app.login.LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" >
         </activity>
-        <activity android:name=".debug.PhoneInformationActivity" />
         <activity android:name=".app.ToolbarActivity" />
     </application>
 
