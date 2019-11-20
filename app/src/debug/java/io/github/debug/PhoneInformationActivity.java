@@ -1,4 +1,4 @@
-package com.ivan.github.debug;
+package io.github.debug;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

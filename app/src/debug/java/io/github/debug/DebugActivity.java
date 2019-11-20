@@ -1,4 +1,4 @@
-package com.ivan.github.debug;
+package io.github.debug;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -36,6 +36,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     private boolean mReportToLocal;
 
     private static final String TAG = "CrashHandler";
+
     private static String LOG_PATH = GitHub.appComponent().application().getExternalFilesDir(null) + "/crash/";
 
     private CrashHandler() {
