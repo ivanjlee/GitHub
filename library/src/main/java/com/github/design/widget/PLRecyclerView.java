@@ -30,7 +30,7 @@ public class PLRecyclerView extends SwipeRefreshLayout {
     private boolean isCanLoadMore;
 
     public PLRecyclerView(@NonNull Context context) {
-        this(context, (AttributeSet)null);
+        this(context, null);
     }
 
     public PLRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs) {

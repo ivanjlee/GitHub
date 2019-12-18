@@ -7,24 +7,20 @@ package com.ivan.github.core.mvp;
  * @version v0.1
  * @since   v1.0
  */
-public abstract class BasePresenter<View extends BaseView, Model extends BaseModel<? extends BasePresenter>>
-        implements IPresenter {
+public abstract class BasePresenter<V extends IBaseView> implements IPresenter<V> {
 
-    private View mView;
-    private Model mModel;
+    private V mView;
 
-    public BasePresenter(View mView) {
+    public BasePresenter(V mView) {
         this.mView = mView;
-        this.mModel = createModel(this);
     }
 
-    protected abstract Model createModel(BasePresenter presenter);
-
-    protected Model getModel() {
-        return mModel;
+    @Override
+    public void setView(V view) {
+        this.mView = view;
     }
 
-    protected View getView() {
+    protected V getView() {
         return mView;
     }
 }

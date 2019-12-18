@@ -7,7 +7,9 @@ package com.ivan.github.core.mvp;
  * @version v0.1
  * @since   v1.0
  */
-public interface IPresenter {
+public interface IPresenter<V> {
+
+    void setView(V view);
 
     void start();
 

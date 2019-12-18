@@ -1,6 +1,6 @@
 package com.ivan.github.app.events;
 
-import android.support.v4.app.Fragment;
+import com.ivan.github.app.events.mvp.FeedPresenter;
 
 import dagger.Component;
 
@@ -14,5 +14,7 @@ import dagger.Component;
 @Component(modules = {FeedModule.class})
 public interface FeedComponent {
 
-    void inject(Fragment activity);
+    void inject(FeedFragment fragment);
+
+    void inject(FeedPresenter presenter);
 }

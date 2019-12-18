@@ -1,7 +1,9 @@
 package com.ivan.github.app.events;
 
 import com.ivan.github.app.events.mvp.FeedContract;
+import com.ivan.github.app.events.mvp.FeedRepository;
 import com.ivan.github.app.events.mvp.FeedPresenter;
+import com.ivan.github.app.events.mvp.IFeedDataStore;
 
 import dagger.Module;
 import dagger.Provides;
@@ -16,9 +18,27 @@ import dagger.Provides;
 @Module
 public class FeedModule {
 
+    private FeedContract.View mView;
+
+    public FeedModule() {
+    }
+
+    public FeedModule(FeedContract.View mView) {
+        this.mView = mView;
+    }
+
     @Provides
-    public FeedContract.Presenter providePresenter(FeedContract.View view) {
+    public FeedPresenter providePresenter(FeedContract.View view) {
         return new FeedPresenter(view);
     }
 
+    @Provides
+    public FeedContract.View provideFeedView() {
+        return mView;
+    }
+
+    @Provides
+    public IFeedDataStore providerDataStore() {
+        return new FeedRepository();
+    }
 }

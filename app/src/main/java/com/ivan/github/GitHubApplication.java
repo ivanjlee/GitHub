@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.github.utils.L;
 import com.ivan.github.core.perf.CrashHandler;
-import com.ivan.github.core.perf.DefaultCrashReporter;
 import com.ivan.github.core.perf.PerformanceProvider;
 
 /**

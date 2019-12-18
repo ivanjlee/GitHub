@@ -7,5 +7,10 @@ package com.ivan.github.core.mvp;
  * @version v0.1
  * @since   v1.0
  */
-public interface BaseView<Presenter> {
+public interface IBaseView<P> {
+
+    boolean isAlive();
+
+    P createPresenter();
+
 }

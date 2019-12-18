@@ -1,8 +1,7 @@
 package com.ivan.github.app.events.mvp;
 
 import com.ivan.github.app.events.model.Event;
-import com.ivan.github.core.mvp.BaseView;
-import com.ivan.github.core.mvp.IModel;
+import com.ivan.github.core.mvp.IBaseView;
 import com.ivan.github.core.mvp.IPresenter;
 
 import java.util.List;
@@ -18,7 +17,7 @@ public interface FeedContract {
 
     int pageSize = 30;
 
-    interface View extends BaseView<Presenter> {
+    interface View extends IBaseView<Presenter> {
 
         void updateList(List<Event> list);
 
@@ -27,13 +26,9 @@ public interface FeedContract {
         void showErrorPage(String error);
 
         void showEnd();
-
-        void loading(String msg);
-
-        void dismissLoading();
     }
 
-    interface Presenter extends IPresenter {
+    interface Presenter extends IPresenter<View> {
 
         void listUserEvents(int page);
 
@@ -44,10 +39,5 @@ public interface FeedContract {
         void refresh();
 
         void loadMore();
-    }
-
-    interface Model extends IModel {
-
-        void listUserEvents(int page);
     }
 }

@@ -13,6 +13,7 @@ import com.ivan.github.core.net.NetModule;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import dagger.android.AndroidInjector;
 import retrofit2.Retrofit;
 
 /**
@@ -24,7 +25,7 @@ import retrofit2.Retrofit;
  */
 @Singleton
 @Component(modules = {AppModule.class, NetModule.class})
-public interface AppComponent {
+public interface AppComponent extends AndroidInjector<GitHubApplication> {
 
     GitHubApplication application();
 

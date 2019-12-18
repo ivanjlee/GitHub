@@ -11,7 +11,7 @@ import android.util.Log;
 import com.github.utils.L;
 
 /**
- * View utils
+ * ViewI utils
  *
  * @author  lijun on 2018-12-25 23:41.
  * @version v0.1
