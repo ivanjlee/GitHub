@@ -1,8 +1,7 @@
 package com.ivan.github.app.events;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.design.widget.BaseRecyclerViewAdapter;
@@ -15,27 +14,21 @@ import com.ivan.github.app.events.model.Event;
  * @version v0.1
  * @since   v1.0
  */
-public class FeedListAdapter extends BaseRecyclerViewAdapter<FeedListAdapter.FeedViewHolder, Event> {
+public class FeedListAdapter extends BaseRecyclerViewAdapter<FeedViewHolder, Event> {
 
+    public FeedListAdapter(Context context) {
+        super(context);
+    }
 
     @NonNull
     @Override
     public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-
-        return new FeedViewHolder(null);
+        return FeedViewHolderFactory.create(getContext(), viewGroup, getData(i));
     }
 
     @Override
     public void onBindViewHolder(@NonNull FeedViewHolder feedViewHolder, int i, Event event) {
-
-    }
-
-
-    static class FeedViewHolder extends RecyclerView.ViewHolder {
-
-        public FeedViewHolder(@NonNull View itemView) {
-            super(itemView);
-        }
+        feedViewHolder.bindView(event);
     }
 
 }

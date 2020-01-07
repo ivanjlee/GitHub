@@ -4,8 +4,6 @@ import com.ivan.github.account.Account;
 import com.ivan.github.app.events.model.Event;
 import com.ivan.github.core.net.HttpClient;
 
-import java.util.List;
-
 import retrofit2.Call;
 
 /**
@@ -18,8 +16,8 @@ import retrofit2.Call;
 public class FeedRepository implements IFeedDataStore {
 
     @Override
-    public Call<List<Event>> listUserEvents(int page) {
+    public Call<Event[]> listUserEvents(int page) {
         return HttpClient.eventService()
-                .listUserEvents(Account.getInstance().getUser().getName(), page);
+                .listUserEvents(Account.getInstance().getUser().getLogin(), page);
     }
 }

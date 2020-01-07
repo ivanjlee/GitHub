@@ -3,6 +3,7 @@ package com.ivan.github.app.events;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ import javax.inject.Inject;
 public class FeedFragment extends IBaseMvpFragment<FeedContract.Presenter> implements FeedContract.View {
 
     private PLRecyclerView mRecyclerView;
+    private FeedListAdapter mAdapter;
 
     @Inject
     FeedPresenter mPresenter;
@@ -73,6 +75,9 @@ public class FeedFragment extends IBaseMvpFragment<FeedContract.Presenter> imple
 
     private void initView(View rootView) {
         mRecyclerView = rootView.findViewById(R.id.pl_recycler_view);
+        mAdapter = new FeedListAdapter(getContext());
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setLoadListener(new LoadListener() {
             @Override
             public void onRefresh() {
@@ -95,7 +100,9 @@ public class FeedFragment extends IBaseMvpFragment<FeedContract.Presenter> imple
 
     @Override
     public void updateList(List<Event> list) {
-        Snackbar.make(mRecyclerView, "get " + list.size() + " events", Snackbar.LENGTH_LONG).show();
+//        Snackbar.make(mRecyclerView, "get " + list.size() + " events", Snackbar.LENGTH_LONG).show();
+        mAdapter.appendData(list);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

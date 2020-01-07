@@ -35,7 +35,7 @@ public interface EventService {
     Call<List<Event>> listOrgEvents(@Path("org") String org, @Query("page") int page);
 
     @GET("/users/{username}/received_events")
-    Call<List<Event>> listUserEvents(@Path("username") String username, @Query("page") int page);
+    Call<Event[]> listUserEvents(@Path("username") String username, @Query("page") int page);
 
     @GET("/users/{username}/received_events/public")
     Call<List<Event>> listUserEventsPublic(@Path("username") String username, @Query("page") int page);

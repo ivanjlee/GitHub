@@ -13,6 +13,8 @@ import com.google.gson.annotations.SerializedName;
 public class User {
 
     public String login;
+    @SerializedName("display_login")
+    public String displayLogin;
     public int id;
     @SerializedName("node_id")
     public String nodeId;
@@ -74,6 +76,14 @@ public class User {
     @SerializedName("two_factor_authentication")
     public boolean twoFactorAuthentication;
     public Plan plan;
+
+    public String getDisplayLogin() {
+        return displayLogin;
+    }
+
+    public void setDisplayLogin(String displayLogin) {
+        this.displayLogin = displayLogin;
+    }
 
     public void setLogin(String login) {
         this.login = login;

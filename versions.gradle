@@ -9,7 +9,7 @@ ext {
             buildToolsVersion: '28.0.3',
             minSdkVersion    : 19,
             targetSdkVersion : 28,
-            versionCode      : 010000,
+            versionCode      : 0001000,
             versionName      : '0.1.0-alpha',
     ]
 

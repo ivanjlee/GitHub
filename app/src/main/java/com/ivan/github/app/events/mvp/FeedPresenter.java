@@ -10,6 +10,7 @@ import com.ivan.github.core.mvp.BasePresenter;
 import com.ivan.github.core.net.ApiCallback;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -55,17 +56,17 @@ public class FeedPresenter extends BasePresenter<FeedContract.View>
     @Override
     public void listUserEvents(int page) {
         mDataStore.listUserEvents(page)
-        .enqueue(new ApiCallback<List<Event>>() {
-            @Override
-            public void onSuccess(List<Event> response) {
-                getView().updateList(response);
-            }
+                .enqueue(new ApiCallback<Event[]>() {
+                    @Override
+                    public void onSuccess(Event[] response) {
+                        getView().updateList(Arrays.asList(response));
+                    }
 
-            @Override
-            public void onFailure(int code, String msg, Throwable throwable) {
-                getView().showErrorPage(msg);
-            }
-        });
+                    @Override
+                    public void onFailure(int code, String msg, Throwable throwable) {
+                        getView().showErrorPage(msg);
+                    }
+                });
     }
 
     @Override

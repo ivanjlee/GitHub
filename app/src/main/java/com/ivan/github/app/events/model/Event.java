@@ -1,6 +1,11 @@
 package com.ivan.github.app.events.model;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.ivan.github.account.model.User;
+import com.ivan.github.app.events.model.payload.EventTypeAdapter;
+
+import java.util.Date;
 
 /**
  * Events a user received
@@ -9,16 +14,18 @@ import com.google.gson.annotations.SerializedName;
  * @version v0.1
  * @since   v1.0
  */
+@JsonAdapter(EventTypeAdapter.class)
 public class Event {
 
     private String id;
     private String type;
-    private Actor actor;
-    private Repo repo;
+    private User actor;
+    private Repository repo;
     private Payload payload;
     @SerializedName("public")
     private boolean isPublic;
-    private String created_at;
+    @SerializedName("created_at")
+    private Date createdAt;
     private Org org;
 
     public String getId() {
@@ -37,19 +44,19 @@ public class Event {
         this.type = type;
     }
 
-    public Actor getActor() {
+    public User getActor() {
         return actor;
     }
 
-    public void setActor(Actor actor) {
+    public void setActor(User actor) {
         this.actor = actor;
     }
 
-    public Repo getRepo() {
+    public Repository getRepo() {
         return repo;
     }
 
-    public void setRepo(Repo repo) {
+    public void setRepo(Repository repo) {
         this.repo = repo;
     }
 
@@ -69,12 +76,12 @@ public class Event {
         isPublic = aPublic;
     }
 
-    public String getCreated_at() {
-        return created_at;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Org getOrg() {
@@ -85,5 +92,4 @@ public class Event {
         this.org = org;
     }
 }
-
 

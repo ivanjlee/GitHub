@@ -2,8 +2,6 @@ package com.ivan.github.app.events.mvp;
 
 import com.ivan.github.app.events.model.Event;
 
-import java.util.List;
-
 import retrofit2.Call;
 
 /**
@@ -15,6 +13,6 @@ import retrofit2.Call;
  **/
 public interface IFeedDataStore {
 
-    Call<List<Event>> listUserEvents(int page);
+    Call<Event[]> listUserEvents(int page);
 
 }
