@@ -1,11 +1,9 @@
 package com.ivan.github.app.events;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -16,7 +14,7 @@ import com.ivan.github.R;
 import com.ivan.github.app.events.model.Event;
 import com.ivan.github.app.events.mvp.FeedContract;
 import com.ivan.github.app.events.mvp.FeedPresenter;
-import com.ivan.github.core.mvp.IBaseMvpFragment;
+import com.ivan.github.core.mvp.BaseMvpFragment;
 
 import java.util.List;
 
@@ -27,7 +25,7 @@ import javax.inject.Inject;
  *
  * @author Ivan J. Lee
  */
-public class FeedFragment extends IBaseMvpFragment<FeedContract.Presenter> implements FeedContract.View {
+public class FeedFragment extends BaseMvpFragment<FeedContract.Presenter> implements FeedContract.View {
 
     private PLRecyclerView mRecyclerView;
     private FeedListAdapter mAdapter;
@@ -37,16 +35,10 @@ public class FeedFragment extends IBaseMvpFragment<FeedContract.Presenter> imple
     FeedPresenter mPresenter;
 
     public FeedFragment() {
-        // Required empty public constructor
-        createPresenter();
+        // empty public constructor
+        inject();
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment FeedFragment.
-     */
     public static FeedFragment newInstance() {
         FeedFragment fragment = new FeedFragment();
         Bundle args = new Bundle();
@@ -55,17 +47,8 @@ public class FeedFragment extends IBaseMvpFragment<FeedContract.Presenter> imple
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
-        inject();
-        initView(rootView);
-        mPresenter.listUserEvents(0);
-        return rootView;
+    protected int getLayoutId() {
+        return R.layout.fragment_feed;
     }
 
     private void inject() {
@@ -75,7 +58,8 @@ public class FeedFragment extends IBaseMvpFragment<FeedContract.Presenter> imple
                 .inject(this);
     }
 
-    private void initView(View rootView) {
+    @Override
+    protected void initView(View rootView) {
         mRecyclerView = rootView.findViewById(R.id.pl_recycler_view);
         mAdapter = new FeedListAdapter(getContext());
         mTvEmpty = rootView.findViewById(R.id.tv_empty_view);
@@ -93,6 +77,7 @@ public class FeedFragment extends IBaseMvpFragment<FeedContract.Presenter> imple
                 mPresenter.loadMore();
             }
         });
+        mPresenter.listUserEvents(0);
     }
 
     @Override
@@ -105,6 +90,7 @@ public class FeedFragment extends IBaseMvpFragment<FeedContract.Presenter> imple
 
     @Override
     public void updateList(List<Event> list) {
+        showNormalView();
         mRecyclerView.setRefreshing(false);
         mAdapter.appendData(list);
         mAdapter.notifyDataSetChanged();
@@ -118,6 +104,8 @@ public class FeedFragment extends IBaseMvpFragment<FeedContract.Presenter> imple
 
     @Override
     public void showErrorPage(String error) {
+        Snackbar.make(mRecyclerView, error + " events", Snackbar.LENGTH_LONG).show();
+        showErrorView();
         if (mAdapter.getItemCount() > 0) {
             Snackbar.make(mRecyclerView, error + " events", Snackbar.LENGTH_LONG).show();
         } else {
@@ -133,7 +121,7 @@ public class FeedFragment extends IBaseMvpFragment<FeedContract.Presenter> imple
     }
 
     @Override
-    public FeedContract.Presenter createPresenter() {
+    public FeedContract.Presenter getPresenter() {
         return mPresenter;
     }
 }

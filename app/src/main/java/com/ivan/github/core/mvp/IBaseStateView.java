@@ -9,6 +9,8 @@ package com.ivan.github.core.mvp;
  **/
 public interface IBaseStateView<P> extends IBaseView<P> {
 
+    P getPresenter();
+
     void attach(P presenter);
 
     void detach(P presenter);

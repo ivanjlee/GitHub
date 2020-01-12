@@ -47,7 +47,7 @@ public class FeedPresenter extends BasePresenter<FeedContract.View>
 
     @Override
     public void start() {
-        listUserEvents(0);
+
     }
 
     @Override
@@ -57,28 +57,37 @@ public class FeedPresenter extends BasePresenter<FeedContract.View>
 
     @Override
     public void listUserEvents(int page) {
+        getView().showLoading();
         mDataStore.listUserEvents(page)
                 .enqueue(new ApiCallback<Event[]>() {
                     @Override
                     public void onSuccess(Event[] response) {
-                        onGetUserEvents(Arrays.asList(response));
+                        if (getView().isAlive()) {
+                            getView().dismissLoading();
+                            onGetUserEvents(Arrays.asList(response));
+                        }
                     }
 
                     @Override
                     public void onFailure(int code, String msg, Throwable throwable) {
-                        onGetUserEventError(msg);
+                        if (getView().isAlive()) {
+                            getView().dismissLoading();
+                            onGetUserEventError(msg);
+                        }
                     }
                 });
     }
 
-    @Override
-    public void onGetUserEvents(List<Event> list) {
+    private void onGetUserEvents(List<Event> list) {
         if (CollectionUtils.isEmpty(list)) {
             if (mData.isEmpty()) {
                 getView().showEmptyView();
             } else {
                 getView().showEnd();
             }
+        } else if (mData.isEmpty()) {
+            mData.addAll(list);
+            getView().updateList(list);
         } else {
             Event e1 = CollectionUtils.getLast(mData);
             Event e2 = CollectionUtils.getLast(list);
@@ -89,8 +98,7 @@ public class FeedPresenter extends BasePresenter<FeedContract.View>
         }
     }
 
-    @Override
-    public void onGetUserEventError(String msg) {
+    private void onGetUserEventError(String msg) {
         getView().showErrorPage(msg);
     }
 

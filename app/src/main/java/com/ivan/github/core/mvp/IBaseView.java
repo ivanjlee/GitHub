@@ -11,6 +11,4 @@ public interface IBaseView<P> {
 
     boolean isAlive();
 
-    P createPresenter();
-
 }

@@ -102,4 +102,8 @@
     <string name="feed_empty_text">No feeds</string>
     <string name="logout">Logout</string>
 
+    <string name="error">Error</string>
+    <string name="default_error_content">Sorry, there is a problem.</string>
+    <string name="default_empty_content">There is nothing.</string>
+
 </resources>

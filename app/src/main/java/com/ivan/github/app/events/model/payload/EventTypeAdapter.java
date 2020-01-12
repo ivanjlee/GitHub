@@ -79,6 +79,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private <T> void writeField(JsonWriter writer, T t) {
         try {
             GitHub.appComponent().gson().getAdapter((Class<T>)t.getClass()).write(writer, t);
@@ -87,6 +88,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private Payload readByType(JsonReader reader, String type) {
         if (type == null || type.isEmpty()) {
             return null;
