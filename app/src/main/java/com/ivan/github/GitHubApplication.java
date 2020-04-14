@@ -2,6 +2,8 @@ package com.ivan.github;
 
 import android.app.Application;
 
+import com.github.log.Logan;
+import com.github.log.LogcatFactory;
 import com.github.utils.L;
 import com.ivan.github.core.perf.CrashHandler;
 import com.ivan.github.core.perf.PerformanceProvider;
@@ -20,8 +22,15 @@ public class GitHubApplication extends Application {
     public void onCreate() {
         super.onCreate();
         GitHub.init(this);
-        L.setDebugLog(BuildConfig.DEBUG, L.VERBOSE);
+        initLog();
         initCrashHandler();
+    }
+
+    private void initLog() {
+        L.setDebugLog(BuildConfig.DEBUG, L.VERBOSE);
+        if (BuildConfig.DEBUG) {
+            Logan.init(new LogcatFactory());
+        }
     }
 
     private void initCrashHandler() {

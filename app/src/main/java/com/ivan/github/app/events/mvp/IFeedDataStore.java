@@ -7,7 +7,7 @@ import retrofit2.Call;
 /**
  * com.ivan.github.app.events.mvp.IFeedDataStore
  *
- * @author  lijun on 2019-12-18
+ * @author  Ivan on 2019-12-18
  * @version v0.1
  * @since   v1.0
  **/

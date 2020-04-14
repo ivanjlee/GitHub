@@ -16,6 +16,7 @@ import org.json.JSONObject;
  * @since       v1.0
  */
 
+@Deprecated
 public class L {
 
     private static final String DEFAULT_TAG = BuildConfig.APPLICATION_ID;
@@ -28,7 +29,6 @@ public class L {
     public static final int ASSERT  = 7;
 
     private L() {
-
     }
 
     private static boolean sLogVerboseEnable = false;
