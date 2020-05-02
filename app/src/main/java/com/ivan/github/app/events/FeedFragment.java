@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.github.design.widget.LoadListener;
 import com.github.design.widget.PLRecyclerView;
@@ -30,6 +31,7 @@ public class FeedFragment extends IBaseMvpFragment<FeedContract.Presenter> imple
 
     private PLRecyclerView mRecyclerView;
     private FeedListAdapter mAdapter;
+    private TextView mTvEmpty;
 
     @Inject
     FeedPresenter mPresenter;
@@ -76,6 +78,7 @@ public class FeedFragment extends IBaseMvpFragment<FeedContract.Presenter> imple
     private void initView(View rootView) {
         mRecyclerView = rootView.findViewById(R.id.pl_recycler_view);
         mAdapter = new FeedListAdapter(getContext());
+        mTvEmpty = rootView.findViewById(R.id.tv_empty_view);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setLoadListener(new LoadListener() {
@@ -100,24 +103,31 @@ public class FeedFragment extends IBaseMvpFragment<FeedContract.Presenter> imple
 
     @Override
     public void updateList(List<Event> list) {
-//        Snackbar.make(mRecyclerView, "get " + list.size() + " events", Snackbar.LENGTH_LONG).show();
+        mRecyclerView.setRefreshing(false);
         mAdapter.appendData(list);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showEmptyView() {
-
+        mTvEmpty.setText(R.string.feed_empty_text);
+        mTvEmpty.setVisibility(View.GONE);
     }
 
     @Override
     public void showErrorPage(String error) {
-        Snackbar.make(mRecyclerView, error + " events", Snackbar.LENGTH_LONG).show();
+        if (mAdapter.getItemCount() > 0) {
+            Snackbar.make(mRecyclerView, error + " events", Snackbar.LENGTH_LONG).show();
+        } else {
+            mTvEmpty.setText(error);
+            mTvEmpty.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override
     public void showEnd() {
-
+        mRecyclerView.setRefreshing(false);
     }
 
     @Override

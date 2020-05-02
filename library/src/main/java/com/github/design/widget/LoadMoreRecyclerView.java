@@ -15,10 +15,10 @@ import android.util.AttributeSet;
  */
 public class LoadMoreRecyclerView extends RecyclerView {
 
-    private final int STATE_NONE = 0x00;
-    private final int STATE_LOADING = 0x01;
-    private final int STATE_FAILURE = 0x02;
-    private final int STATE_COMPLETE = 0x03;
+    private static final int STATE_NONE = 0x00;
+    private static final int STATE_LOADING = 0x01;
+    private static final int STATE_FAILURE = 0x02;
+    private static final int STATE_COMPLETE = 0x03;
 
     private static final int VISIBLE_THRESHOLD = 1;
 

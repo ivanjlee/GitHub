@@ -1,5 +1,6 @@
 package com.ivan.github.app.events.model.payload;
 
+import com.github.log.Logan;
 import com.github.utils.L;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
@@ -23,13 +24,15 @@ import java.util.Date;
  **/
 public class EventTypeAdapter extends TypeAdapter<Event> {
 
+    private static final String TAG = "EventTypeAdapter";
+
     @Override
     public void write(JsonWriter out, Event value) throws IOException {
         out.beginObject();
         out.value(value.getId());
         out.value(value.getType());
         writeField(out, value.getActor());
-//        writeField(out, value.getPayload());
+        writeField(out, value.getPayload());
         out.value(value.isPublic());
         writeField(out, value.getCreatedAt());
         writeField(out, value.getOrg());
@@ -80,7 +83,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
         try {
             GitHub.appComponent().gson().getAdapter((Class<T>)t.getClass()).write(writer, t);
         } catch (IOException e) {
-            e.printStackTrace();
+            Logan.e(TAG, "", e);
         }
     }
 
@@ -91,7 +94,7 @@ public class EventTypeAdapter extends TypeAdapter<Event> {
             Class<? extends Payload> clazz = (Class<? extends Payload>) PayloadFactory.getClass(type);
             if (clazz == null) {
                 try {
-                    reader.nextNull();
+                    reader.skipValue();
                 } catch (IOException e) {
                     L.e(e);
                 }

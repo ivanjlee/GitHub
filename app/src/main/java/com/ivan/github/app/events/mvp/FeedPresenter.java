@@ -2,6 +2,7 @@ package com.ivan.github.app.events.mvp;
 
 import android.text.TextUtils;
 
+import com.github.log.Logan;
 import com.github.utils.CollectionUtils;
 import com.ivan.github.app.events.DaggerFeedComponent;
 import com.ivan.github.app.events.FeedModule;
@@ -24,6 +25,8 @@ import javax.inject.Inject;
  */
 public class FeedPresenter extends BasePresenter<FeedContract.View>
         implements FeedContract.Presenter {
+
+    private static final String TAG = "FeedPresenter";
 
     @Inject
     IFeedDataStore mDataStore;
@@ -49,9 +52,8 @@ public class FeedPresenter extends BasePresenter<FeedContract.View>
 
     @Override
     public void stop() {
-
+        Logan.d(TAG, "stop presenter");
     }
-
 
     @Override
     public void listUserEvents(int page) {
@@ -59,12 +61,12 @@ public class FeedPresenter extends BasePresenter<FeedContract.View>
                 .enqueue(new ApiCallback<Event[]>() {
                     @Override
                     public void onSuccess(Event[] response) {
-                        getView().updateList(Arrays.asList(response));
+                        onGetUserEvents(Arrays.asList(response));
                     }
 
                     @Override
                     public void onFailure(int code, String msg, Throwable throwable) {
-                        getView().showErrorPage(msg);
+                        onGetUserEventError(msg);
                     }
                 });
     }
@@ -95,14 +97,14 @@ public class FeedPresenter extends BasePresenter<FeedContract.View>
     @Override
     public void refresh() {
         mData.clear();
-        mDataStore.listUserEvents(0);
+        listUserEvents(0);
     }
 
     @Override
     public void loadMore() {
         int index = mData.size() / FeedContract.pageSize;
         if (mData.size() % FeedContract.pageSize == 0) { //not the last page
-            mDataStore.listUserEvents(index);
+            listUserEvents(index);
         }
     }
 
