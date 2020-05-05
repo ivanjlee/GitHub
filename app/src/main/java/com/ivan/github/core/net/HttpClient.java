@@ -1,8 +1,10 @@
 package com.ivan.github.core.net;
 
 import com.ivan.github.GitHub;
-import com.ivan.github.api.EventService;
 import com.ivan.github.api.GitHubService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * tools to make requests
@@ -13,11 +15,18 @@ import com.ivan.github.api.GitHubService;
  */
 public class HttpClient {
 
+    private static Map<Class<?>, Object> sRetrofits = new HashMap<>();
+
     public static GitHubService gitHubService() {
         return GitHub.appComponent().githubService();
     }
 
-    public static EventService eventService() {
-        return GitHub.appComponent().eventService();
+    public static <S> S service(Class<S> clazz) {
+        Object retrofit = sRetrofits.getOrDefault(clazz, null);
+        if (retrofit == null) {
+            retrofit = GitHub.appComponent().retrofit().create(clazz);
+            sRetrofits.put(clazz, retrofit);
+        }
+        return (S) retrofit;
     }
 }

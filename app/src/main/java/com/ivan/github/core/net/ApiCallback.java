@@ -2,7 +2,7 @@ package com.ivan.github.core.net;
 
 import android.support.annotation.NonNull;
 
-import com.github.utils.L;
+import com.github.log.Logan;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,6 +18,8 @@ import retrofit2.Response;
  */
 public abstract class ApiCallback<T> implements Callback<T> {
 
+    public static final String TAG = "ApiCallback";
+
     public static final int ERROR_CODE_UNKNOWN = -1;
 
     @Override
@@ -31,7 +33,7 @@ public abstract class ApiCallback<T> implements Callback<T> {
 
     @Override
     public void onFailure(@NonNull Call<T> call, @NonNull Throwable t) {
-        L.e(t);
+        Logan.e(TAG, "request error: ", t);
         if (t instanceof HttpException) {
             this.onFailure(((HttpException) t).code(), t.getLocalizedMessage(), t);
         } else {

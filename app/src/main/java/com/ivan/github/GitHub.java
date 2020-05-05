@@ -16,20 +16,13 @@ import com.ivan.github.core.net.NetModule;
 public final class GitHub {
 
     private static GitHub mGitHub;
-    private static AppComponent mDaggerAppComponent;
+    private static volatile AppComponent sDaggerAppComponent;
 
     private GitHub() {
         throw new IllegalArgumentException("not allowed");
     }
 
-    private GitHub(GitHubApplication application) {
-        mDaggerAppComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(application))
-                .netModule(new NetModule(NetConfig.defaultConfig()))
-                .build();
-    }
-
-    private static GitHub get(GitHubApplication application) {
+    private static GitHub getInstance(GitHubApplication application) {
         if (mGitHub == null) {
             synchronized (GitHub.class) {
                 if (mGitHub == null) {
@@ -40,12 +33,19 @@ public final class GitHub {
         return mGitHub;
     }
 
+    private GitHub(GitHubApplication application) {
+        sDaggerAppComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(application))
+                .netModule(new NetModule(NetConfig.defaultConfig()))
+                .build();
+    }
+
     static void init(GitHubApplication application) {
-        get(application);
+        getInstance(application);
 
     }
 
     public static AppComponent appComponent() {
-        return mDaggerAppComponent;
+        return sDaggerAppComponent;
     }
 }

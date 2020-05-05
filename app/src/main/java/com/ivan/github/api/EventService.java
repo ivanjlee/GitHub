@@ -18,7 +18,6 @@ import retrofit2.http.Query;
  */
 public interface EventService {
 
-
     @GET("/events")
     Call<List<Event>> getEvents();
 

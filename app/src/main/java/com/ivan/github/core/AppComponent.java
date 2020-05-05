@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import com.github.utils.SecureSharedPreference;
 import com.google.gson.Gson;
 import com.ivan.github.GitHubApplication;
-import com.ivan.github.api.EventService;
 import com.ivan.github.api.GitHubService;
 import com.ivan.github.core.net.NetModule;
 
@@ -38,8 +37,6 @@ public interface AppComponent extends AndroidInjector<GitHubApplication> {
     Gson gson();
 
     GitHubService githubService();
-
-    EventService eventService();
 
     SecureSharedPreference secureSharedPreference();
 
