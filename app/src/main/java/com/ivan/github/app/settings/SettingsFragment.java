@@ -15,8 +15,6 @@ import com.ivan.github.account.Account;
 import com.ivan.github.app.AppSettings;
 import com.ivan.github.app.BaseFragment;
 import com.ivan.github.app.login.LoginActivity;
-import com.ivan.github.app.login.SplashActivity;
-import com.ivan.github.app.main.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.

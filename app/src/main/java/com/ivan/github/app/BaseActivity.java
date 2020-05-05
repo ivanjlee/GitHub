@@ -6,13 +6,17 @@ import android.support.annotation.AnimRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
+
+import com.ivan.github.R;
 
 /**
  * BaseActivity
@@ -38,7 +42,8 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void onPreCreateView() {}
 
-    protected void onPostCreateView() {}
+    protected void onPostCreateView() {
+    }
 
     private void setContentViewInternal() {
         int contentId = getContentView();
@@ -59,6 +64,11 @@ public class BaseActivity extends AppCompatActivity {
             actionBar.setHomeButtonEnabled(true);
         }
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        AppBarLayout appBarLayout = findViewById(R.id.appbar_layout);
+        if (appBarLayout != null) {
+            appBarLayout.setStateListAnimator(null);
+            ViewCompat.setElevation(appBarLayout, 8);
+        }
     }
 
     protected void initToolbar(@IdRes int id) {
