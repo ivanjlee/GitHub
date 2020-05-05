@@ -1,6 +1,7 @@
 package com.github.utils;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * collection tools
@@ -17,7 +18,7 @@ public final class CollectionUtils {
      * @param collection collection
      * @return 0 if the collection is empty
      */
-    public static boolean isEmpty(Collection collection) {
+    public static <E> boolean isEmpty(Collection<E> collection) {
         return collection == null || collection.isEmpty();
     }
 
@@ -26,8 +27,34 @@ public final class CollectionUtils {
      * @param collection collection
      * @return 0 if collection is empty
      */
-    public static int size(Collection collection) {
+    public static <E> int size(Collection<E> collection) {
         return isEmpty(collection) ? 0 : collection.size();
+    }
+
+    /**
+     * get the last element of a list
+     * @param collection collection
+     * @return last element
+     */
+    public static <E> E getLast(List<E> collection) {
+        if (collection == null || collection.isEmpty()) {
+            return null;
+        } else {
+            return collection.get(collection.size() -1);
+        }
+    }
+
+    /**
+     * get the first element of a list
+     * @param collection collection
+     * @return the first element
+     */
+    public static <E> E getFirst(List<E> collection) {
+        if (collection == null || collection.isEmpty()) {
+            return null;
+        } else {
+            return collection.get(0);
+        }
     }
 
 }

@@ -80,9 +80,9 @@ public class FeedPresenter extends BasePresenter<FeedContract.View>
                 getView().showEnd();
             }
         } else {
-            Event e1 = mData.get(mData.size() - 1);
-            Event e2 = list.get(mData.size() - 1);
-            if (!TextUtils.equals(e1.getId(), e2.getId())) {
+            Event e1 = CollectionUtils.getLast(mData);
+            Event e2 = CollectionUtils.getLast(list);
+            if (e1 == null || e2 == null || !TextUtils.equals(e1.getId(), e2.getId())) {
                 mData.addAll(list);
                 getView().updateList(list);
             }

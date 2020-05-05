@@ -30,6 +30,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.CustomViewTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.github.log.Logan;
 import com.ivan.github.R;
 import com.ivan.github.account.Account;
 import com.ivan.github.account.model.User;
@@ -96,7 +97,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
                         @Override
                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                            Bitmap bitmap = BitmapUtils.renderScriptBlur(MainActivity.this, resource, 5, 1/64f);
+                            Bitmap bitmap;
+                            try {
+                                bitmap = BitmapUtils.renderScriptBlur(MainActivity.this, resource, 5, 1/64f);
+                            } catch (Exception exception) {
+                                Logan.e(TAG, "failed to blur image", exception);
+                                return;
+                            }
+
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                                 mProfileBackground.setBackground(new BitmapDrawable(getResources(), bitmap));
                             } else {
