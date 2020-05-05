@@ -43,6 +43,7 @@
 
     <!--UI-->
     <color name="gray_border">#CFD6DB</color>
+    <color name="half_gray_border">#CFD6DB</color>
     <color name="dark_red_error">#710D17</color>
     <color name="light_red_error">#FFD2D8</color>
 

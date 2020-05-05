@@ -65,4 +65,15 @@ public class Account {
             mAuthorization = GitHub.appComponent().secureSharedPreference().getString(AUTH_KEY, "");
         }
     }
+
+    public void logout() {
+        mUser = null;
+        mAuthorization = null;
+        GitHub.appComponent()
+                .secureSharedPreference()
+                .edit()
+                .putString(USER_DETAIL, null)
+                .putString(AUTH_KEY, null)
+                .commit();
+    }
 }

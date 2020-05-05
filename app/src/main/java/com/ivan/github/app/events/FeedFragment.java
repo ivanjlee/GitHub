@@ -98,7 +98,9 @@ public class FeedFragment extends IBaseMvpFragment<FeedContract.Presenter> imple
     @Override
     public void onDetach() {
         super.onDetach();
-        mPresenter.stop();
+        if (mPresenter != null) {
+            mPresenter.stop();
+        }
     }
 
     @Override

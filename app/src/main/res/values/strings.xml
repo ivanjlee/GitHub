@@ -8,7 +8,7 @@
 
     <!--Landing-->
     <string name="slogan">How people build software</string>
-    <string name="copy_right">© 2016 GitHub, Inc. </string>
+    <string name="copy_right">© 2020 GitHub, Inc. </string>
 
     <!--Splash-->
     <string name="sign_in">Sign in</string>
@@ -100,5 +100,6 @@
     <string name="feed_delete_tag">delete a tag</string>
     <string name="feed_delete">delete</string>
     <string name="feed_empty_text">No feeds</string>
+    <string name="logout">Logout</string>
 
 </resources>

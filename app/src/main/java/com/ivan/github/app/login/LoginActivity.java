@@ -247,7 +247,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
             String email = emailAddressCollection.get(0);
             mTVUsername.setText(email);
             mTVUsername.setSelection(mTVUsername.getText().length());
-            mTVPassword.setText(LoginSettings.getSavedPassword(email));
+            mTVPassword.setText("");
             mTVPassword.requestFocus();
         }
     }
