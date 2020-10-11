@@ -1,6 +1,6 @@
 package com.github.design.widget;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Load more and refresh listener

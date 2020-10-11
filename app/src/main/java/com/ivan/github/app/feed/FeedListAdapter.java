@@ -1,7 +1,7 @@
 package com.ivan.github.app.feed;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.ViewGroup;
 
 import com.github.design.widget.BaseRecyclerViewAdapter;

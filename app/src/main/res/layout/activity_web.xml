@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context="com.ivan.github.web.WebActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         style="@style/ToolbarStyle"
         app:navigationIcon="@drawable/ic_close_black" />

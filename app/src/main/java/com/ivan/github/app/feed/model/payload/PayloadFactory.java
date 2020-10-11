@@ -1,6 +1,6 @@
 package com.ivan.github.app.feed.model.payload;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.github.utils.L;
 

@@ -1,6 +1,6 @@
 package com.ivan.github.core.net;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.github.log.Logan;
 
