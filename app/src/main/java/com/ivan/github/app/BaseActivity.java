@@ -1,8 +1,10 @@
 package com.ivan.github.app;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.AnimRes;
+import androidx.annotation.ColorRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
@@ -15,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.ivan.github.R;
 
@@ -65,9 +68,16 @@ public class BaseActivity extends AppCompatActivity {
         }
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
         AppBarLayout appBarLayout = findViewById(R.id.appbar_layout);
-        if (appBarLayout != null) {
+        if (appBarLayout != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             appBarLayout.setStateListAnimator(null);
             ViewCompat.setElevation(appBarLayout, 8);
+        }
+    }
+
+    protected void setNavigationBarColor(@ColorRes int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(getResources().getColor(color));
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         }
     }
 

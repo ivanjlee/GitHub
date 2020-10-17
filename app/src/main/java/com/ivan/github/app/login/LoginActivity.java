@@ -112,7 +112,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         });
 
         mBtnSignIn = findViewById(R.id.btn_sign_in);
-        mBtnSignIn.setOnClickListener(view -> attemptLogin());
+        mBtnSignIn.setOnClickListener(view -> login());
         if (BuildConfig.DEBUG) {
             initDebug();
         }
@@ -157,6 +157,14 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     private void setupActionBar() {
         mToolbar = findViewById(R.id.toolbar);
         initToolbar(mToolbar);
+    }
+
+    private void login() {
+        String url = "https://github.com/login/oauth/authorize?" +
+                "redirect_uri=github:io.github/oauth&" +
+                "client_id=baa9425d7241129ce354&" +
+                "scope=user+repo+notifications+admin:org+read:discussion+user:assets";
+        WebActivity.start(this, url, "login");
     }
 
     /**

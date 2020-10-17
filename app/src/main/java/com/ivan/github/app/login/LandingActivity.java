@@ -2,11 +2,13 @@ package com.ivan.github.app.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.viewpager.widget.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import com.github.design.widget.CirclePagerIndicator;
 import com.ivan.github.R;
@@ -79,7 +81,10 @@ public class LandingActivity extends BaseActivity {
     }
 
     public void signIn(View view) {
-        startActivityForResult(new Intent(LandingActivity.this, LoginActivity.class), LoginConsts.REQUEST_CODE_LOGIN);
+        Intent intent = new Intent(this, OAuthActivity.class);
+        ActivityOptionsCompat activityOptions= ActivityOptionsCompat.makeSceneTransitionAnimation(this);
+        startActivityForResult(intent, LoginConsts.REQUEST_CODE_OAUTH);
+//        startActivityForResult(new Intent(LandingActivity.this, LoginActivity.class), LoginConsts.REQUEST_CODE_LOGIN);
     }
 
     public void signUp(View view) {
@@ -93,8 +98,10 @@ public class LandingActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == LoginConsts.REQUEST_CODE_LOGIN &&  resultCode == LoginConsts.RESULT_CODE_FINISH) {
+        if (requestCode == LoginConsts.REQUEST_CODE_LOGIN && resultCode == LoginConsts.RESULT_CODE_FINISH) {
             this.finish();
+        } else if (requestCode == LoginConsts.REQUEST_CODE_OAUTH && resultCode == LoginConsts.RESULT_CODE_OAUTH_SUCCESS) {
+
         }
     }
 }

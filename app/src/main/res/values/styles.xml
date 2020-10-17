@@ -18,6 +18,17 @@
         <item name="android:windowExitAnimation">@anim/no_anim</item>
     </style>
 
+    <style name="AppAnimation.Activity.Popup" parent="@android:style/Animation.Activity">
+        <!--Window Animation-->
+        <item name="android:windowEnterAnimation">@anim/popup_in</item>
+        <item name="android:windowExitAnimation">@anim/popup_out</item>
+        <!--Activity Animation-->
+        <item name="android:activityOpenEnterAnimation">@anim/popup_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/no_anim</item>
+        <item name="android:activityCloseEnterAnimation">@anim/no_anim</item>
+        <item name="android:activityCloseExitAnimation">@anim/popup_out</item>
+    </style>
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="ActionButtonOverflowStyle" parent="@android:style/Widget.ActionButton.Overflow">

@@ -122,7 +122,7 @@ public class WebActivity extends BaseActivity {
         }
     }
 
-    private class GHWebViewClient extends BaseWebViewClient {
+    private static class GHWebViewClient extends BaseWebViewClient {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {

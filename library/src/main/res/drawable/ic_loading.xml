@@ -2,7 +2,7 @@
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:duration="50">
+        android:duration="100">
         <layer-list>
             <item
                 android:bottom="10dp"
@@ -15,7 +15,7 @@
     </item>
 
     <item
-        android:duration="50">
+        android:duration="100">
         <layer-list>
             <item
                 android:bottom="10dp"
@@ -28,7 +28,7 @@
     </item>
 
     <item
-        android:duration="50">
+        android:duration="100">
         <layer-list>
             <item
                 android:bottom="10dp"
@@ -41,7 +41,7 @@
     </item>
 
     <item
-        android:duration="50">
+        android:duration="100">
         <layer-list>
             <item
                 android:bottom="10dp"
@@ -54,7 +54,7 @@
     </item>
 
     <item
-        android:duration="50">
+        android:duration="100">
         <layer-list>
             <item
                 android:bottom="10dp"
@@ -67,7 +67,7 @@
     </item>
 
     <item
-        android:duration="50">
+        android:duration="100">
         <layer-list>
             <item
                 android:bottom="10dp"
@@ -80,7 +80,7 @@
     </item>
 
     <item
-        android:duration="50">
+        android:duration="100">
         <layer-list>
             <item
                 android:bottom="10dp"
@@ -93,7 +93,7 @@
     </item>
 
     <item
-        android:duration="50">
+        android:duration="100">
         <layer-list>
             <item
                 android:bottom="10dp"
