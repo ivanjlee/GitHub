@@ -42,7 +42,7 @@ public final class ExceptionUtils {
         stringBuilder.append("time: ").append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(System.currentTimeMillis()))
                 .append("version code: ").append(BuildConfig.VERSION_CODE).append('\n')
                 .append("version name: ").append(BuildConfig.VERSION_NAME).append('\n')
-                .append("flavor: ").append(BuildConfig.FLAVOR).append('\n')
+                .append("flavor: ").append(BuildConfig.BUILD_TYPE).append('\n')
                 .append("os version: ").append(Build.VERSION.SDK_INT).append('\n')
                 .append("vendor: ").append(Build.MODEL).append('\n')
                 .append("brand: ").append(Build.BRAND).append('\n')

@@ -35,7 +35,7 @@ import com.ivan.github.R;
 import com.ivan.github.account.Account;
 import com.ivan.github.account.model.User;
 import com.ivan.github.app.BaseActivity;
-import com.ivan.github.app.events.FeedFragment;
+import com.ivan.github.app.feed.FeedFragment;
 import com.ivan.github.app.login.SplashActivity;
 import com.ivan.github.app.notification.NotificationFragment;
 import com.ivan.github.app.settings.SettingsFragment;

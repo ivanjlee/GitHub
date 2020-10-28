@@ -1,6 +1,6 @@
 package com.ivan.github.api;
 
-import com.ivan.github.app.events.model.Event;
+import com.ivan.github.app.feed.model.Event;
 
 import java.util.List;
 

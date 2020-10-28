@@ -19,7 +19,7 @@ import org.json.JSONObject;
 @Deprecated
 public class L {
 
-    private static final String DEFAULT_TAG = BuildConfig.APPLICATION_ID;
+    private static final String DEFAULT_TAG = BuildConfig.LIBRARY_PACKAGE_NAME;
 
     public static final int VERBOSE = 2;
     public static final int DEBUG   = 3;
