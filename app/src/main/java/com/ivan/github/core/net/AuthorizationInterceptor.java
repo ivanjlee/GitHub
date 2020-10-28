@@ -25,10 +25,13 @@ public class AuthorizationInterceptor implements Interceptor {
     public Response intercept(@NonNull Chain chain) throws IOException {
         Request request = chain.request();
         String auth = Account.getInstance().getAuthorization();
+        if (TextUtils.isEmpty(auth)) {
+            auth = Account.getInstance().getAuthorization();
+        }
         String authorization = request.header("Authorization");
         if (!TextUtils.isEmpty(auth) && TextUtils.isEmpty(authorization)) {
             request = request.newBuilder()
-                    .addHeader("Authorization", auth)
+                    .addHeader("Authorization", "token " + auth)
                     .build();
         }
         return chain.proceed(request);

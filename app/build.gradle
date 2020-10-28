@@ -91,7 +91,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$versions.ok_logging"
     implementation "com.squareup.retrofit2:converter-gson:$versions.converter_gson"
     implementation "io.reactivex.rxjava3:rxjava:$versions.rxjava3"
-
+    implementation "io.reactivex.rxjava3:rxandroid:$versions.rxandroid"
     implementation "com.github.bumptech.glide:glide:$versions.glide"
     annotationProcessor "com.github.bumptech.glide:compiler:$versions.glide"
 

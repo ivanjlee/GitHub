@@ -78,6 +78,7 @@
     <string name="github_privacy_statement">GitHub Privacy Statement</string>
     <string name="github_security">GitHub Security</string>
     <string name="get_help_with_github">Get help with GitHub</string>
+    <string name="tap_to_retry">Tap to Retry.</string>
 
     <string name="test">test</string>
     <string name="test1">test!#$!</string>

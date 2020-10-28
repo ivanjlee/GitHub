@@ -18,8 +18,13 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.ivan.github.R;
+
+import io.reactivex.rxjava3.core.Scheduler;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 /**
  * BaseActivity
@@ -29,6 +34,8 @@ import com.ivan.github.R;
 public class BaseActivity extends AppCompatActivity {
 
     protected static final String TAG = BaseActivity.class.getName();
+
+    private CompositeDisposable mDisposables;
 
     protected void startActivity(Intent intent, @AnimRes int enterAnim, @AnimRes int exitAnim) {
         ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeCustomAnimation(this, enterAnim, exitAnim);
@@ -41,6 +48,12 @@ public class BaseActivity extends AppCompatActivity {
         onPreCreateView();
         setContentViewInternal();
         onPostCreateView();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        clearDisposables();
     }
 
     protected void onPreCreateView() {}
@@ -106,4 +119,23 @@ public class BaseActivity extends AppCompatActivity {
     public void onMenuPressed() {}
 
     public void onHomePressed() {}
+
+    protected void addDisposable(Disposable disposable) {
+        if (mDisposables == null) {
+            mDisposables = new CompositeDisposable();
+        }
+        mDisposables.add(disposable);
+    }
+
+    private void clearDisposables() {
+        if (mDisposables != null) {
+            mDisposables.clear();
+        }
+    }
+
+    protected void showToast(String msg) {
+        if (msg != null) {
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        }
+    }
 }

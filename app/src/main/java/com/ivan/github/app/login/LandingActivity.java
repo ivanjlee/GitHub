@@ -27,16 +27,9 @@ public class LandingActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-
-        ViewGroup contentView = findViewById(android.R.id.content);
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        int statusBarHeight = getResources().getDimensionPixelSize(resourceId);
-        contentView.setPadding(0, statusBarHeight, 0, 0);
-        contentView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
+        setNavigationBarColor(R.color.colorPrimaryDark);
         initView();
     }
 
@@ -84,7 +77,6 @@ public class LandingActivity extends BaseActivity {
         Intent intent = new Intent(this, OAuthActivity.class);
         ActivityOptionsCompat activityOptions= ActivityOptionsCompat.makeSceneTransitionAnimation(this);
         startActivityForResult(intent, LoginConsts.REQUEST_CODE_OAUTH);
-//        startActivityForResult(new Intent(LandingActivity.this, LoginActivity.class), LoginConsts.REQUEST_CODE_LOGIN);
     }
 
     public void signUp(View view) {
@@ -101,7 +93,7 @@ public class LandingActivity extends BaseActivity {
         if (requestCode == LoginConsts.REQUEST_CODE_LOGIN && resultCode == LoginConsts.RESULT_CODE_FINISH) {
             this.finish();
         } else if (requestCode == LoginConsts.REQUEST_CODE_OAUTH && resultCode == LoginConsts.RESULT_CODE_OAUTH_SUCCESS) {
-
+            this.finish();
         }
     }
 }

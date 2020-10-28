@@ -3,7 +3,7 @@ package com.ivan.github.core.net;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.ivan.github.api.GitHubService;
+import com.ivan.github.api.OAuthService;
 
 import java.util.concurrent.TimeUnit;
 
@@ -37,17 +37,15 @@ public class NetModule {
         this.mNetConfig = mNetConfig;
     }
 
-    @SuppressWarnings("UnnecessaryLocalVariable")
     @Provides
     @Singleton
     Retrofit provideRetrofit() {
-        Retrofit retrofit = new Retrofit.Builder()
+        return new Retrofit.Builder()
                 .baseUrl(mNetConfig.getUrl())
                 .client(provideOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create(provideGson()))
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.createAsync())
                 .build();
-        return retrofit;
     }
 
     @Provides
@@ -72,7 +70,7 @@ public class NetModule {
 
     @Provides
     @Singleton
-    GitHubService provideGitHubService() {
-        return provideRetrofit().create(GitHubService.class);
+    OAuthService provideGitHubService() {
+        return provideRetrofit().create(OAuthService.class);
     }
 }

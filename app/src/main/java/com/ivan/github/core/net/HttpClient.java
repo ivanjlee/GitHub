@@ -1,7 +1,7 @@
 package com.ivan.github.core.net;
 
 import com.ivan.github.GitHub;
-import com.ivan.github.api.GitHubService;
+import com.ivan.github.api.OAuthService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +17,7 @@ public class HttpClient {
 
     private static Map<Class<?>, Object> sRetrofits = new HashMap<>();
 
-    public static GitHubService gitHubService() {
+    public static OAuthService gitHubService() {
         return GitHub.appComponent().githubService();
     }
 

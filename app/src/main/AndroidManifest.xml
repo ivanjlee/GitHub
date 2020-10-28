@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".app.login.OAuthActivity"
-            android:theme="@style/AppTheme.Popup"/>
+            android:windowSoftInputMode="adjustResize"
+            android:label="@string/title_activity_login"/>
         <activity android:name=".app.login.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

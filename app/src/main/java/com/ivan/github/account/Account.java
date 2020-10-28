@@ -40,6 +40,11 @@ public class Account {
         GitHub.appComponent().secureSharedPreference().edit().putString(AUTH_KEY, auth).apply();
     }
 
+    public void updateAuth(String auth) {
+        this.mAuthorization = auth;
+        GitHub.appComponent().secureSharedPreference().edit().putString(AUTH_KEY, auth).apply();
+    }
+
     public User getUser() {
         return mUser;
     }

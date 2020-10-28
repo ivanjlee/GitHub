@@ -20,7 +20,7 @@ import com.github.log.Logan;
 
 public class BaseWebViewClient extends WebViewClient {
 
-    private static final String TAG = "WebView";
+    private static final String TAG = "BaseWebViewClient";
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override

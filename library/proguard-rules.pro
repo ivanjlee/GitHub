@@ -25,11 +25,13 @@
 -keep public class * extends android.content.ContentProvider
 -keep public class * extends android.app.backup.BackupAgentHelper
 -keep public class * extends android.preference.Preference
--keep public class * extends android.support.v4.**
--keep public class * {
-    public protected *;
-    public interface *;
-}
 
--keep class L
--keep class Utils
+-keep class com.github.utils.*
+
+-keep @com.github.annotations.NoProguard class * {*;}
+-keep class * {
+    @com.github.annotations.NoProguard <fields>;
+}
+-keepclassmembers class * {
+    @com.github.annotations.NoProguard <methods>;
+}
