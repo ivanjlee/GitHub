@@ -22,30 +22,30 @@ public @interface LogLevel {
     /**
      * Priority constant for the println method; use Log.v.
      */
-    static final int VERBOSE = 2;
+    int VERBOSE = 2;
 
     /**
      * Priority constant for the println method; use Log.d.
      */
-    static final int DEBUG = 3;
+    int DEBUG = 3;
 
     /**
      * Priority constant for the println method; use Log.i.
      */
-    static final int INFO = 4;
+    int INFO = 4;
 
     /**
      * Priority constant for the println method; use Log.w.
      */
-    static final int WARN = 5;
+    int WARN = 5;
 
     /**
      * Priority constant for the println method; use Log.e.
      */
-    static final int ERROR = 6;
+    int ERROR = 6;
 
     /**
      * Priority constant for the println method.
      */
-    static final int ASSERT = 7;
+    int ASSERT = 7;
 }

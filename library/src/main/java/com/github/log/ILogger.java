@@ -11,5 +11,5 @@ public interface ILogger {
 
     void log(int level, String tag, String msg, Throwable throwable);
 
-    public boolean isLoggable(String tag, int level);
+    boolean isLoggable(String tag, int level);
 }

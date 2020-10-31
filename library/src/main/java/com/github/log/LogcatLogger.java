@@ -2,13 +2,13 @@ package com.github.log;
 
 import android.util.Log;
 /**
- * LogcarLogger
+ * LogcatLogger
  *
  * @author  Ivan on 2020-04-15
  * @version v1.0
  * @since   v1.0
  */
-public class LogcarLogger implements ILogger {
+public class LogcatLogger implements ILogger {
 
     @Override
     public void log(int level, String tag, String msg, Throwable throwable) {

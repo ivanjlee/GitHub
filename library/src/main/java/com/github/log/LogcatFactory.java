@@ -11,6 +11,6 @@ public class LogcatFactory implements ILoggerFactory {
 
     @Override
     public ILogger create() {
-        return new LogcarLogger();
+        return new LogcatLogger();
     }
 }

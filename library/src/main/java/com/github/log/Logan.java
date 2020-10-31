@@ -12,7 +12,7 @@ import java.util.List;
  */
 public final class Logan {
 
-    private static List<ILogger> sLoggers = new ArrayList<>();
+    private final static List<ILogger> sLoggers = new ArrayList<>();
 
     public static void v(String tag, String msg, Object ... args) {
         print(LogLevel.VERBOSE, tag, null, msg, args);
