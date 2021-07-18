@@ -22,7 +22,7 @@ public class LoganTest {
     @Test
     public void testVerbose() {
         Logan.v("testVerbose", "verbose message");
-        Logan.v("testVerbose", "priority=%d", Thread.currentThread().getPriority());
+        Logan.v("testVerbose", "priority={0}", Thread.currentThread().getPriority());
         UnsupportedOperationException exception = new UnsupportedOperationException("test verbose", new IOException("io exception"));
         Logan.v("testVerbose", "exception ", exception);
     }
@@ -30,7 +30,7 @@ public class LoganTest {
     @Test
     public void testDebug() {
         Logan.d("testDebug", "debug message");
-        Logan.d("testDebug", "name=%s", Thread.currentThread().getName());
+        Logan.d("testDebug", "name={0}", Thread.currentThread().getName());
         UnsupportedOperationException exception = new UnsupportedOperationException("test debug", new IOException("io exception"));
         Logan.d("testDebug", "exception ", exception);
     }
@@ -38,7 +38,7 @@ public class LoganTest {
     @Test
     public void testInfo() {
         Logan.i("testInfo", "info message");
-        Logan.i("testInfo", "thread state=%s", Thread.currentThread().getState().name());
+        Logan.i("testInfo", "thread state={0}", Thread.currentThread().getState().name());
         UnsupportedOperationException exception = new UnsupportedOperationException("for test info ", new IOException("io exception"));
         Logan.i("testInfo", "exception ", exception);
     }
@@ -46,7 +46,7 @@ public class LoganTest {
     @Test
     public void testWarn() {
         Logan.w("testWarn", "warn message");
-        Logan.w("testWarn", "thread state=%s", Thread.currentThread().getState().name());
+        Logan.w("testWarn", "thread state={0}", Thread.currentThread().getState().name());
         UnsupportedOperationException exception = new UnsupportedOperationException("for test warn", new IOException("io exception"));
         Logan.w("testWarn", "exception ", exception);
     }
@@ -54,7 +54,7 @@ public class LoganTest {
     @Test
     public void testError() {
         Logan.e("testError", "error message");
-        Logan.e("testError", "thread state=%s", Thread.currentThread().getState().name());
+        Logan.e("testError", "thread state={0}", Thread.currentThread().getState().name());
         UnsupportedOperationException exception = new UnsupportedOperationException("for test error", new IOException("io exception"));
         Logan.e("testError", "exception ", exception);
     }
@@ -62,7 +62,7 @@ public class LoganTest {
     @Test
     public void testAssert() {
         Logan.wtf("testAssert", "assert message");
-        Logan.wtf("testAssert", "thread state=%s", Thread.currentThread().getState().name());
+        Logan.wtf("testAssert", "thread state={0}", Thread.currentThread().getState().name());
         UnsupportedOperationException exception = new UnsupportedOperationException("for test assert", new IOException("io exception"));
         Logan.wtf("testAssert", "exception ", exception);
     }

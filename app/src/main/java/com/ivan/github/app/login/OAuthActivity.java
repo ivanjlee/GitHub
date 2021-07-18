@@ -212,16 +212,17 @@ public class OAuthActivity extends ToolbarActivity implements View.OnClickListen
 
         @Override
         public void onPageFinished(WebView view, String url) {
+            Logan.v(TAG, url);
             mLoadingView.setVisibility(View.GONE);
             mLoadingView.stop();
+            if (handler != null) {
+                handler.handleInternal(Uri.parse(url));
+            }
         }
 
         @Override
-        public boolean shouldOverrideUrlLoading(WebView view, Uri uri) {
-            if (handler != null && handler.handleInternal(uri)) {
-                return true;
-            }
-            return super.shouldOverrideUrlLoading(view, uri);
+        public void onPageCommitVisible(WebView view, String url) {
+            super.onPageCommitVisible(view, url);
         }
     }
 

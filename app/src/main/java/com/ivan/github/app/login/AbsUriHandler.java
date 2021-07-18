@@ -14,7 +14,7 @@ public abstract class AbsUriHandler implements UriHandler {
     private AbsUriHandler next;
 
     public AbsUriHandler next(AbsUriHandler handler) {
-        next = next;
+        this.next = handler;
         return next;
     }
 

@@ -1,5 +1,6 @@
 package com.github.log;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +66,7 @@ public final class Logan {
     private static void print(int level, String tag, Throwable throwable, String format, Object ... args) {
         for (ILogger logger : sLoggers) {
             if (logger.isLoggable(tag, level)) {
-                logger.log(level, tag, String.format(format, args), throwable);
+                logger.log(level, tag, MessageFormat.format(format, args), throwable);
             }
         }
     }
