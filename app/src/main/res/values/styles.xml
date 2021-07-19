@@ -57,6 +57,8 @@
     </style>
 
     <style name="ProgressBarStyle" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateTint">@color/colorAccent</item>
+        <item name="android:indeterminateTintMode">src_atop</item>
     </style>
 
     <!--Common Widget Styles-->
@@ -66,6 +68,7 @@
         <item name="android:background">?attr/colorPrimary</item>
         <item name="android:minHeight">?attr/actionBarSize</item>
         <item name="elevation">4dp</item>
+        <item name="android:elevation">4dp</item>
     </style>
 
     <style name="HorizontalProgressBar" parent="@android:style/Widget.ProgressBar.Horizontal">
