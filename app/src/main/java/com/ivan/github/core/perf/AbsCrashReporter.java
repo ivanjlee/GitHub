@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
  **/
 public abstract class AbsCrashReporter implements ICrashReporter {
 
-    private static String LOG_PATH = GitHub.appComponent().application().getExternalFilesDir(null) + "/crash/";
+    private static String LOG_PATH = GitHub.appComponent().applicationContext().getExternalFilesDir(null) + "/crash/";
 
     @Override
     public String getLogPath() {

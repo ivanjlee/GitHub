@@ -22,33 +22,33 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-    private GitHubApplication mApplication;
+    private Context mContext;
 
-    public AppModule(GitHubApplication mApplication) {
-        this.mApplication = mApplication;
+    public AppModule(Context context) {
+        this.mContext = context.getApplicationContext();
     }
 
     @Provides
     @Singleton
-    GitHubApplication provideApplication() {
-        return mApplication;
+    Context provideContext() {
+        return mContext;
     }
 
     @Provides
     @Singleton
     SharedPreferences providePreference() {
-        return mApplication.getSharedPreferences("settings", Context.MODE_PRIVATE);
+        return mContext.getSharedPreferences("settings", Context.MODE_PRIVATE);
     }
 
     @Provides
     @Singleton
     Resources provideResources() {
-        return mApplication.getResources();
+        return mContext.getResources();
     }
 
     @Provides
     @Singleton
     SecureSharedPreference provideSecureSharedPreference() {
-        return new SecureSharedPreference(mApplication, "app_settings", Context.MODE_PRIVATE);
+        return new SecureSharedPreference(mContext, "app_settings", Context.MODE_PRIVATE);
     }
 }

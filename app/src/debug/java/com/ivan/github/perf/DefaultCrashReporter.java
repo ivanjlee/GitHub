@@ -24,7 +24,7 @@ public class DefaultCrashReporter extends AbsCrashReporter {
 
     @Override
     public void sendNotification(Throwable e) {
-        Context context = GitHub.appComponent().application();
+        Context context = GitHub.appComponent().applicationContext();
         Intent resultIntent = new Intent()
                 .setAction("io.github.debug.crash_info")
                 .addCategory("io.github.category.DEBUG")

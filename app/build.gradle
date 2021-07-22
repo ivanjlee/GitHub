@@ -75,19 +75,21 @@ dependencies {
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$versions.desugar_jdk_libs"
     implementation project(":library")
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     implementation "androidx.appcompat:appcompat:$versions.appcompat"
-    implementation "com.google.android.material:material:$versions.material"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$versions.swiperefreshlayout"
+    implementation "androidx.startup:startup-runtime:$versions.startup"
 
+    implementation "com.google.code.gson:gson:$versions.gson"
+    implementation "com.google.android.material:material:$versions.material"
     implementation "com.google.dagger:dagger:$versions.dagger"
-    annotationProcessor "com.google.dagger:dagger-compiler:$versions.dagger"
     implementation "com.google.dagger:dagger-android:$versions.dagger"
     implementation "com.google.dagger:dagger-android-support:$versions.dagger"
+    annotationProcessor "com.google.dagger:dagger-compiler:$versions.dagger"
     annotationProcessor "com.google.dagger:dagger-android-processor:$versions.dagger"
 
     implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
-    implementation "com.google.code.gson:gson:$versions.gson"
     implementation "com.squareup.okhttp3:logging-interceptor:$versions.ok_logging"
     implementation "com.squareup.retrofit2:converter-gson:$versions.converter_gson"
     implementation "io.reactivex.rxjava3:rxjava:$versions.rxjava3"

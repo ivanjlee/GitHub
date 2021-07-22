@@ -1,5 +1,6 @@
 package com.ivan.github.core;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 
@@ -26,7 +27,7 @@ import retrofit2.Retrofit;
 @Component(modules = {AppModule.class, NetModule.class})
 public interface AppComponent extends AndroidInjector<GitHubApplication> {
 
-    GitHubApplication application();
+    Context applicationContext();
 
     SharedPreferences preference();
 
@@ -37,8 +38,6 @@ public interface AppComponent extends AndroidInjector<GitHubApplication> {
     Gson gson();
 
     OAuthService githubService();
-
-    OAuthService githubSerview();
 
     SecureSharedPreference secureSharedPreference();
 
