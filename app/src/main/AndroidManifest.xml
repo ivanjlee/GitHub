@@ -16,10 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity android:name=".app.login.OAuthActivity"
             android:windowSoftInputMode="adjustResize"
             android:label="@string/title_activity_login"/>
-        <activity android:name=".app.login.SplashActivity">
+        <activity android:name=".app.login.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

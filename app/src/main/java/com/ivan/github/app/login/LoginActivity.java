@@ -347,7 +347,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                 AppSettings.setFirstLogin(false);
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_LONG).show();
-                setResult(LoginConsts.RESULT_CODE_FINISH);
+                setResult(LoginConst.RESULT_CODE_FINISH);
                 LoginActivity.this.finish();
             } else if (result.second instanceof HttpException) {
                 if (((HttpException) result.second).code() == 401) {

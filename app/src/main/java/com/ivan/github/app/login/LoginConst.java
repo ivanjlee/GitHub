@@ -7,7 +7,7 @@ package com.ivan.github.app.login;
  * @version v0.1
  * @since   v0.1.0
  */
-class LoginConsts {
+class LoginConst {
 
     static final int REQUEST_CODE_LOGIN = 0x10;
 

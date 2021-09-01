@@ -1,5 +1,6 @@
 package com.ivan.github.core.net;
 
+import com.github.log.Logan;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -54,7 +55,9 @@ public class NetModule {
         OkHttpClient.Builder client = new OkHttpClient.Builder();
         client.callTimeout(mNetConfig.getTimeout(), TimeUnit.MILLISECONDS)
                 .addInterceptor(new AuthorizationInterceptor())
-                .addInterceptor(new HttpLoggingInterceptor().setLevel(mNetConfig.getLogLevel()))
+                .addInterceptor(new HttpLoggingInterceptor(
+                        message -> Logan.i("GitHub-HTTP", message)
+                ).setLevel(mNetConfig.getLogLevel()))
                 .addInterceptor(new HttpHeaderInterceptor());
         return client.build();
     }

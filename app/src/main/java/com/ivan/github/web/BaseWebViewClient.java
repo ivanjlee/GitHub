@@ -2,15 +2,12 @@ package com.ivan.github.web;
 
 import android.net.Uri;
 import android.net.http.SslError;
-import android.os.Build;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
-import androidx.annotation.RequiresApi;
 
 import com.github.log.Logan;
 
@@ -26,12 +23,9 @@ public class BaseWebViewClient extends WebViewClient {
 
     private static final String TAG = "BaseWebViewClient";
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Logan.v(TAG, request.getUrl().toString());
-        }
+        Logan.v(TAG, request.getUrl().toString());
         return shouldOverrideUrlLoading(view, request.getUrl());
     }
 

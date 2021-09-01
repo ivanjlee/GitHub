@@ -34,7 +34,6 @@
     <string name="crash_content_title">App crashes</string>
     <string name="crash_content_text">Click to view detail</string>
 
-
     <string name="debug_text">中文汉-字中文-aqe21nd13n34b1!23中文汉字-中文汉字-aqe21-n@k13n34b1!232中文汉-字中文-aqe21nd13n34b1!23中文汉字-中文#h$汉字-aqe21-n@k13n34b1!232中文汉-字中文-aqe21nd13n34b1!23中文汉字-中文汉字-aqe21-n@k13n34b1!232中文汉-字中文-aqe21nd13n34b1!23中文汉字-中文汉字-aqe21-n@k13n34b1!232中文汉-字中文-aqe21nd13n34b1!23中文汉字-中文汉字-aqe21-n@k13n34b1!232中文汉-字中文-aqe21nd13n34b1!23中文汉字-中文汉字-aqe21-n@k13n34b1!232中文汉-字中文-aqe21nd13n34b1!23中文汉字-中文汉字-aqe21-n@k13n34b1!232</string>
     <string name="debug_text2">中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字中文汉字</string>
     <string name="version_code">Version Code:</string>
@@ -49,6 +48,20 @@
 
     <string name="action_menu_overflow_description">More options</string>
     <string name="title_activity_login">Sign in</string>
+
+    <!-- WebView -->
+    <string name="webview_render_progress_gone">The system WebView component has crash.
+        \nPlease check if the system WebView if installed correctly.</string>
+    <string name="webview_page_error_title">page load error</string>
+    <string name="webview_page_error_msg">code:#%d %s</string>
+    <string name="webview_http_error_title">code:#%d %s</string>
+    <string name="webview_http_error_msg">code:#%d %s</string>
+    <string name="webview_ssl_error_title">Your connection is not private</string>
+    <string name="webview_ssl_error_desc">Attackers might be trying to steal your information from %s (
+        for example, passwords, message, or credit cards).</string>
+    <string name="webview_ssl_error_code">code:#%d %s</string>
+    <string name="webview_ssl_error_cancel">Cancel</string>
+    <string name="webview_ssl_error_process">still visit</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ivan.github.debug.CrashInfoViewActivity">
+    tools:context="io.github.debug.CrashInfoViewActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -17,10 +17,10 @@
             android:layout_height="wrap_content"
             android:background="@color/colorAccent"
             android:minHeight="?attr/actionBarSize"
+            android:theme="@style/AppTheme.AppBarOverlay"
             app:elevation="8dp"
             app:layout_scrollFlags="scroll|enterAlways"
             app:navigationIcon="@drawable/ic_arrow_back"
-            app:theme="@style/AppTheme.AppBarOverlay"
             app:title="Crash Info"
             app:titleTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>

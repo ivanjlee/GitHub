@@ -44,6 +44,7 @@ public class LoadingView extends AppCompatImageView {
 
     public void start() {
         init();
+        mAnimationDrawable.stop();
         mAnimationDrawable.start();
     }
 

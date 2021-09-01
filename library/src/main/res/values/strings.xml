@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Library</string>
+    <string name="default_empty_title">Error</string>
     <string name="default_empty_text">Emm, there is nothing found.</string>
 </resources>

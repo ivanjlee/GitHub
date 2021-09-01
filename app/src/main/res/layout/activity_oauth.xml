@@ -22,7 +22,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <WebView
+    <com.ivan.github.web.widget.BifrostWebView
         android:id="@+id/web_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -35,19 +35,9 @@
         android:id="@+id/lv_loading"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        app:layout_constraintTop_toBottomOf="@id/appbar_layout"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-   <com.github.design.widget.EmptyView
-       android:id="@+id/empty_view"
-       android:visibility="gone"
-       style="@style/EmptyViewStyle"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintBottom_toBottomOf="parent"
-       app:layout_constraintTop_toBottomOf="@id/appbar_layout">
-   </com.github.design.widget.EmptyView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

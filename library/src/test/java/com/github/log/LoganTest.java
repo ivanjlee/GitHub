@@ -37,6 +37,7 @@ public class LoganTest {
 
     @Test
     public void testInfo() {
+        Logan.i("testInfo", "{\"client_id\":\"08d9cad09d2e1745edb4\",\"client_secret\":\"3943633750719013ae8208f6f001951566328218\",\"code\":\"558f9ac81d8b9ded5e51\",\"state\":\"16835062-623f-4256-b9e1-e9de85dc0894\"}");
         Logan.i("testInfo", "info message");
         Logan.i("testInfo", "thread state={0}", Thread.currentThread().getState().name());
         UnsupportedOperationException exception = new UnsupportedOperationException("for test info ", new IOException("io exception"));

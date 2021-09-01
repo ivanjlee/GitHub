@@ -13,10 +13,10 @@
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
         android:minHeight="?attr/actionBarSize"
+        android:theme="@style/AppTheme.AppBarOverlay"
         app:elevation="8dp"
         app:layout_scrollFlags="scroll|enterAlways"
         app:navigationIcon="@drawable/ic_arrow_back"
-        app:theme="@style/AppTheme.AppBarOverlay"
         app:title="@string/app_name"
         app:titleTextColor="@color/white" />
 </merge>

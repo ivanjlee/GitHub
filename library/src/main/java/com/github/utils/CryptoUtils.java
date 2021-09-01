@@ -3,6 +3,7 @@ package com.github.utils;
 import android.util.Base64;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -60,28 +61,17 @@ public class CryptoUtils {
             SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), "AES");
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, new IvParameterSpec(new byte[cipher.getBlockSize()]));
             byte[] contentBytes = new byte[0];
-            try {
-                contentBytes = content.getBytes("utf-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+            contentBytes = content.getBytes(StandardCharsets.UTF_8);
             byte[] encryptedBytes = new byte[0];
             try {
                 encryptedBytes = cipher.doFinal(contentBytes);
-            } catch (BadPaddingException e) {
-                e.printStackTrace();
-            } catch (IllegalBlockSizeException e) {
+            } catch (BadPaddingException | IllegalBlockSizeException e) {
                 e.printStackTrace();
             }
-                return Base64.encodeToString(encryptedBytes, Base64.DEFAULT);
+            return Base64.encodeToString(encryptedBytes, Base64.DEFAULT);
 //            return java.util.Base64.getEncoder().encodeToString(encryptedBytes);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (InvalidAlgorithmParameterException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException
+                | InvalidAlgorithmParameterException | InvalidKeyException e) {
             e.printStackTrace();
         }
         return content;
@@ -100,18 +90,11 @@ public class CryptoUtils {
             try {
                 byte[] decryptedBytes = cipher.doFinal(contentBytes);
                 return new String(decryptedBytes);
-            } catch (BadPaddingException e) {
-                e.printStackTrace();
-            } catch (IllegalBlockSizeException e) {
+            } catch (BadPaddingException | IllegalBlockSizeException e) {
                 e.printStackTrace();
             }
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (InvalidAlgorithmParameterException e) {
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException
+                | InvalidAlgorithmParameterException e) {
             e.printStackTrace();
         }
         return encryptedContent;

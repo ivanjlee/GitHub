@@ -3,23 +3,14 @@ package com.ivan.github.app.login;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
-import android.webkit.WebSettings;
-import android.webkit.WebStorage;
-import android.webkit.WebView;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.github.design.widget.EmptyView;
 import com.github.design.widget.LoadingView;
 import com.github.log.Logan;
 import com.ivan.github.GitHub;
@@ -31,14 +22,13 @@ import com.ivan.github.app.login.model.OAuthReq;
 import com.ivan.github.app.login.model.OAuthResp;
 import com.ivan.github.app.main.MainActivity;
 import com.ivan.github.core.net.TransformerHelper;
-import com.ivan.github.web.BaseWebChromeClient;
-import com.ivan.github.web.BaseWebViewClient;
+import com.ivan.github.web.widget.AbsPageLoadListener;
+import com.ivan.github.web.widget.BifrostWebView;
 
 import java.util.UUID;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 import okhttp3.HttpUrl;
 
 /**
@@ -52,9 +42,8 @@ public class OAuthActivity extends ToolbarActivity implements View.OnClickListen
 
     private static final String TAG = "OAuthActivity";
 
-    private EmptyView mEmptyView;
     private LoadingView mLoadingView;
-    private WebView mWebView;
+    private BifrostWebView mWebView;
 
     private String mUrl;
 
@@ -77,22 +66,10 @@ public class OAuthActivity extends ToolbarActivity implements View.OnClickListen
     @Override
     protected void onPostCreateView() {
         super.onPostCreateView();
-        mEmptyView = findViewById(R.id.empty_view);
-        mEmptyView.setOnClickListener(this);
         mLoadingView = findViewById(R.id.lv_loading);
         mWebView = findViewById(R.id.web_view);
-        WebSettings settings = mWebView.getSettings();
-        if (settings != null) {
-            settings.setSupportZoom(false);
-            settings.setBuiltInZoomControls(true);
-            settings.setDisplayZoomControls(false);
-            settings.setUseWideViewPort(true);
-            settings.setLoadWithOverviewMode(true);
-            settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
-            settings.setCacheMode(WebSettings.LOAD_DEFAULT);
-        }
-        mWebView.setWebViewClient(new OAuthWebViewClient(new OAuthRedirectHandler()));
-        mWebView.setWebChromeClient(new BaseWebChromeClient());
+        mWebView.setEmptyViewClickListener(this);
+        mWebView.setPageLoadListener(new OAuthPageLoadListener(new OAuthRedirectHandler()));
         mUrl = new HttpUrl.Builder()
                 .scheme("https")
                 .host("github.com")
@@ -114,7 +91,6 @@ public class OAuthActivity extends ToolbarActivity implements View.OnClickListen
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.app_bar_refresh) {
             showLoading();
-            mEmptyView.setVisibility(View.GONE);
             mWebView.loadUrl(mUrl);
         }
         return super.onOptionsItemSelected(item);
@@ -147,8 +123,6 @@ public class OAuthActivity extends ToolbarActivity implements View.OnClickListen
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mWebView.stopLoading();
-        mWebView.removeAllViews();
         mWebView.destroy();
     }
 
@@ -156,6 +130,7 @@ public class OAuthActivity extends ToolbarActivity implements View.OnClickListen
     public void onBackPressed() {
         if (mWebView.canGoBack()) {
             mWebView.goBack();
+            Logan.i(TAG, "goBack");
         } else {
             clearWebViewCache();
             super.onBackPressed();
@@ -163,14 +138,7 @@ public class OAuthActivity extends ToolbarActivity implements View.OnClickListen
     }
 
     public void clearWebViewCache() {
-        mWebView.clearCache(true);
-        CookieSyncManager.createInstance(this);
-        CookieManager.getInstance().removeSessionCookie();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            CookieManager.getInstance().removeAllCookies(null);
-            CookieManager.getInstance().flush();
-        }
-        WebStorage.getInstance().deleteAllData();
+        mWebView.clear();
     }
 
     private void showLoading() {
@@ -191,38 +159,30 @@ public class OAuthActivity extends ToolbarActivity implements View.OnClickListen
     public void onClick(View v) {
         if (v.getId() == R.id.empty_view) {
             showLoading();
-            mEmptyView.setVisibility(View.GONE);
             mWebView.reload();
         }
     }
 
-    private class OAuthWebViewClient extends BaseWebViewClient {
+    private class OAuthPageLoadListener extends AbsPageLoadListener {
 
         private final AbsUriHandler handler;
 
-        public OAuthWebViewClient(AbsUriHandler handler) {
+        public OAuthPageLoadListener(AbsUriHandler handler) {
             this.handler = handler;
         }
 
         @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            super.onPageStarted(view, url, favicon);
+        public void onPageStarted(BifrostWebView webView, String url, Bitmap favicon) {
             mLoadingView.start();
         }
 
         @Override
-        public void onPageFinished(WebView view, String url) {
-            Logan.v(TAG, url);
+        public void onPageFinished(BifrostWebView webView, String url) {
             mLoadingView.setVisibility(View.GONE);
             mLoadingView.stop();
             if (handler != null) {
                 handler.handleInternal(Uri.parse(url));
             }
-        }
-
-        @Override
-        public void onPageCommitVisible(WebView view, String url) {
-            super.onPageCommitVisible(view, url);
         }
     }
 
@@ -250,34 +210,42 @@ public class OAuthActivity extends ToolbarActivity implements View.OnClickListen
                 req.client_id = clientId;
                 req.client_secret = clientSecret;
                 req.code = code;
-//                req.redirect_uri = sOAuthLoginPath;
                 req.state = UUID.randomUUID().toString();
                 final OAuthResp[] auth = new OAuthResp[1];
                 Disposable d = GitHub.appComponent()
                         .githubService()
-                        .oauth("https://github.com/login/oauth/access_token", req)
+                        .oauth(req)
+                        .compose(TransformerHelper.result())
+                        .flatMap(oAuthResp -> {
+                            auth[0] = oAuthResp;
+                            if (oAuthResp == null || TextUtils.isEmpty(oAuthResp.access_token)) {
+                                return Observable.error(
+                                        new IllegalArgumentException("log in failed: #0001"));
+                            } else {
+                                return GitHub.appComponent()
+                                        .githubService()
+                                        .getUser(oAuthResp.access_token);
+                            }
+                        })
+                        .compose(TransformerHelper.schedulers())
+                        .compose(TransformerHelper.result())
                         .doOnSubscribe(disposable -> showLoading())
                         .doOnComplete(OAuthActivity.this::dismissLoading)
                         .doOnDispose(OAuthActivity.this::dismissLoading)
-                        .flatMap(oAuthResp -> {
-                            auth[0] = oAuthResp;
-                            return GitHub.appComponent()
-                                    .githubService()
-                                    .getUser(oAuthResp.access_token);
-                        })
-                        .compose(TransformerHelper.schedulers())
+                        .doOnError(throwable -> dismissLoading())
                         .subscribe(user -> {
                             AppSettings.setFirstLogin(false);
                             Account.getInstance().init(user, auth[0].access_token);
                             Account.getInstance().saveUser();
                             startActivity(new Intent(OAuthActivity.this, MainActivity.class));
-                            setResult(LoginConsts.RESULT_CODE_OAUTH_SUCCESS);
+                            setResult(LoginConst.RESULT_CODE_OAUTH_SUCCESS);
                             finish();
                         }, throwable -> {
+                            dismissLoading();
                             showToast(throwable.getLocalizedMessage());
-                            mEmptyView.setMessage(String.format("%s\n%s", throwable.getLocalizedMessage(),
+                            mWebView.showError(String.format("%s\n%s",
+                                    throwable.getLocalizedMessage(),
                                     getString(R.string.tap_to_retry)));
-                            mEmptyView.setVisibility(View.VISIBLE);
                         });
                 addDisposable(d);
             }

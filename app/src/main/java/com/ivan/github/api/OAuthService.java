@@ -9,6 +9,7 @@ import java.util.List;
 
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
+import retrofit2.adapter.rxjava3.Result;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -33,9 +34,9 @@ public interface OAuthService {
     @GET("/user")
     Call<User> getAuthorizedUser();
 
-    @POST()
-    Observable<OAuthResp> oauth(@Url String url, @Body OAuthReq req);
+    @POST("https://github.com/login/oauth/access_token")
+    Observable<Result<OAuthResp>> oauth(@Body OAuthReq req);
 
     @GET("/user")
-    Observable<User> getUser(@Header("Authorization") String auth);
+    Observable<Result<User>> getUser(@Header("Authorization") String auth);
 }

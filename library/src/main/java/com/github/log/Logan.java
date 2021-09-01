@@ -66,7 +66,11 @@ public final class Logan {
     private static void print(int level, String tag, Throwable throwable, String format, Object ... args) {
         for (ILogger logger : sLoggers) {
             if (logger.isLoggable(tag, level)) {
-                logger.log(level, tag, MessageFormat.format(format, args), throwable);
+                if (args == null || args.length == 0) {
+                    logger.log(level, tag, format, throwable);
+                } else {
+                    logger.log(level, tag, MessageFormat.format(format, args), throwable);
+                }
             }
         }
     }
