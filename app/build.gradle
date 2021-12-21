@@ -1,33 +1,31 @@
 apply plugin: 'com.android.application'
 apply plugin: 'project-report'
 apply from: '../versions.gradle'
+apply from: '../graver.gradle'
 
 android {
+    def version = "0.1.0"
     compileSdkVersion rootProject.ext.config.compileSdkVersion
     buildToolsVersion rootProject.ext.config.buildToolsVersion
     defaultConfig {
-        applicationId rootProject.ext.config.applicationId
+        applicationId "com.github.android"
         minSdkVersion rootProject.ext.config.minSdkVersion
         targetSdkVersion rootProject.ext.config.targetSdkVersion
-        versionCode rootProject.ext.config.versionCode
-        versionName rootProject.ext.config.versionName
+        versionCode 10000
+        versionName version
+        buildConfigField "long", "BUILD", getBuildTime()+"L"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         renderscriptTargetApi 18
         renderscriptSupportModeEnabled true
         multiDexEnabled true
+        manifestPlaceholders = [APP_NAME: "Github"]
     }
 
     sourceSets {
         main {
             res.srcDirs = ['src/main/res', 'src/main/res/base']
             jniLibs.srcDirs = ['libs']
-        }
-
-        beta {
-            res.srcDirs = ['src/beta/res']
-            jniLibs.srcDirs = ['libs']
-            java.srcDirs = ['src/beta/java']
         }
 
         debug {
@@ -44,18 +42,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
-        beta {
-            debuggable true
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            matchingFallbacks = ['release']
-        }
-
         debug {
             debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             matchingFallbacks = ['release']
+        }
+    }
+
+    productFlavors {
+        alpha {
+            flavorDimensions "main"
+            versionName version + "-alpha"
         }
     }
 
@@ -65,6 +63,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
         incremental true
     }
+
     dependenciesInfo {
         includeInApk false
         includeInBundle false

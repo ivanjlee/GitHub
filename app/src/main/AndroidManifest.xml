@@ -17,10 +17,16 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".app.login.OAuthActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:label="@string/title_activity_login"/>
-        <activity android:name=".app.login.SplashActivity"
+        <meta-data
+            android:name="APP_NAME"
+            android:value="${APP_NAME}" />
+
+        <activity
+            android:name=".app.login.OAuthActivity"
+            android:label="@string/title_activity_login"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".app.login.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,18 +43,27 @@
         <activity
             android:name=".app.login.LoginActivity"
             android:label="@string/title_activity_login"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity android:name=".app.ToolbarActivity" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
-            tools:node="merge" >
+            tools:node="merge">
 
-            <meta-data android:name="com.ivan.github.init.AppInit" android:value="androidx.startup"/>
-            <meta-data android:name="com.ivan.github.init.LogInit" android:value="androidx.startup"/>
-            <meta-data android:name="com.ivan.github.init.CrashReporterInit" android:value="androidx.startup"/>
+            <meta-data
+                android:name="com.ivan.github.init.CrashReporterInit"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.ivan.github.init.AppInit"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.ivan.github.init.LogInit"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.ivan.github.init.BaseConfigInit"
+                android:value="androidx.startup" />
 
         </provider>
 
