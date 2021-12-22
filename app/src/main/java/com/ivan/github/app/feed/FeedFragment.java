@@ -58,7 +58,7 @@ public class FeedFragment extends BaseMvpFragment<FeedContract.Presenter> implem
     }
 
     @Override
-    protected void initView(View rootView) {
+    protected void onViewCreated(View rootView) {
         mRecyclerView = rootView.findViewById(R.id.pl_recycler_view);
         mAdapter = new FeedListAdapter(getContext());
         mTvEmpty = rootView.findViewById(R.id.tv_empty_view);
@@ -90,9 +90,10 @@ public class FeedFragment extends BaseMvpFragment<FeedContract.Presenter> implem
     @Override
     public void updateList(List<Event> list) {
         showNormalView();
+        int size = mAdapter.getItemCount();
         mRecyclerView.setRefreshing(false);
         mAdapter.appendData(list);
-        mAdapter.notifyDataSetChanged();
+        mAdapter.notifyItemInserted(size);
     }
 
     @Override

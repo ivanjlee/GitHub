@@ -1,22 +1,19 @@
-package com.ivan.github.init;
+package com.ivan.github.core.init;
 
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.pm.ProviderInfo;
 import android.os.Bundle;
-import android.os.HandlerThread;
 import android.os.Trace;
 
 import androidx.annotation.NonNull;
 import androidx.startup.AppInitializer;
 import androidx.startup.InitializationProvider;
 import androidx.startup.Initializer;
-import androidx.startup.StartupLogger;
 
 import com.ivan.github.R;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -24,7 +21,7 @@ import java.util.concurrent.Executors;
 import static android.content.pm.PackageManager.GET_META_DATA;
 
 /**
- * com.ivan.github.init.AsyncAppInitializer
+ * com.ivan.github.core.init.AsyncAppInitializer
  *
  * @author Ivan J. Lee on 2021-07-20 23:43
  * @version v0.1

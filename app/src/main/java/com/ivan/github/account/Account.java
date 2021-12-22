@@ -13,7 +13,7 @@ import com.ivan.github.account.model.User;
  * @since   v0.1.0
  */
 
-public class Account {
+public class Account implements IUserCenter {
 
     private static final String USER_DETAIL = "user_detail";
     private static final String AUTH_KEY = "auth_key";
@@ -43,6 +43,20 @@ public class Account {
     public void updateAuth(String auth) {
         this.mAuthorization = auth;
         GitHub.appComponent().secureSharedPreference().edit().putString(AUTH_KEY, auth).apply();
+    }
+
+    @Override
+    public boolean isLogin() {
+        return mUser != null && mAuthorization != null;
+    }
+
+    @Override
+    public String getToken() {
+        if (isLogin()) {
+            return mUser.login;
+        } else {
+            return "";
+        }
     }
 
     public User getUser() {

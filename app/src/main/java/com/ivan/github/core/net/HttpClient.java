@@ -1,7 +1,6 @@
 package com.ivan.github.core.net;
 
 import com.ivan.github.GitHub;
-import com.ivan.github.api.OAuthService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,12 +14,9 @@ import java.util.Map;
  */
 public class HttpClient {
 
-    private static Map<Class<?>, Object> sRetrofits = new HashMap<>();
+    private static final Map<Class<?>, Object> sRetrofits = new HashMap<>();
 
-    public static OAuthService gitHubService() {
-        return GitHub.appComponent().githubService();
-    }
-
+    @SuppressWarnings("unchecked")
     public static <S> S service(Class<S> clazz) {
         Object retrofit = sRetrofits.getOrDefault(clazz, null);
         if (retrofit == null) {

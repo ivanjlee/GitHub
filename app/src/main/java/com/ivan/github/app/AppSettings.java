@@ -2,6 +2,7 @@ package com.ivan.github.app;
 
 import com.ivan.github.BuildConfig;
 import com.ivan.github.GitHub;
+import com.ivan.github.core.BaseConfig;
 
 /**
  * global settings
@@ -14,13 +15,14 @@ public class AppSettings {
 
     private static final String PREFIX = BuildConfig.APPLICATION_ID;
 
-    private static final String KEY_FIRST_LOGIN = PREFIX + ".first_login";
+    private static final String KEY_VERSION = PREFIX + ".version";
 
-    public static void setFirstLogin(boolean firstLogin) {
-        GitHub.appComponent().preference().edit().putBoolean(KEY_FIRST_LOGIN, firstLogin).apply();
+    public static void setVersion(int versionCode) {
+        GitHub.appComponent().preference().edit().putInt(KEY_VERSION, versionCode).apply();
     }
 
     public static boolean isFirstLogin() {
-        return GitHub.appComponent().preference().getBoolean(KEY_FIRST_LOGIN, true);
+        int v = GitHub.appComponent().preference().getInt(KEY_VERSION, -1);
+        return BaseConfig.versionCode > v;
     }
 }

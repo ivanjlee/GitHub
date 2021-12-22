@@ -23,7 +23,7 @@ import com.ivan.github.app.BaseFragment;
  * @version v0.1
  * @since   v1.0
  **/
-public abstract class BaseMvpFragment<P extends IPresenter> extends BaseFragment implements IBaseStateView<P> {
+public abstract class BaseMvpFragment<P extends IPresenter<?>> extends BaseFragment implements IBaseStateView<P> {
 
     protected static final int STATE_NORMAL = 1;
     protected static final int STATE_EMPTY = 2;
@@ -42,7 +42,7 @@ public abstract class BaseMvpFragment<P extends IPresenter> extends BaseFragment
             mLoadingDialog = new LoadingDialog(getContext());
         }
         initState();
-        initView(mRootView);
+        onViewCreated(mRootView);
         return mRootView;
     }
 
@@ -62,7 +62,7 @@ public abstract class BaseMvpFragment<P extends IPresenter> extends BaseFragment
         frameLayout.addView(normalView);
     }
 
-    protected void initView(View rootView) {
+    protected void onViewCreated(View rootView) {
     }
 
     abstract protected @LayoutRes int getLayoutId();

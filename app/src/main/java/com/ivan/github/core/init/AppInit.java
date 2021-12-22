@@ -1,4 +1,4 @@
-package com.ivan.github.init;
+package com.ivan.github.core.init;
 
 import android.content.Context;
 
@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * com.ivan.github.init.AppInit
+ * com.ivan.github.core.init.AppInit
  *
  * @author Ivan J. Lee on 2021-07-20 23:09
  * @version v0.1

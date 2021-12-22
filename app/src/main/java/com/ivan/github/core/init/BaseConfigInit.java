@@ -1,4 +1,4 @@
-package com.ivan.github.init;
+package com.ivan.github.core.init;
 
 import android.content.Context;
 
@@ -24,11 +24,5 @@ public class BaseConfigInit extends AbsInitializer<Void> {
     public Void onCreate(Context context) {
         BaseConfig.init(context.getApplicationContext());
         return null;
-    }
-
-    @NonNull
-    @Override
-    public List<Class<? extends Initializer<?>>> dependencies() {
-        return Collections.emptyList();
     }
 }

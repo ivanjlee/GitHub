@@ -1,6 +1,7 @@
 package com.ivan.github.app.login;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -10,10 +11,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.github.design.widget.CirclePagerIndicator;
 import com.ivan.github.R;
+import com.ivan.github.app.AppSettings;
 import com.ivan.github.app.BaseActivity;
 import com.ivan.github.app.login.model.SplashData;
-import com.ivan.github.web.UrlConst;
-import com.ivan.github.web.WebActivity;
+import com.ivan.github.common.UriBuilder;
+import com.ivan.github.core.BaseConfig;
+import com.ivan.github.common.UrlConst;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,7 @@ public class LandingActivity extends BaseActivity {
         setContentView(R.layout.activity_landing);
         setNavigationBarColor(R.color.colorPrimaryDark);
         initView();
+        AppSettings.setVersion(BaseConfig.versionCode);
     }
 
     private void initView() {
@@ -78,11 +82,19 @@ public class LandingActivity extends BaseActivity {
     }
 
     public void signUp(View view) {
-        WebActivity.start(this, UrlConst.GITHUB_REGISTER, getString(R.string.join_github));
+        Uri uri = UriBuilder.with("/web")
+                .appendQueryParameter("url", UrlConst.GITHUB_REGISTER)
+                .appendQueryParameter("title", getString(R.string.join_github))
+                .build();
+        startActivity(new Intent(Intent.ACTION_VIEW, uri));
     }
 
     public void explore(View view) {
-        WebActivity.start(this, UrlConst.GITHUB_BASE_URL, "GitHub");
+        Uri uri = UriBuilder.with("/web")
+                .appendQueryParameter("url", UrlConst.GITHUB_BASE_URL)
+                .appendQueryParameter("title", "Github")
+                .build();
+        startActivity(new Intent(Intent.ACTION_VIEW, uri));
     }
 
     @Override

@@ -15,6 +15,7 @@ import com.ivan.github.account.Account;
 import com.ivan.github.app.AppSettings;
 import com.ivan.github.app.BaseActivity;
 import com.ivan.github.app.main.MainActivity;
+import com.ivan.github.common.UriBuilder;
 
 /**
  * @author Ivan J. Lee
@@ -81,15 +82,11 @@ public class SplashActivity extends BaseActivity {
 
     private void navigation() {
         if (AppSettings.isFirstLogin()) {
-            startActivity(new Intent(SplashActivity.this, LandingActivity.class), R.anim.alpha_in, R.anim.alpha_out);
+            Intent intent = new Intent(Intent.ACTION_VIEW, UriBuilder.with("/landing").build());
+            startActivity(intent, R.anim.alpha_in, R.anim.alpha_out);
         } else {
-            String auth = Account.getInstance().getAuthorization();
-            if (TextUtils.isEmpty(auth)) {
-                startActivity(new Intent(SplashActivity.this, LoginActivity.class), R.anim.alpha_in, R.anim.alpha_out);
-            } else {
-                Account.getInstance().loadUser();
-                startActivity(new Intent(SplashActivity.this, MainActivity.class), R.anim.alpha_in, R.anim.alpha_out);
-            }
+            Intent intent = new Intent(Intent.ACTION_VIEW, UriBuilder.with("/homepage").build());
+            startActivity(intent, R.anim.alpha_in, R.anim.alpha_out);
         }
         SplashActivity.this.finish();
     }

@@ -19,6 +19,6 @@ public class FeedRepository implements IFeedDataStore {
     @Override
     public Call<Event[]> listUserEvents(int page) {
         return HttpClient.service(EventService.class)
-                .listUserEvents(Account.getInstance().getUser().getLogin(), page);
+                .listUserEvents(Account.getInstance().getToken(), page);
     }
 }

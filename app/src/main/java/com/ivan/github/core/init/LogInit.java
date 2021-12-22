@@ -1,4 +1,4 @@
-package com.ivan.github.init;
+package com.ivan.github.core.init;
 
 import android.content.Context;
 
@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * com.ivan.github.init.LogInit
+ * com.ivan.github.core.init.LogInit
  *
  * @author Ivan J. Lee on 2021-07-19 23:53
  * @version v0.1
@@ -35,11 +35,5 @@ public class LogInit extends AbsInitializer<Class<Logan>> {
             Logan.init(new LogcatFactory());
         }
         return Logan.class;
-    }
-
-    @NonNull
-    @Override
-    public List<Class<? extends Initializer<?>>> dependencies() {
-        return Collections.emptyList();
     }
 }

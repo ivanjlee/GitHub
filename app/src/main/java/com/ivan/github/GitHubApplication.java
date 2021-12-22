@@ -2,7 +2,7 @@ package com.ivan.github;
 
 import android.app.Application;
 
-import com.ivan.github.init.AsyncAppInitializer;
+import com.ivan.github.core.init.AsyncAppInitializer;
 
 /**
  * Custom Application

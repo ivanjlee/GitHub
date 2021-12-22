@@ -1,4 +1,4 @@
-package com.ivan.github.init;
+package com.ivan.github.core.init;
 
 import android.content.Context;
 
@@ -9,11 +9,11 @@ import com.ivan.github.BuildConfig;
 import com.ivan.github.core.perf.CrashHandler;
 import com.ivan.github.core.perf.PerformanceProvider;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
- * com.ivan.github.init.CrashReporterInit
+ * com.ivan.github.core.init.CrashReporterInit
  *
  * @author Ivan J. Lee on 2021-07-20 00:11
  * @version v0.1
@@ -36,11 +36,5 @@ public class CrashReporterInit extends AbsInitializer<CrashHandler> {
             handler.setReporter(PerformanceProvider.provideCrashReporter());
         }
         return handler;
-    }
-
-    @NonNull
-    @Override
-    public List<Class<? extends Initializer<?>>> dependencies() {
-        return Arrays.asList(LogInit.class, AppInit.class);
     }
 }

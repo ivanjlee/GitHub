@@ -1,23 +1,9 @@
 package com.ivan.github.app.main;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.IdRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.core.view.GravityCompat;
-import androidx.core.view.MenuItemCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,24 +12,33 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.core.view.MenuItemCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.CustomViewTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.github.log.Logan;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.ivan.github.R;
 import com.ivan.github.account.Account;
 import com.ivan.github.account.model.User;
 import com.ivan.github.app.BaseActivity;
-import com.ivan.github.app.feed.FeedFragment;
-import com.ivan.github.app.login.SplashActivity;
-import com.ivan.github.app.notification.NotificationFragment;
-import com.ivan.github.app.settings.SettingsFragment;
-import com.ivan.github.util.BitmapUtils;
+import com.ivan.github.common.util.BitmapUtils;
 import com.ivan.github.widget.BridgeActionProvider;
 
 /**
- * Home Page of the App
+ * Homepage of the App
  * @author Ivan
  */
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -83,51 +78,47 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mIVAvatar = headerView.findViewById(R.id.iv_avatar);
         mTVUsername = headerView.findViewById(R.id.tv_username);
         mTVEmail = headerView.findViewById(R.id.tv_email);
-
-        User user = Account.getInstance().getUser();
-        if (user != null) {
-            Glide.with(this)
-                    .asBitmap()
-                    .load(user.getAvatarUrl())
-                    .into(new CustomViewTarget<View, Bitmap>(mProfileBackground) {
-                        @Override
-                        public void onLoadFailed(@Nullable Drawable errorDrawable) {
-
-                        }
-
-                        @Override
-                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                            Bitmap bitmap;
-                            try {
-                                bitmap = BitmapUtils.renderScriptBlur(MainActivity.this, resource, 5, 1/64f);
-                            } catch (Exception exception) {
-                                Logan.e(TAG, "failed to blur image", exception);
-                                return;
-                            }
-
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                                mProfileBackground.setBackground(new BitmapDrawable(getResources(), bitmap));
-                            } else {
-                                mProfileBackground.setBackgroundDrawable(new BitmapDrawable(getResources(), bitmap));
-                            }
-                        }
-
-                        @Override
-                        protected void onResourceCleared(@Nullable Drawable placeholder) {
-
-                        }
-                    });
-            Glide.with(this)
-                    .load(user.getAvatarUrl())
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(mIVAvatar);
-            mTVUsername.setText(user.getName());
-            mTVEmail.setText(user.getEmail());
-        } else {
-            startActivity(new Intent(MainActivity.this, SplashActivity.class));
-            this.finish();
-        }
+        loadUserAvatar();
         switchFragment(R.id.nav_home);
+    }
+
+    private void loadUserAvatar() {
+        User user = Account.getInstance().getUser();
+        if (user == null) {
+            return;
+        }
+        Glide.with(this)
+                .asBitmap()
+                .load(user.getAvatarUrl())
+                .into(new CustomViewTarget<View, Bitmap>(mProfileBackground) {
+                    @Override
+                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
+
+                    }
+
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        Bitmap bitmap;
+                        try {
+                            bitmap = BitmapUtils.renderScriptBlur(MainActivity.this, resource, 5, 1/64f);
+                        } catch (Exception exception) {
+                            Logan.e(TAG, "failed to blur image", exception);
+                            return;
+                        }
+                        mProfileBackground.setBackground(new BitmapDrawable(getResources(), bitmap));
+                    }
+
+                    @Override
+                    protected void onResourceCleared(@Nullable Drawable placeholder) {
+
+                    }
+                });
+        Glide.with(this)
+                .load(user.getAvatarUrl())
+                .apply(RequestOptions.circleCropTransform())
+                .into(mIVAvatar);
+        mTVUsername.setText(user.getName());
+        mTVEmail.setText(user.getEmail());
     }
 
     @Override
@@ -173,7 +164,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
@@ -187,7 +177,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private void switchFragment(@IdRes int id) {
         Fragment fragment = getSupportFragmentManager().findFragmentById(id);
         if (fragment == null) {
-            fragment = newFragment(id);
+            fragment = FragmentProvider.provideFragment(id);
         }
         if (fragment == null) {
             return;
@@ -195,29 +185,5 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content_main, fragment);
         transaction.commit();
-    }
-
-    private @Nullable Fragment newFragment(@IdRes int id) {
-        Fragment fragment = null;
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        } else if (id == R.id.nav_home) {
-            fragment = FeedFragment.newInstance();
-        } else if (id == R.id.nav_notification) {
-            fragment = NotificationFragment.newInstance();
-        } else if (id == R.id.nav_settings) {
-            fragment = SettingsFragment.newInstance();
-        }
-        return fragment;
     }
 }

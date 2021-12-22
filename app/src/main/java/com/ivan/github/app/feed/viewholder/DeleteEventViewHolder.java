@@ -11,7 +11,7 @@ import com.ivan.github.R;
 import com.ivan.github.app.feed.FeedViewHolder;
 import com.ivan.github.app.feed.model.Event;
 import com.ivan.github.app.feed.model.payload.DeleteEventPayload;
-import com.ivan.github.util.DateFormatUtils;
+import com.ivan.github.common.util.DateFormatUtils;
 
 /**
  * com.ivan.github.app.events.viewholder.DeleteEventViewHolder

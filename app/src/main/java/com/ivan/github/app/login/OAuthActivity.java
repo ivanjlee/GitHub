@@ -16,11 +16,13 @@ import com.github.log.Logan;
 import com.ivan.github.GitHub;
 import com.ivan.github.R;
 import com.ivan.github.account.Account;
+import com.ivan.github.api.OAuthService;
 import com.ivan.github.app.AppSettings;
 import com.ivan.github.app.ToolbarActivity;
 import com.ivan.github.app.login.model.OAuthReq;
 import com.ivan.github.app.login.model.OAuthResp;
 import com.ivan.github.app.main.MainActivity;
+import com.ivan.github.core.net.HttpClient;
 import com.ivan.github.core.net.TransformerHelper;
 import com.ivan.github.web.widget.AbsPageLoadListener;
 import com.ivan.github.web.widget.BifrostWebView;
@@ -212,8 +214,7 @@ public class OAuthActivity extends ToolbarActivity implements View.OnClickListen
                 req.code = code;
                 req.state = UUID.randomUUID().toString();
                 final OAuthResp[] auth = new OAuthResp[1];
-                Disposable d = GitHub.appComponent()
-                        .githubService()
+                Disposable d = HttpClient.service(OAuthService.class)
                         .oauth(req)
                         .compose(TransformerHelper.result())
                         .flatMap(oAuthResp -> {
@@ -222,8 +223,7 @@ public class OAuthActivity extends ToolbarActivity implements View.OnClickListen
                                 return Observable.error(
                                         new IllegalArgumentException("log in failed: #0001"));
                             } else {
-                                return GitHub.appComponent()
-                                        .githubService()
+                                return HttpClient.service(OAuthService.class)
                                         .getUser(oAuthResp.access_token);
                             }
                         })
@@ -234,7 +234,6 @@ public class OAuthActivity extends ToolbarActivity implements View.OnClickListen
                         .doOnDispose(OAuthActivity.this::dismissLoading)
                         .doOnError(throwable -> dismissLoading())
                         .subscribe(user -> {
-                            AppSettings.setFirstLogin(false);
                             Account.getInstance().init(user, auth[0].access_token);
                             Account.getInstance().saveUser();
                             startActivity(new Intent(OAuthActivity.this, MainActivity.class));

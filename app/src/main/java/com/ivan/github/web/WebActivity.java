@@ -31,8 +31,8 @@ import com.ivan.github.app.BaseActivity;
 
 public class WebActivity extends BaseActivity {
 
-    private static final String EXTRA_KEY_URL = TAG + ".extra.url";
-    private static final String EXTRA_KEY_TITLE = TAG + ".extra.title";
+    private static final String EXTRA_KEY_URL = "url";
+    private static final String EXTRA_KEY_TITLE = "title";
 
     private Toolbar mToolbar;
     private ProgressBar mProgressBar;
@@ -41,6 +41,7 @@ public class WebActivity extends BaseActivity {
     private String mUrl;
     private String mTitle;
 
+    @Deprecated
     public static void start(Context context, String url, String title) {
         Intent intent = new Intent(context, WebActivity.class);
         intent.putExtra(EXTRA_KEY_URL, url);
@@ -75,8 +76,13 @@ public class WebActivity extends BaseActivity {
     }
 
     protected void initData() {
-        mUrl = getIntent().getStringExtra(EXTRA_KEY_URL);
-        mTitle = getIntent().getStringExtra(EXTRA_KEY_TITLE);
+        Uri data = getIntent().getData();
+        if (data == null) {
+            finish();
+            return;
+        }
+        mUrl = data.getQueryParameter(EXTRA_KEY_URL);
+        mTitle = data.getQueryParameter(EXTRA_KEY_TITLE);
         setTitle(mTitle);
         mWebView.loadUrl(mUrl);
     }

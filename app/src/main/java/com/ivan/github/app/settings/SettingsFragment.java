@@ -78,7 +78,6 @@ public class SettingsFragment extends BaseFragment implements View.OnClickListen
         if (getActivity() == null) {
             return;
         }
-        AppSettings.setFirstLogin(true);
         Account.getInstance().logout();
         startActivity(new Intent(getActivity(), LoginActivity.class));
         getActivity().finish();

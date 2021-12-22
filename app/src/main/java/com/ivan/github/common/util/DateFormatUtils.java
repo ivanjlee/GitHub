@@ -1,4 +1,4 @@
-package com.ivan.github.util;
+package com.ivan.github.common.util;
 
 import android.text.format.DateUtils;
 
@@ -7,12 +7,11 @@ import java.util.Date;
 import static android.text.format.DateUtils.FORMAT_ABBREV_MONTH;
 import static android.text.format.DateUtils.FORMAT_ABBREV_TIME;
 import static android.text.format.DateUtils.FORMAT_SHOW_DATE;
-import static android.text.format.DateUtils.FORMAT_SHOW_TIME;
 import static android.text.format.DateUtils.FORMAT_SHOW_YEAR;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 
 /**
- * com.ivan.github.util.DateFormatUtils
+ * com.ivan.github.common.util.DateFormatUtils
  *
  * @author Ivan J. Lee on 2020-01-08 00:56
  * @version v0.1

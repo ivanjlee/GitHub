@@ -7,7 +7,6 @@ import android.content.res.Resources;
 import com.github.utils.SecureSharedPreference;
 import com.google.gson.Gson;
 import com.ivan.github.GitHubApplication;
-import com.ivan.github.api.OAuthService;
 import com.ivan.github.core.net.NetModule;
 
 import javax.inject.Singleton;
@@ -36,8 +35,6 @@ public interface AppComponent extends AndroidInjector<GitHubApplication> {
     Retrofit retrofit();
 
     Gson gson();
-
-    OAuthService githubService();
 
     SecureSharedPreference secureSharedPreference();
 

@@ -12,7 +12,7 @@ import com.ivan.github.R;
 import com.ivan.github.app.feed.model.Event;
 import com.ivan.github.app.feed.model.EventType;
 import com.ivan.github.app.feed.viewholder.DeleteEventViewHolder;
-import com.ivan.github.util.DateFormatUtils;
+import com.ivan.github.common.util.DateFormatUtils;
 
 /**
  * com.ivan.github.app.events.FeedViewHolderFactory

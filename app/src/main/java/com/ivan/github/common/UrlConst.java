@@ -1,4 +1,4 @@
-package com.ivan.github.web;
+package com.ivan.github.common;
 
 /**
  * Url constants

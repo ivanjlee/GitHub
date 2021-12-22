@@ -1,4 +1,4 @@
-package com.ivan.github.util;
+package com.ivan.github.common.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;

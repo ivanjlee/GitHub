@@ -70,10 +70,4 @@ public class NetModule {
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
         return gsonBuilder.create();
     }
-
-    @Provides
-    @Singleton
-    OAuthService provideGitHubService() {
-        return provideRetrofit().create(OAuthService.class);
-    }
 }

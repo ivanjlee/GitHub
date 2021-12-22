@@ -24,15 +24,15 @@ import com.github.utils.CollectionUtils;
 import com.github.utils.KeyboardUtils;
 import com.github.utils.L;
 import com.ivan.github.BuildConfig;
-import com.ivan.github.GitHub;
 import com.ivan.github.R;
 import com.ivan.github.account.Account;
 import com.ivan.github.account.model.Authorization;
 import com.ivan.github.account.model.User;
-import com.ivan.github.app.AppSettings;
+import com.ivan.github.api.OAuthService;
 import com.ivan.github.app.BaseActivity;
 import com.ivan.github.app.main.MainActivity;
-import com.ivan.github.web.UrlConst;
+import com.ivan.github.core.net.HttpClient;
+import com.ivan.github.common.UrlConst;
 import com.ivan.github.web.WebActivity;
 
 import java.io.IOException;
@@ -313,11 +313,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         @Override
         protected Pair<Boolean, Throwable> doInBackground(Void... params) {
             final String auth = Credentials.basic(mEmail, mPassword);
-            Call<List<Authorization>> call = GitHub.appComponent().githubService().listAuthorizations(auth);
+            Call<List<Authorization>> call = HttpClient.service(OAuthService.class).listAuthorizations(auth);
             try {
                 Response<List<Authorization>> response = call.execute();
                 if (response.isSuccessful()) {
-                    Call<User> userCall = GitHub.appComponent().githubService().getAuthorizedUser(auth);
+                    Call<User> userCall = HttpClient.service(OAuthService.class).getAuthorizedUser(auth);
                     Response<User> userResponse = userCall.execute();
                     if (userResponse.isSuccessful()) {
                         Account.getInstance().init(userResponse.body(), auth);
@@ -344,7 +344,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                 mTVPassword.requestFocus();
             } else if (result.first) {
                 LoginSettings.saveUser(mEmail, mPassword);
-                AppSettings.setFirstLogin(false);
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_LONG).show();
                 setResult(LoginConst.RESULT_CODE_FINISH);
