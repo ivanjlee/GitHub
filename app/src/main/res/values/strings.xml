@@ -11,7 +11,7 @@
 
     <!--Landing-->
     <string name="slogan">How people build software</string>
-    <string name="copy_right">© 2020 GitHub, Inc. </string>
+    <string name="copy_right">© 2021 GitHub, Inc. </string>
 
     <!--Splash-->
     <string name="sign_in">Sign in</string>

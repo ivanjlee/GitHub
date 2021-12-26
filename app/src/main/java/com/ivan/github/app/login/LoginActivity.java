@@ -25,7 +25,7 @@ import com.github.utils.KeyboardUtils;
 import com.github.utils.L;
 import com.ivan.github.BuildConfig;
 import com.ivan.github.R;
-import com.ivan.github.account.Account;
+import com.ivan.github.account.UserCenterImpl;
 import com.ivan.github.account.model.Authorization;
 import com.ivan.github.account.model.User;
 import com.ivan.github.api.OAuthService;
@@ -320,8 +320,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                     Call<User> userCall = HttpClient.service(OAuthService.class).getAuthorizedUser(auth);
                     Response<User> userResponse = userCall.execute();
                     if (userResponse.isSuccessful()) {
-                        Account.getInstance().init(userResponse.body(), auth);
-                        Account.getInstance().saveUser();
+                        UserCenterImpl.getInstance().init(userResponse.body(), auth);
+                        UserCenterImpl.getInstance().saveUser(userResponse.body());
                         return new Pair<>(true, null);
                     } else {
                         return new Pair<>(false, new HttpException(userResponse));

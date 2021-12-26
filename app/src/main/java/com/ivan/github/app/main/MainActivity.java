@@ -21,17 +21,19 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentFactory;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.CustomViewTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.github.log.Logan;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.ivan.github.GitHub;
 import com.ivan.github.R;
-import com.ivan.github.account.Account;
 import com.ivan.github.account.model.User;
 import com.ivan.github.app.BaseActivity;
 import com.ivan.github.common.util.BitmapUtils;
@@ -39,6 +41,7 @@ import com.ivan.github.widget.BridgeActionProvider;
 
 /**
  * Homepage of the App
+ *
  * @author Ivan
  */
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -61,10 +64,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private void initView() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = this.findViewById(R.id.fab);
-//        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show());
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -78,47 +77,70 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mIVAvatar = headerView.findViewById(R.id.iv_avatar);
         mTVUsername = headerView.findViewById(R.id.tv_username);
         mTVEmail = headerView.findViewById(R.id.tv_email);
+        OnLoginClickListener listener = new OnLoginClickListener();
+        mIVAvatar.setOnClickListener(listener);
+        mTVUsername.setOnClickListener(listener);
         loadUserAvatar();
         switchFragment(R.id.nav_home);
     }
 
-    private void loadUserAvatar() {
-        User user = Account.getInstance().getUser();
-        if (user == null) {
-            return;
+    private class OnLoginClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            boolean isLogin = GitHub.appComponent().userCenter().isLogin();
+            if (v.getId() == R.id.iv_avatar) {
+                if (!isLogin) {
+                    start("/auth");
+                } else {
+                    // TODO: 2021/12/26 start MediaPreview
+                }
+            } else if (v.getId() == R.id.tv_username && !isLogin) {
+                start("/auth");
+            }
         }
-        Glide.with(this)
-                .asBitmap()
-                .load(user.getAvatarUrl())
-                .into(new CustomViewTarget<View, Bitmap>(mProfileBackground) {
-                    @Override
-                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
+    }
 
-                    }
+    private void loadUserAvatar() {
+        User user = GitHub.appComponent().userCenter().getUser();
+        RequestBuilder<Bitmap> requestBuilder;
+        String name;
+        String email;
+        if (user == null) {
+            name = getString(R.string.sign_in);
+            email = null;
+            mTVEmail.setVisibility(View.GONE);
+            requestBuilder = Glide.with(this).asBitmap().load(R.drawable.ic_avatar_default);
+        } else {
+            mTVEmail.setVisibility(View.VISIBLE);
+            name = user.getName();
+            email = user.getEmail();
+            requestBuilder = Glide.with(this).asBitmap().load(user.getAvatarUrl());
+        }
+        requestBuilder.into(new CustomViewTarget<View, Bitmap>(mProfileBackground) {
+            @Override
+            public void onLoadFailed(@Nullable Drawable errorDrawable) {
+            }
 
-                    @Override
-                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        Bitmap bitmap;
-                        try {
-                            bitmap = BitmapUtils.renderScriptBlur(MainActivity.this, resource, 5, 1/64f);
-                        } catch (Exception exception) {
-                            Logan.e(TAG, "failed to blur image", exception);
-                            return;
-                        }
-                        mProfileBackground.setBackground(new BitmapDrawable(getResources(), bitmap));
-                    }
+            @Override
+            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                Bitmap bitmap;
+                try {
+                    bitmap = BitmapUtils.renderScriptBlur(MainActivity.this, resource, 5, 1 / 64f);
+                } catch (Exception exception) {
+                    Logan.e(TAG, "failed to blur image", exception);
+                    return;
+                }
+                mProfileBackground.setBackground(new BitmapDrawable(getResources(), bitmap));
+            }
 
-                    @Override
-                    protected void onResourceCleared(@Nullable Drawable placeholder) {
-
-                    }
-                });
-        Glide.with(this)
-                .load(user.getAvatarUrl())
-                .apply(RequestOptions.circleCropTransform())
-                .into(mIVAvatar);
-        mTVUsername.setText(user.getName());
-        mTVEmail.setText(user.getEmail());
+            @Override
+            protected void onResourceCleared(@Nullable Drawable placeholder) {
+            }
+        });
+        requestBuilder.apply(RequestOptions.circleCropTransform()).into(mIVAvatar);
+        mTVUsername.setText(name);
+        mTVEmail.setText(email);
     }
 
     @Override
@@ -175,15 +197,18 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void switchFragment(@IdRes int id) {
-        Fragment fragment = getSupportFragmentManager().findFragmentById(id);
-        if (fragment == null) {
-            fragment = FragmentProvider.provideFragment(id);
-        }
-        if (fragment == null) {
+        Class<? extends Fragment> fClass = FragmentProvider.provideFragment(id);
+        if (fClass == null) {
             return;
         }
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content_main, fragment);
-        transaction.commit();
+        String fName = fClass.getName();
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentByTag(fName);
+        if (fragment == null) {
+            fragment = fm.getFragmentFactory().instantiate(getClassLoader(), fClass.getName());
+            fm.beginTransaction().replace(R.id.content_main, fragment, fName).commit();
+        } else {
+            fm.beginTransaction().show(fragment).commit();
+        }
     }
 }

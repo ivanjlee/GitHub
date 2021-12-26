@@ -1,6 +1,6 @@
 package com.ivan.github.app.feed.mvp;
 
-import com.ivan.github.account.Account;
+import com.ivan.github.GitHub;
 import com.ivan.github.api.EventService;
 import com.ivan.github.app.feed.model.Event;
 import com.ivan.github.core.net.HttpClient;
@@ -19,6 +19,6 @@ public class FeedRepository implements IFeedDataStore {
     @Override
     public Call<Event[]> listUserEvents(int page) {
         return HttpClient.service(EventService.class)
-                .listUserEvents(Account.getInstance().getToken(), page);
+                .listUserEvents(GitHub.appComponent().userCenter().getToken(), page);
     }
 }

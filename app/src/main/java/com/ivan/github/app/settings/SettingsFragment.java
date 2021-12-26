@@ -10,16 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.ivan.github.GitHub;
 import com.ivan.github.R;
-import com.ivan.github.account.Account;
-import com.ivan.github.app.AppSettings;
 import com.ivan.github.app.BaseFragment;
 import com.ivan.github.app.login.LoginActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link SettingsFragment.OnFragmentInteractionListener} interface
+ * {@link SettingsFragment} interface
  * to handle interaction events.
  * Use the {@link SettingsFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -78,7 +77,7 @@ public class SettingsFragment extends BaseFragment implements View.OnClickListen
         if (getActivity() == null) {
             return;
         }
-        Account.getInstance().logout();
+        GitHub.appComponent().userCenter().logout();
         startActivity(new Intent(getActivity(), LoginActivity.class));
         getActivity().finish();
     }

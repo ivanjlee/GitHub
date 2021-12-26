@@ -17,8 +17,8 @@ import com.ivan.github.app.settings.SettingsFragment;
  */
 public class FragmentProvider {
 
-    static Fragment provideFragment(@IdRes int id) {
-        Fragment fragment = null;
+    static Class<? extends Fragment> provideFragment(@IdRes int id) {
+        Class<? extends Fragment> fragment = null;
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
@@ -32,11 +32,11 @@ public class FragmentProvider {
         } else if (id == R.id.nav_send) {
 
         } else if (id == R.id.nav_home) {
-            fragment = FeedFragment.newInstance();
+            fragment = FeedFragment.class;
         } else if (id == R.id.nav_notification) {
-            fragment = NotificationFragment.newInstance();
+            fragment = NotificationFragment.class;
         } else if (id == R.id.nav_settings) {
-            fragment = SettingsFragment.newInstance();
+            fragment = SettingsFragment.class;
         }
         return fragment;
     }

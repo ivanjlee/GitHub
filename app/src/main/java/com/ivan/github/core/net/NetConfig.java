@@ -15,7 +15,7 @@ public class NetConfig {
 
     private static final NetConfig DEFAULT_CONFIG = new NetConfig();
 
-    private String url = "https://api.github.com/";
+    private String url = "https://api.github.com";
     private int timeout = 5000;
     private HttpLoggingInterceptor.Level logLevel = HttpLoggingInterceptor.Level.BASIC;
 

@@ -3,7 +3,7 @@ package com.ivan.github.core.net;
 import androidx.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.ivan.github.account.Account;
+import com.ivan.github.GitHub;
 
 import java.io.IOException;
 
@@ -24,9 +24,9 @@ public class AuthorizationInterceptor implements Interceptor {
     @Override
     public Response intercept(@NonNull Chain chain) throws IOException {
         Request request = chain.request();
-        String auth = Account.getInstance().getAuthorization();
+        String auth = GitHub.appComponent().userCenter().getAuthorization();
         if (TextUtils.isEmpty(auth)) {
-            auth = Account.getInstance().getAuthorization();
+            auth = GitHub.appComponent().userCenter().getAuthorization();
         }
         String authorization = request.header("Authorization");
         if (!TextUtils.isEmpty(auth) && TextUtils.isEmpty(authorization)) {

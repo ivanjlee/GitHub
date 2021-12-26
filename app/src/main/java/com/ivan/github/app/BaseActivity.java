@@ -1,6 +1,8 @@
 package com.ivan.github.app;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.AnimRes;
@@ -8,6 +10,8 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
+
+import com.github.log.Logan;
 import com.google.android.material.appbar.AppBarLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
@@ -21,8 +25,10 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.ivan.github.R;
+import com.ivan.github.common.UriBuilder;
 
-import io.reactivex.rxjava3.core.Scheduler;
+import java.util.Map;
+
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 
@@ -37,9 +43,33 @@ public class BaseActivity extends AppCompatActivity {
 
     private CompositeDisposable mDisposables;
 
-    protected void startActivity(Intent intent, @AnimRes int enterAnim, @AnimRes int exitAnim) {
+    protected void start(String path, @AnimRes int enterAnim, @AnimRes int exitAnim) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, UriBuilder.with(path).build());
         ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeCustomAnimation(this, enterAnim, exitAnim);
-        ActivityCompat.startActivity(this, intent, optionsCompat.toBundle());
+        try {
+            ActivityCompat.startActivity(this, intent, optionsCompat.toBundle());
+        } catch (ActivityNotFoundException exception) {
+            Logan.e(TAG, "failed to start Activity", exception);
+        }
+    }
+
+    protected void start(String path) {
+        start(path, null);
+    }
+
+    protected void start(String path, Map<String, String> params) {
+        Uri.Builder builder = UriBuilder.with(path);
+        if (params != null) {
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                builder.appendQueryParameter(entry.getKey(), entry.getValue());
+            }
+        }
+        Intent intent = new Intent(Intent.ACTION_VIEW, builder.build());
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException exception) {
+            Logan.e(TAG, "failed to start Activity", exception);
+        }
     }
 
     @Override
@@ -81,17 +111,15 @@ public class BaseActivity extends AppCompatActivity {
         }
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
         AppBarLayout appBarLayout = findViewById(R.id.appbar_layout);
-        if (appBarLayout != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (appBarLayout != null) {
             appBarLayout.setStateListAnimator(null);
             ViewCompat.setElevation(appBarLayout, 8);
         }
     }
 
     protected void setNavigationBarColor(@ColorRes int color) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setNavigationBarColor(getResources().getColor(color));
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        }
+        getWindow().setNavigationBarColor(getResources().getColor(color));
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
     }
 
     protected void initToolbar(@IdRes int id) {

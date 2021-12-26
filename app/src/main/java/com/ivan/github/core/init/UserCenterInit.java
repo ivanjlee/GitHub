@@ -5,8 +5,8 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.startup.Initializer;
 
-import com.ivan.github.account.Account;
 import com.ivan.github.account.IUserCenter;
+import com.ivan.github.account.UserCenterImpl;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +21,9 @@ public class UserCenterInit extends AbsInitializer<IUserCenter>{
 
     @Override
     public IUserCenter onCreate(Context context) {
-        return Account.getInstance();
+        UserCenterImpl userCenter = UserCenterImpl.getInstance();
+        userCenter.loadUser();
+        return userCenter;
     }
 
     @NonNull

@@ -6,6 +6,8 @@ import android.content.res.Resources;
 
 import com.github.utils.SecureSharedPreference;
 import com.ivan.github.GitHubApplication;
+import com.ivan.github.account.IUserCenter;
+import com.ivan.github.account.UserCenterImpl;
 
 import javax.inject.Singleton;
 
@@ -50,5 +52,11 @@ public class AppModule {
     @Singleton
     SecureSharedPreference provideSecureSharedPreference() {
         return new SecureSharedPreference(mContext, "app_settings", Context.MODE_PRIVATE);
+    }
+
+    @Provides
+    @Singleton
+    IUserCenter provideUserCenter() {
+        return UserCenterImpl.getInstance();
     }
 }

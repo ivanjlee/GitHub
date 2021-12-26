@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityOptionsCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.github.design.widget.CirclePagerIndicator;
@@ -77,7 +76,7 @@ public class LandingActivity extends BaseActivity {
 
     public void signIn(View view) {
         Intent intent = new Intent(this, OAuthActivity.class);
-        ActivityOptionsCompat activityOptions= ActivityOptionsCompat.makeSceneTransitionAnimation(this);
+//        ActivityOptionsCompat activityOptions= ActivityOptionsCompat.makeSceneTransitionAnimation(this);
         startActivityForResult(intent, LoginConst.REQUEST_CODE_OAUTH);
     }
 
@@ -90,10 +89,7 @@ public class LandingActivity extends BaseActivity {
     }
 
     public void explore(View view) {
-        Uri uri = UriBuilder.with("/web")
-                .appendQueryParameter("url", UrlConst.GITHUB_BASE_URL)
-                .appendQueryParameter("title", "Github")
-                .build();
+        Uri uri = UriBuilder.with("/homepage").build();
         startActivity(new Intent(Intent.ACTION_VIEW, uri));
     }
 

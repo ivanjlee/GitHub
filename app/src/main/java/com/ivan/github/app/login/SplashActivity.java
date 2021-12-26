@@ -1,21 +1,15 @@
 package com.ivan.github.app.login;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.ivan.github.R;
-import com.ivan.github.account.Account;
 import com.ivan.github.app.AppSettings;
 import com.ivan.github.app.BaseActivity;
-import com.ivan.github.app.main.MainActivity;
-import com.ivan.github.common.UriBuilder;
 
 /**
  * @author Ivan J. Lee
@@ -26,22 +20,20 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FIRST_APPLICATION_WINDOW);
         int uiVisibility = View.SYSTEM_UI_FLAG_IMMERSIVE
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
         getWindow().getDecorView().setSystemUiVisibility(uiVisibility);
         getWindow().getDecorView().setFitsSystemWindows(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            WindowManager.LayoutParams lp = getWindow().getAttributes();
+            lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+            getWindow().setAttributes(lp);
+        }
         setContentView(R.layout.activity_splash);
-
-        Handler handler = new Handler(getMainLooper()) {
-            @Override
-            public void handleMessage(Message msg) {
-                navigation();
-            }
-        };
-
-        handler.sendEmptyMessageDelayed(0, 1000);
+        Handler handler = new Handler(getMainLooper());
+        handler.postDelayed(this::navigation, 1000);
     }
 
     @Override
@@ -82,11 +74,9 @@ public class SplashActivity extends BaseActivity {
 
     private void navigation() {
         if (AppSettings.isFirstLogin()) {
-            Intent intent = new Intent(Intent.ACTION_VIEW, UriBuilder.with("/landing").build());
-            startActivity(intent, R.anim.alpha_in, R.anim.alpha_out);
+            start("/landing", R.anim.alpha_in, R.anim.alpha_out);
         } else {
-            Intent intent = new Intent(Intent.ACTION_VIEW, UriBuilder.with("/homepage").build());
-            startActivity(intent, R.anim.alpha_in, R.anim.alpha_out);
+            start("/homepage", R.anim.alpha_in, R.anim.alpha_out);
         }
         SplashActivity.this.finish();
     }

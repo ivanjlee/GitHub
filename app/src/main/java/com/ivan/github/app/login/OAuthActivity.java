@@ -1,6 +1,5 @@
 package com.ivan.github.app.login;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.text.TextUtils;
@@ -13,15 +12,12 @@ import androidx.annotation.NonNull;
 
 import com.github.design.widget.LoadingView;
 import com.github.log.Logan;
-import com.ivan.github.GitHub;
 import com.ivan.github.R;
-import com.ivan.github.account.Account;
+import com.ivan.github.account.UserCenterImpl;
 import com.ivan.github.api.OAuthService;
-import com.ivan.github.app.AppSettings;
 import com.ivan.github.app.ToolbarActivity;
 import com.ivan.github.app.login.model.OAuthReq;
 import com.ivan.github.app.login.model.OAuthResp;
-import com.ivan.github.app.main.MainActivity;
 import com.ivan.github.core.net.HttpClient;
 import com.ivan.github.core.net.TransformerHelper;
 import com.ivan.github.web.widget.AbsPageLoadListener;
@@ -48,6 +44,7 @@ public class OAuthActivity extends ToolbarActivity implements View.OnClickListen
     private BifrostWebView mWebView;
 
     private String mUrl;
+    private String mTarget;
 
     private static final String clientId = "08d9cad09d2e1745edb4";
     private static final String clientSecret = "3943633750719013ae8208f6f001951566328218";
@@ -65,9 +62,22 @@ public class OAuthActivity extends ToolbarActivity implements View.OnClickListen
         setNavigationBarColor(R.color.colorPrimaryDark);
     }
 
+    private void resolveParams() {
+        Uri uri = getIntent().getData();
+        if (uri != null) {
+            mTarget = uri.getQueryParameter("target");
+        } else {
+            mTarget = getIntent().getStringExtra("target");
+        }
+        if (TextUtils.isEmpty(mTarget)) {
+            mTarget = "/homepage";
+        }
+    }
+
     @Override
     protected void onPostCreateView() {
         super.onPostCreateView();
+        resolveParams();
         mLoadingView = findViewById(R.id.lv_loading);
         mWebView = findViewById(R.id.web_view);
         mWebView.setEmptyViewClickListener(this);
@@ -234,9 +244,9 @@ public class OAuthActivity extends ToolbarActivity implements View.OnClickListen
                         .doOnDispose(OAuthActivity.this::dismissLoading)
                         .doOnError(throwable -> dismissLoading())
                         .subscribe(user -> {
-                            Account.getInstance().init(user, auth[0].access_token);
-                            Account.getInstance().saveUser();
-                            startActivity(new Intent(OAuthActivity.this, MainActivity.class));
+                            UserCenterImpl.getInstance().init(user, auth[0].access_token);
+                            UserCenterImpl.getInstance().saveUser(user);
+                            start(mTarget);
                             setResult(LoginConst.RESULT_CODE_OAUTH_SUCCESS);
                             finish();
                         }, throwable -> {

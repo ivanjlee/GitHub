@@ -101,7 +101,7 @@ public abstract class BaseMvpFragment<P extends IPresenter<?>> extends BaseFragm
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         attach(getPresenter());
     }
@@ -120,6 +120,12 @@ public abstract class BaseMvpFragment<P extends IPresenter<?>> extends BaseFragm
     @Override
     public void detach(P p) {
         p.stop();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        dismissLoading();
     }
 
     @Override
