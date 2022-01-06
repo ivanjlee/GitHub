@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Square, Inc.
+ * Copyright (C) 2020 Square, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,26 +17,29 @@ package retrofit2.adapter.rxjava3;
 
 import java.io.IOException;
 
+import io.reactivex.rxjava3.annotations.Nullable;
 import retrofit2.Response;
 
 /**
  * The result of executing an HTTP request.
  */
 public final class Result<T> {
+    // Guarding public API nullability.
     public static <T> Result<T> error(Throwable error) {
         if (error == null) throw new NullPointerException("error == null");
         return new Result<>(null, error);
     }
 
+    // Guarding public API nullability.
     public static <T> Result<T> response(Response<T> response) {
         if (response == null) throw new NullPointerException("response == null");
         return new Result<>(response, null);
     }
 
-    private final Response<T> response;
-    private final Throwable error;
+    private final @Nullable Response<T> response;
+    private final @Nullable Throwable error;
 
-    private Result(Response<T> response, Throwable error) {
+    private Result(@Nullable Response<T> response, @Nullable Throwable error) {
         this.response = response;
         this.error = error;
     }
@@ -45,19 +48,19 @@ public final class Result<T> {
      * The response received from executing an HTTP request. Only present when {@link #isError()} is
      * false, null otherwise.
      */
-    public Response<T> response() {
+    public @Nullable Response<T> response() {
         return response;
     }
 
     /**
      * The error experienced while attempting to execute an HTTP request. Only present when {@link
      * #isError()} is true, null otherwise.
-     * <p>
-     * If the error is an {@link IOException} then there was a problem with the transport to the
+     *
+     * <p>If the error is an {@link IOException} then there was a problem with the transport to the
      * remote server. Any other exception type indicates an unexpected failure and should be
      * considered fatal (configuration error, programming error, etc.).
      */
-    public Throwable error() {
+    public @Nullable Throwable error() {
         return error;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Jake Wharton
+ * Copyright (C) 2020  Square, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package retrofit2.adapter.rxjava3;
 
+import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -31,8 +32,8 @@ final class ResultObservable<T> extends Observable<Result<T>> {
     }
 
     @Override
-    protected void subscribeActual(Observer<? super Result<T>> observer) {
-        upstream.subscribe(new ResultObserver<T>(observer));
+    protected void subscribeActual(@NonNull Observer<? super Result<T>> observer) {
+        upstream.subscribe(new ResultObserver<>(observer));
     }
 
     private static class ResultObserver<R> implements Observer<Response<R>> {
@@ -43,19 +44,19 @@ final class ResultObservable<T> extends Observable<Result<T>> {
         }
 
         @Override
-        public void onSubscribe(Disposable disposable) {
+        public void onSubscribe(@NonNull Disposable disposable) {
             observer.onSubscribe(disposable);
         }
 
         @Override
-        public void onNext(Response<R> response) {
+        public void onNext(@NonNull Response<R> response) {
             observer.onNext(Result.response(response));
         }
 
         @Override
-        public void onError(Throwable throwable) {
+        public void onError(@NonNull Throwable throwable) {
             try {
-                observer.onNext(Result.<R>error(throwable));
+                observer.onNext(Result.error(throwable));
             } catch (Throwable t) {
                 try {
                     observer.onError(t);

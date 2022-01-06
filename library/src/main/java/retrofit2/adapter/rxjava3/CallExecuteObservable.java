@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Jake Wharton
+ * Copyright (C) 2020  Square, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,15 +35,19 @@ final class CallExecuteObservable<T> extends Observable<Response<T>> {
     protected void subscribeActual(Observer<? super Response<T>> observer) {
         // Since Call is a one-shot type, clone it for each new observer.
         Call<T> call = originalCall.clone();
-        observer.onSubscribe(new CallDisposable(call));
+        CallDisposable disposable = new CallDisposable(call);
+        observer.onSubscribe(disposable);
+        if (disposable.isDisposed()) {
+            return;
+        }
 
         boolean terminated = false;
         try {
             Response<T> response = call.execute();
-            if (!call.isCanceled()) {
+            if (!disposable.isDisposed()) {
                 observer.onNext(response);
             }
-            if (!call.isCanceled()) {
+            if (!disposable.isDisposed()) {
                 terminated = true;
                 observer.onComplete();
             }
@@ -51,7 +55,7 @@ final class CallExecuteObservable<T> extends Observable<Response<T>> {
             Exceptions.throwIfFatal(t);
             if (terminated) {
                 RxJavaPlugins.onError(t);
-            } else if (!call.isCanceled()) {
+            } else if (!disposable.isDisposed()) {
                 try {
                     observer.onError(t);
                 } catch (Throwable inner) {
@@ -64,6 +68,7 @@ final class CallExecuteObservable<T> extends Observable<Response<T>> {
 
     private static final class CallDisposable implements Disposable {
         private final Call<?> call;
+        private volatile boolean disposed;
 
         CallDisposable(Call<?> call) {
             this.call = call;
@@ -71,12 +76,13 @@ final class CallExecuteObservable<T> extends Observable<Response<T>> {
 
         @Override
         public void dispose() {
+            disposed = true;
             call.cancel();
         }
 
         @Override
         public boolean isDisposed() {
-            return call.isCanceled();
+            return disposed;
         }
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Jake Wharton
+ * Copyright (C) 2020  Square, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package retrofit2.adapter.rxjava3;
 
+import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -32,8 +33,8 @@ final class BodyObservable<T> extends Observable<T> {
     }
 
     @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-        upstream.subscribe(new BodyObserver<T>(observer));
+    protected void subscribeActual(@NonNull Observer<? super T> observer) {
+        upstream.subscribe(new BodyObserver<>(observer));
     }
 
     private static class BodyObserver<R> implements Observer<Response<R>> {
@@ -45,13 +46,13 @@ final class BodyObservable<T> extends Observable<T> {
         }
 
         @Override
-        public void onSubscribe(Disposable disposable) {
+        public void onSubscribe(@NonNull Disposable disposable) {
             observer.onSubscribe(disposable);
         }
 
         @Override
         public void onNext(Response<R> response) {
-            if (response.isSuccessful()) {
+            if (response.isSuccessful() && response.body() != null) {
                 observer.onNext(response.body());
             } else {
                 terminated = true;
@@ -73,7 +74,7 @@ final class BodyObservable<T> extends Observable<T> {
         }
 
         @Override
-        public void onError(Throwable throwable) {
+        public void onError(@NonNull Throwable throwable) {
             if (!terminated) {
                 observer.onError(throwable);
             } else {

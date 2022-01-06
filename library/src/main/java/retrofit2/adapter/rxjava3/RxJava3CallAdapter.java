@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Jake Wharton
+ * Copyright (C) 2020  Square, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,18 +15,23 @@
  */
 package retrofit2.adapter.rxjava3;
 
-import java.lang.reflect.Type;
-
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.annotations.Nullable;
 import io.reactivex.rxjava3.core.BackpressureStrategy;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Scheduler;
+import io.reactivex.rxjava3.plugins.RxJavaPlugins;
+
+import java.lang.reflect.Type;
+
 import retrofit2.Call;
 import retrofit2.CallAdapter;
 import retrofit2.Response;
 
 final class RxJava3CallAdapter<R> implements CallAdapter<R, Object> {
     private final Type responseType;
-    private final Scheduler scheduler;
+    private final @Nullable
+    Scheduler scheduler;
     private final boolean isAsync;
     private final boolean isResult;
     private final boolean isBody;
@@ -35,9 +40,16 @@ final class RxJava3CallAdapter<R> implements CallAdapter<R, Object> {
     private final boolean isMaybe;
     private final boolean isCompletable;
 
-    RxJava3CallAdapter(Type responseType, Scheduler scheduler, boolean isAsync, boolean isResult,
-                       boolean isBody, boolean isFlowable, boolean isSingle, boolean isMaybe,
-                       boolean isCompletable) {
+    RxJava3CallAdapter(
+            Type responseType,
+            @Nullable Scheduler scheduler,
+            boolean isAsync,
+            boolean isResult,
+            boolean isBody,
+            boolean isFlowable,
+            boolean isSingle,
+            boolean isMaybe,
+            boolean isCompletable) {
         this.responseType = responseType;
         this.scheduler = scheduler;
         this.isAsync = isAsync;
@@ -49,16 +61,17 @@ final class RxJava3CallAdapter<R> implements CallAdapter<R, Object> {
         this.isCompletable = isCompletable;
     }
 
+    @NonNull
     @Override
     public Type responseType() {
         return responseType;
     }
 
+    @NonNull
     @Override
-    public Object adapt(Call<R> call) {
-        Observable<Response<R>> responseObservable = isAsync
-                ? new CallEnqueueObservable<>(call)
-                : new CallExecuteObservable<>(call);
+    public Object adapt(@NonNull Call<R> call) {
+        Observable<Response<R>> responseObservable =
+                isAsync ? new CallEnqueueObservable<>(call) : new CallExecuteObservable<>(call);
 
         Observable<?> observable;
         if (isResult) {
@@ -74,7 +87,9 @@ final class RxJava3CallAdapter<R> implements CallAdapter<R, Object> {
         }
 
         if (isFlowable) {
-            return observable.toFlowable(BackpressureStrategy.LATEST);
+            // We only ever deliver a single value, and the RS spec states that you MUST request at least
+            // one element which means we never need to honor backpressure.
+            return observable.toFlowable(BackpressureStrategy.MISSING);
         }
         if (isSingle) {
             return observable.singleOrError();
@@ -85,6 +100,6 @@ final class RxJava3CallAdapter<R> implements CallAdapter<R, Object> {
         if (isCompletable) {
             return observable.ignoreElements();
         }
-        return observable;
+        return RxJavaPlugins.onAssembly(observable);
     }
 }
