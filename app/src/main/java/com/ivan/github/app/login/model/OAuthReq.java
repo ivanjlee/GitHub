@@ -1,6 +1,7 @@
 package com.ivan.github.app.login.model;
 
-import com.github.annotations.NoProguard;
+import androidx.annotation.Keep;
+
 
 /**
  * com.ivan.github.app.login.model.LoginReq
@@ -9,7 +10,7 @@ import com.github.annotations.NoProguard;
  * @version v0.1
  * @since v1.0
  **/
-@NoProguard
+@Keep
 public class OAuthReq {
     /**
      * Required. The client ID you received from GitHub for your GitHub App.

@@ -1,9 +1,8 @@
 package com.ivan.github.app.feed;
 
-import com.ivan.github.app.feed.mvp.FeedContract;
-import com.ivan.github.app.feed.mvp.FeedRepository;
-import com.ivan.github.app.feed.mvp.FeedPresenter;
-import com.ivan.github.app.feed.mvp.IFeedDataStore;
+import com.ivan.github.app.feed.model.impl.FeedRepository;
+import com.ivan.github.app.feed.presenter.FeedPresenter;
+import com.ivan.github.app.feed.model.IFeedDataStore;
 
 import dagger.Module;
 import dagger.Provides;

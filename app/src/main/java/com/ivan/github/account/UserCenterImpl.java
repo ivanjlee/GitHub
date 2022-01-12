@@ -122,7 +122,16 @@ public class UserCenterImpl implements IUserCenter, SharedPreferences.OnSharedPr
     }
 
     @Override
-    public String getToken() {
+    public String getUsername() {
+        if (mUser == null) {
+            return "";
+        } else {
+            return mUser.login;
+        }
+    }
+
+    @Override
+    public String getLogin() {
         if (mUser == null) {
             return "";
         } else {

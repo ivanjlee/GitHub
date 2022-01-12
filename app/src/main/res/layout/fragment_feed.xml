@@ -3,12 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.feed.FeedFragment">
+    tools:context=".app.feed.ui.FeedFragment">
 
     <com.github.design.widget.PLRecyclerView
         android:id="@+id/pl_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         tools:listitem="@layout/layout_feed_list_item_watch"
         >
 

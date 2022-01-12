@@ -7,6 +7,8 @@ import android.os.Build;
 import android.provider.Settings;
 import android.text.TextUtils;
 
+import com.github.log.Logan;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -28,7 +30,7 @@ public class SecureSharedPreference implements SharedPreferences {
 
     public SecureSharedPreference(Context context, String name, int mode) {
         this.sharedPreferences = context.getSharedPreferences(name, mode);
-        this.secretKey = getDeviceSerialNumber(context);
+        this.secretKey = DeviceUtils.getDeviceId();
     }
 
     public SecureSharedPreference(Context context, String name, int mode, String key) {
@@ -37,6 +39,7 @@ public class SecureSharedPreference implements SharedPreferences {
     }
 
     @SuppressLint("HardwareIds")
+    @Deprecated
     public static String getDeviceSerialNumber(Context context) {
         // We're using the Reflection API because Build.SERIAL is only available
         // since API Level 9 (Gingerbread, Android 2.3).

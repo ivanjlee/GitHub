@@ -7,7 +7,7 @@ package com.ivan.github.core.mvp;
  * @version v0.1
  * @since   v1.0
  */
-public abstract class BasePresenter<V extends IBaseView> implements IPresenter<V> {
+public abstract class BasePresenter<V extends IBaseView<?>> implements IPresenter<V> {
 
     private V mView;
 

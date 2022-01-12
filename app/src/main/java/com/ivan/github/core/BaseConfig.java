@@ -3,7 +3,9 @@ package com.ivan.github.core;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 
+import com.github.utils.DeviceUtils;
 import com.ivan.github.BuildConfig;
 
 public class BaseConfig {
@@ -28,6 +30,10 @@ public class BaseConfig {
      */
     public static long buildTime = BuildConfig.BUILD;
 
+    /**
+     * unique device id
+     */
+    public static final String deviceId = DeviceUtils.getDeviceId();
 
     /**
      * The time at which the app was first installed.  Units are as

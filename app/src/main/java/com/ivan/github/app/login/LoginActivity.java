@@ -4,9 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.core.util.Pair;
-import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +15,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.util.Pair;
 
 import com.github.design.widget.CompoundDrawablesTextView;
 import com.github.utils.CollectionUtils;
@@ -31,8 +31,8 @@ import com.ivan.github.account.model.User;
 import com.ivan.github.api.OAuthService;
 import com.ivan.github.app.BaseActivity;
 import com.ivan.github.app.main.MainActivity;
-import com.ivan.github.core.net.HttpClient;
 import com.ivan.github.common.UrlConst;
+import com.ivan.github.core.net.HttpClient;
 import com.ivan.github.web.WebActivity;
 
 import java.io.IOException;
@@ -58,7 +58,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
 
-    private Set<String> mEmails = new LinkedHashSet<>();
+    private final Set<String> mEmails = new LinkedHashSet<>();
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -145,13 +145,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         findViewById(R.id.tv_privacy).setOnClickListener(this);
         findViewById(R.id.tv_security).setOnClickListener(this);
         findViewById(R.id.tv_contact_github).setOnClickListener(this);
-    }
-
-    /**
-     * Callback received when a permissions request has been completed.
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
     }
 
     private void setupActionBar() {

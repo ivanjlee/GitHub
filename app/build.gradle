@@ -8,7 +8,7 @@ android {
     compileSdkVersion rootProject.ext.config.compileSdkVersion
     buildToolsVersion rootProject.ext.config.buildToolsVersion
     defaultConfig {
-        applicationId "com.github.android"
+        applicationId "com.github.android.pro"
         minSdkVersion rootProject.ext.config.minSdkVersion
         targetSdkVersion rootProject.ext.config.targetSdkVersion
         versionCode 10000
@@ -88,6 +88,7 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:$versions.dagger"
     annotationProcessor "com.google.dagger:dagger-android-processor:$versions.dagger"
 
+    implementation 'com.squareup.retrofit2:converter-simplexml:2.9.0'
     implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
     implementation "com.squareup.okhttp3:logging-interceptor:$versions.ok_logging"
     implementation "com.squareup.retrofit2:converter-gson:$versions.converter_gson"

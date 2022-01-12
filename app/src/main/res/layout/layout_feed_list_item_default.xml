@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -27,22 +28,7 @@
         android:ellipsize="marquee"
         app:layout_constraintStart_toEndOf="@id/iv_avatar"
         app:layout_constraintTop_toTopOf="@id/iv_avatar"
-        app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
         tools:text="Ivan J. Lee"
-        />
-
-    <TextView
-        android:id="@+id/tv_action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_normal"
-        android:textSize="@dimen/body"
-        android:textColor="@color/gray_33"
-        android:textStyle="normal"
-        app:layout_constraintStart_toEndOf="@id/tv_username"
-        app:layout_constraintTop_toTopOf="@id/iv_avatar"
-        app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
-        tools:text="stared repository"
         />
 
     <TextView
@@ -56,23 +42,38 @@
         />
 
     <TextView
+        android:id="@+id/tv_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:textSize="@dimen/body"
+        android:textColor="@color/gray_33"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@id/tv_username"
+        app:layout_constraintTop_toBottomOf="@id/tv_username"
+        app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+        tools:text="stared repository"
+        />
+
+    <TextView
         android:id="@+id/tv_repository"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_normal"
+        android:layout_marginTop="@dimen/margin_normal"
         android:textSize="@dimen/h3"
         android:textColor="@color/gray_33"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/tv_username"
-        app:layout_constraintTop_toBottomOf="@id/tv_username"
+        app:layout_constraintTop_toBottomOf="@id/tv_action"
         tools:text="google/flutter-desktop-embedding "
         />
 
     <View
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@color/gray_border"
         android:layout_marginTop="@dimen/margin_normal"
+        app:layout_constraintStart_toEndOf="@id/iv_avatar"
         app:layout_constraintTop_toBottomOf="@id/tv_repository"
         app:layout_constraintBottom_toBottomOf="parent"
         />

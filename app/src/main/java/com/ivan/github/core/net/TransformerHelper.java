@@ -1,5 +1,9 @@
 package com.ivan.github.core.net;
 
+import java.io.IOException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.ObservableSource;
@@ -36,9 +40,21 @@ public class TransformerHelper {
     public static <R> ObservableTransformer<Result<R>, R> result() {
         return upstream -> upstream.flatMap((Function<Result<R>, ObservableSource<R>>) result -> {
             if (result.isError()) {
-                return Observable.error(new RuntimeException(result.error().getLocalizedMessage()));
-            } else if (result.response() == null || result.response().body() == null) {
-                return Observable.error(new RuntimeException("no data"));
+                if (result.error() instanceof UnknownHostException) {
+                    return Observable.error(new BizException(-1003, "network unavailable, please check your network", result.error()));
+                } else if (result.error() instanceof SocketTimeoutException) {
+                    return Observable.error(new BizException(-1002, "connection timeout, try it later", result.error()));
+                } else if (result.error() instanceof IOException) {
+                    return Observable.error(new BizException(-1001, "connection failed, try it later", result.error()));
+                } else if (result.error() == null) {
+                    return Observable.error(new BizException(-1000, "unknown error, try it later"));
+                } else {
+                    return Observable.error(new BizException(-1, result.error().getLocalizedMessage()));
+                }
+            } else if (result.response() == null) {
+                return Observable.error(new BizException(-2001, "no data"));
+            } else if (result.response().body() == null) {
+                return Observable.error(new BizException(-2002, "no data"));
             } else {
                 return Observable.just(result.response().body());
             }

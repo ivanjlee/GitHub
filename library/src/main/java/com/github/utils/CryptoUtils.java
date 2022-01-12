@@ -2,7 +2,6 @@ package com.github.utils;
 
 import android.util.Base64;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -60,7 +59,7 @@ public class CryptoUtils {
             Cipher cipher = Cipher.getInstance("AES/CFB/NoPadding");
             SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), "AES");
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, new IvParameterSpec(new byte[cipher.getBlockSize()]));
-            byte[] contentBytes = new byte[0];
+            byte[] contentBytes;
             contentBytes = content.getBytes(StandardCharsets.UTF_8);
             byte[] encryptedBytes = new byte[0];
             try {
@@ -83,7 +82,7 @@ public class CryptoUtils {
         }
         try {
             Cipher cipher = Cipher.getInstance("AES/CFB/NoPadding");
-            SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), "AES");
+            SecretKey secretKeySpec = genSecretKey(key);
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, new IvParameterSpec(new byte[cipher.getBlockSize()]));
             byte[] contentBytes = Base64.decode(encryptedContent.getBytes(), Base64.DEFAULT);
 //            byte[] contentBytes = java.util.Base64.getDecoder().decode(encryptedContent.getBytes());

@@ -10,9 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.design.LoadingDialog;
+import com.github.design.widget.EmptyView;
+import com.github.log.Logan;
 import com.ivan.github.R;
 import com.ivan.github.app.BaseFragment;
 
@@ -25,12 +28,16 @@ import com.ivan.github.app.BaseFragment;
  **/
 public abstract class BaseMvpFragment<P extends IPresenter<?>> extends BaseFragment implements IBaseStateView<P> {
 
+    private static final String TAG = "BaseMvpFragment";
+
     protected static final int STATE_NORMAL = 1;
     protected static final int STATE_EMPTY = 2;
     protected static final int STATE_ERROR = 3;
 
     protected View mRootView;
     protected LoadingDialog mLoadingDialog;
+    protected EmptyView mEmptyView;
+    protected EmptyView mErrorView;
 
     protected SparseArray<View> mStateViews = new SparseArray<>(3);
 
@@ -48,17 +55,17 @@ public abstract class BaseMvpFragment<P extends IPresenter<?>> extends BaseFragm
 
     protected void initState() {
         FrameLayout frameLayout = ((FrameLayout) mRootView);
-        View emptyView = LayoutInflater.from(getContext()).inflate(R.layout.layout_empty_view, frameLayout, false);
-        View errorView = LayoutInflater.from(getContext()).inflate(R.layout.layout_error_view, frameLayout, false);
+        mEmptyView = (EmptyView) LayoutInflater.from(getContext()).inflate(R.layout.layout_empty_view, frameLayout, false);
+        mErrorView = (EmptyView) LayoutInflater.from(getContext()).inflate(R.layout.layout_error_view, frameLayout, false);
         View normalView = LayoutInflater.from(getContext()).inflate(getLayoutId(), frameLayout, false);
-        mStateViews.put(STATE_EMPTY, emptyView);
-        mStateViews.put(STATE_ERROR, errorView);
+        mStateViews.put(STATE_EMPTY, mEmptyView);
+        mStateViews.put(STATE_ERROR, mErrorView);
         mStateViews.put(STATE_NORMAL, normalView);
-        emptyView.setVisibility(View.GONE);
-        errorView.setVisibility(View.GONE);
+        mEmptyView.setVisibility(View.GONE);
+        mErrorView.setVisibility(View.GONE);
         normalView.setVisibility(View.VISIBLE);
-        frameLayout.addView(emptyView);
-        frameLayout.addView(errorView);
+        frameLayout.addView(mEmptyView);
+        frameLayout.addView(mErrorView);
         frameLayout.addView(normalView);
     }
 
@@ -73,15 +80,26 @@ public abstract class BaseMvpFragment<P extends IPresenter<?>> extends BaseFragm
         ((FrameLayout) mRootView).addView(view);
     }
 
-    public void showEmptyView() {
+    protected void showEmptyView() {
         showStateView(STATE_EMPTY);
     }
 
-    public void showErrorView() {
+    protected void showEmptyView(CharSequence msg) {
+        mEmptyView.setMessage(msg);
+        showStateView(STATE_EMPTY);
+    }
+
+    protected void showErrorView() {
         showStateView(STATE_ERROR);
     }
 
-    public void showNormalView() {
+    protected void showErrorView(CharSequence title, CharSequence msg){
+        mErrorView.setTitle(title);
+        mErrorView.setMessage(msg);
+        showStateView(STATE_ERROR);
+    }
+
+    protected void showNormalView() {
         showStateView(STATE_NORMAL);
     }
 
@@ -97,7 +115,7 @@ public abstract class BaseMvpFragment<P extends IPresenter<?>> extends BaseFragm
     }
     @Override
     public boolean isAlive() {
-        return isAdded() && isVisible() && !isDetached() && getActivity() != null;
+        return isAdded() && !isDetached() && getActivity() != null;
     }
 
     @Override
@@ -119,6 +137,7 @@ public abstract class BaseMvpFragment<P extends IPresenter<?>> extends BaseFragm
 
     @Override
     public void detach(P p) {
+        dismissLoading();
         p.stop();
     }
 
@@ -135,6 +154,7 @@ public abstract class BaseMvpFragment<P extends IPresenter<?>> extends BaseFragm
 
     @Override
     public void dismissLoading() {
+        Logan.d(TAG, "dismissLoading");
         mLoadingDialog.dismiss();
     }
 

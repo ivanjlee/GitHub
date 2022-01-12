@@ -17,6 +17,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 /**
  * net module
@@ -45,7 +46,7 @@ public class NetModule {
                 .baseUrl(mNetConfig.getUrl())
                 .client(provideOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create(provideGson()))
-                .addCallAdapterFactory(RxJava3CallAdapterFactory.createAsync())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build();
     }
 

@@ -11,7 +11,13 @@ import android.util.Log;
 public class LogcatLogger implements ILogger {
 
     @Override
-    public void log(int level, String tag, String msg, Throwable throwable) {
+    public void log(int level, String tag, String info, Throwable throwable) {
+        String msg;
+        if (info.length() >= 4096) {
+            msg = info.subSequence(0, 1024) + "... \nemmit " + (info.length() - 1024) + "characters";
+        } else {
+            msg = info;
+        }
         switch (level) {
             case LogLevel.VERBOSE:
                 Log.v(tag, msg, throwable);

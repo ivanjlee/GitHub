@@ -4,7 +4,7 @@ import androidx.annotation.IdRes;
 import androidx.fragment.app.Fragment;
 
 import com.ivan.github.R;
-import com.ivan.github.app.feed.FeedFragment;
+import com.ivan.github.app.feed.ui.FeedFragment;
 import com.ivan.github.app.notification.NotificationFragment;
 import com.ivan.github.app.settings.SettingsFragment;
 

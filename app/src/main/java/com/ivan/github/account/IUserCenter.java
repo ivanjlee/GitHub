@@ -16,7 +16,9 @@ public interface IUserCenter {
 
     User getUser();
 
-    String getToken();
+    String getUsername();
+
+    String getLogin();
 
     void logout();
 
