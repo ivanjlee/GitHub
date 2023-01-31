@@ -22,7 +22,7 @@
 <!--0% — 00-->
 <resources>
     <color name="colorPrimary">#FFFFFF</color>
-    <color name="colorPrimaryDark">#80E0E0E0</color>
+    <color name="colorPrimaryDark">#E0E0E0</color>
     <color name="colorAccent">#28A745</color>
     <color name="textColorPrimary">#333333</color>
 
