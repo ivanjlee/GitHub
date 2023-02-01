@@ -3,7 +3,6 @@ package com.ivan.github.app;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.AnimRes;
 import androidx.annotation.ColorRes;
@@ -45,6 +44,7 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void start(String path, @AnimRes int enterAnim, @AnimRes int exitAnim) {
         Intent intent = new Intent(Intent.ACTION_VIEW, UriBuilder.with(path).build());
+        intent.setPackage(getPackageName());
         ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeCustomAnimation(this, enterAnim, exitAnim);
         try {
             ActivityCompat.startActivity(this, intent, optionsCompat.toBundle());

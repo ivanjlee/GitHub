@@ -1,13 +1,10 @@
 package com.ivan.github.web;
 
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +14,10 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
+import androidx.appcompat.widget.Toolbar;
+
 import com.github.utils.L;
+import com.google.android.material.snackbar.Snackbar;
 import com.ivan.github.R;
 import com.ivan.github.app.BaseActivity;
 
@@ -39,15 +39,6 @@ public class WebActivity extends BaseActivity {
     private WebView mWebView;
 
     private String mUrl;
-    private String mTitle;
-
-    @Deprecated
-    public static void start(Context context, String url, String title) {
-        Intent intent = new Intent(context, WebActivity.class);
-        intent.putExtra(EXTRA_KEY_URL, url);
-        intent.putExtra(EXTRA_KEY_TITLE, title);
-        context.startActivity(intent);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +73,14 @@ public class WebActivity extends BaseActivity {
             return;
         }
         mUrl = data.getQueryParameter(EXTRA_KEY_URL);
-        mTitle = data.getQueryParameter(EXTRA_KEY_TITLE);
+        String mTitle = data.getQueryParameter(EXTRA_KEY_TITLE);
+        if (TextUtils.isEmpty(mTitle)) {
+            mTitle = getString(R.string.webview_error);
+        }
         setTitle(mTitle);
-        mWebView.loadUrl(mUrl);
+        if (!TextUtils.isEmpty(mUrl)) {
+            mWebView.loadUrl(mUrl);
+        }
     }
 
     @Override
@@ -111,7 +107,7 @@ public class WebActivity extends BaseActivity {
                     startActivity(intent);
                 } catch (ActivityNotFoundException e) {
                     L.e(TAG, e);
-                    Snackbar.make(mWebView, R.string.not_app_found_to_open_the_link, Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(mWebView, R.string.webview_not_app_found_to_open_the_link, Snackbar.LENGTH_SHORT).show();
                 }
                 return true;
 

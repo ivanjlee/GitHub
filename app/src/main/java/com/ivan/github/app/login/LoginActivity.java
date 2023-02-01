@@ -16,7 +16,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.collection.ArrayMap;
 import androidx.core.util.Pair;
 
 import com.github.design.widget.CompoundDrawablesTextView;
@@ -39,6 +41,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import okhttp3.Credentials;
@@ -157,7 +160,14 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                 "redirect_uri=github:io.github/oauth&" +
                 "client_id=baa9425d7241129ce354&" +
                 "scope=user+repo+notifications+admin:org+read:discussion+user:assets";
-        WebActivity.start(this, url, "login");
+        openWeb(url, "Login");
+    }
+
+    private void openWeb(@NonNull String url, @NonNull String title) {
+        Map<String, String> params = new ArrayMap<>();
+        params.put("url", url);
+        params.put("title", title);
+        start("web", params);
     }
 
     /**
@@ -257,22 +267,22 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.tv_forget_password:
-                WebActivity.start(this, UrlConst.GITHUB_FORGET_PASSWORD, getString(R.string.reset_your_password));
+                openWeb(UrlConst.GITHUB_FORGET_PASSWORD, getString(R.string.reset_your_password));
                 break;
             case R.id.tv_create_an_account:
-                WebActivity.start(this, UrlConst.GITHUB_REGISTER, getString(R.string.join_github));
+                openWeb(UrlConst.GITHUB_REGISTER, getString(R.string.join_github));
                 break;
             case R.id.tv_terms:
-                WebActivity.start(this, UrlConst.GITHUB_TERMS, getString(R.string.github_terms_of_service));
+                openWeb(UrlConst.GITHUB_TERMS, getString(R.string.github_terms_of_service));
                 break;
             case R.id.tv_privacy:
-                WebActivity.start(this, UrlConst.GITHUB_PRIVACY, getString(R.string.github_privacy_statement));
+                openWeb(UrlConst.GITHUB_PRIVACY, getString(R.string.github_privacy_statement));
                 break;
             case R.id.tv_security:
-                WebActivity.start(this, UrlConst.GITHUB_SECURITY, getString(R.string.github_security));
+                openWeb(UrlConst.GITHUB_SECURITY, getString(R.string.github_security));
                 break;
             case R.id.tv_contact_github:
-                WebActivity.start(this, UrlConst.GITHUB_CONTACT_GITHUB, getString(R.string.get_help_with_github));
+                openWeb(UrlConst.GITHUB_CONTACT_GITHUB, getString(R.string.get_help_with_github));
                 break;
             default:
                 break;
