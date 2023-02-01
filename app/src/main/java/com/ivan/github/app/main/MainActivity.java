@@ -1,5 +1,6 @@
 package com.ivan.github.app.main;
 
+import android.animation.ArgbEvaluator;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -37,6 +38,7 @@ import com.ivan.github.R;
 import com.ivan.github.account.model.User;
 import com.ivan.github.app.BaseActivity;
 import com.ivan.github.common.util.BitmapUtils;
+import com.ivan.github.common.util.StatusBarUtils;
 import com.ivan.github.widget.BridgeActionProvider;
 
 /**
@@ -65,7 +67,27 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                StatusBarUtils.setStatusBarColorRes(MainActivity.this, R.color.transparent);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+
+                super.onDrawerClosed(drawerView);
+                StatusBarUtils.setStatusBarColorRes(MainActivity.this, R.color.colorPrimaryDark);
+            }
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
+                int color = (int) new ArgbEvaluator().evaluate(slideOffset, getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.transparent));
+                StatusBarUtils.setStatusBarColor(MainActivity.this, color);
+            }
+        };
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -103,44 +125,39 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private void loadUserAvatar() {
         User user = GitHub.appComponent().userCenter().getUser();
-        RequestBuilder<Bitmap> requestBuilder;
-        String name;
-        String email;
         if (user == null) {
-            name = getString(R.string.sign_in);
-            email = null;
+            mTVUsername.setText(R.string.sign_in);
             mTVEmail.setVisibility(View.GONE);
-            requestBuilder = Glide.with(this).asBitmap().load(R.drawable.ic_avatar_default);
+            mIVAvatar.setImageResource(R.drawable.ic_github);
+            mProfileBackground.setBackgroundResource(R.drawable.side_nav_bar);
         } else {
             mTVEmail.setVisibility(View.VISIBLE);
-            name = user.getName();
-            email = user.getEmail();
-            requestBuilder = Glide.with(this).asBitmap().load(user.getAvatarUrl());
-        }
-        requestBuilder.into(new CustomViewTarget<View, Bitmap>(mProfileBackground) {
-            @Override
-            public void onLoadFailed(@Nullable Drawable errorDrawable) {
-            }
-
-            @Override
-            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                Bitmap bitmap;
-                try {
-                    bitmap = BitmapUtils.renderScriptBlur(MainActivity.this, resource, 5, 1 / 64f);
-                } catch (Exception exception) {
-                    Logan.e(TAG, "failed to blur image", exception);
-                    return;
+            RequestBuilder<Bitmap> requestBuilder = Glide.with(this).asBitmap().load(user.getAvatarUrl());
+            requestBuilder.into(new CustomViewTarget<View, Bitmap>(mProfileBackground) {
+                @Override
+                public void onLoadFailed(@Nullable Drawable errorDrawable) {
                 }
-                mProfileBackground.setBackground(new BitmapDrawable(getResources(), bitmap));
-            }
 
-            @Override
-            protected void onResourceCleared(@Nullable Drawable placeholder) {
-            }
-        });
-        requestBuilder.apply(RequestOptions.circleCropTransform()).into(mIVAvatar);
-        mTVUsername.setText(name);
-        mTVEmail.setText(email);
+                @Override
+                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                    Bitmap bitmap;
+                    try {
+                        bitmap = BitmapUtils.renderScriptBlur(MainActivity.this, resource, 5, 1 / 64f);
+                    } catch (Exception exception) {
+                        Logan.e(TAG, "failed to blur image", exception);
+                        return;
+                    }
+                    mProfileBackground.setBackground(new BitmapDrawable(getResources(), bitmap));
+                }
+
+                @Override
+                protected void onResourceCleared(@Nullable Drawable placeholder) {
+                }
+            });
+            requestBuilder.apply(RequestOptions.circleCropTransform()).into(mIVAvatar);
+            mTVUsername.setText(user.getName());
+            mTVEmail.setText(user.getEmail());
+        }
     }
 
     @Override
