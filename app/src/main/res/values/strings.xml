@@ -119,5 +119,10 @@
     <string name="feed_delete">delete</string>
     <string name="feed_empty_text">No feeds</string>
     <string name="logout">Logout</string>
+    <string name="general">General</string>
+    <string name="notification">Notifications</string>
+    <string name="switch_account">Switch Account</string>
+    <string name="about_github">About Github</string>
+    <string name="network_diagnosis">Network Diagnosis</string>
 
 </resources>

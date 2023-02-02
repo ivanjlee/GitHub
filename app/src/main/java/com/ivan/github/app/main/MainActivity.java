@@ -22,9 +22,7 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
@@ -67,27 +65,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                StatusBarUtils.setStatusBarColorRes(MainActivity.this, R.color.transparent);
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-
-                super.onDrawerClosed(drawerView);
-                StatusBarUtils.setStatusBarColorRes(MainActivity.this, R.color.colorPrimaryDark);
-            }
-
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                super.onDrawerSlide(drawerView, slideOffset);
-                int color = (int) new ArgbEvaluator().evaluate(slideOffset, getResources().getColor(R.color.colorPrimaryDark), getResources().getColor(R.color.transparent));
-                StatusBarUtils.setStatusBarColor(MainActivity.this, color);
-            }
-        };
+        ActionBarDrawerToggle toggle = new MainActionBarDrawerToggle(this, drawer, toolbar);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -194,9 +172,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            switchFragment(R.id.nav_settings);
             return true;
         }
 
