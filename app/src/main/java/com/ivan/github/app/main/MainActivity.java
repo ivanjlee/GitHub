@@ -1,21 +1,13 @@
 package com.ivan.github.app.main;
 
-import android.animation.ArgbEvaluator;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -24,18 +16,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.CustomViewTarget;
-import com.bumptech.glide.request.transition.Transition;
-import com.github.log.Logan;
 import com.google.android.material.navigation.NavigationView;
-import com.ivan.github.GitHub;
 import com.ivan.github.R;
-import com.ivan.github.account.model.User;
 import com.ivan.github.app.BaseActivity;
-import com.ivan.github.common.util.BitmapUtils;
+import com.ivan.github.app.main.view.ProfileView;
 import com.ivan.github.common.util.StatusBarUtils;
 import com.ivan.github.widget.BridgeActionProvider;
 
@@ -48,10 +32,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private static final String TAG = "MainActivity";
 
-    private ViewGroup mProfileBackground;
-    private ImageView mIVAvatar;
-    private TextView mTVUsername;
-    private TextView mTVEmail;
     private BridgeActionProvider mBridgeActionProvider;
 
     @Override
@@ -70,72 +50,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setPadding(0, StatusBarUtils.getStatusBarHeight(this), 0, 0);
         navigationView.setNavigationItemSelectedListener(this);
-
         View headerView = navigationView.getHeaderView(0);
-        mProfileBackground = headerView.findViewById(R.id.ll_profile_background);
-        mIVAvatar = headerView.findViewById(R.id.iv_avatar);
-        mTVUsername = headerView.findViewById(R.id.tv_username);
-        mTVEmail = headerView.findViewById(R.id.tv_email);
-        OnLoginClickListener listener = new OnLoginClickListener();
-        mIVAvatar.setOnClickListener(listener);
-        mTVUsername.setOnClickListener(listener);
-        loadUserAvatar();
+        ProfileView profileView = headerView.findViewById(R.id.nav_profile_view);
+        profileView.update();
         switchFragment(R.id.nav_home);
-    }
-
-    private class OnLoginClickListener implements View.OnClickListener {
-
-        @Override
-        public void onClick(View v) {
-            boolean isLogin = GitHub.appComponent().userCenter().isLogin();
-            if (v.getId() == R.id.iv_avatar) {
-                if (!isLogin) {
-                    start("/auth");
-                } else {
-                    // TODO: 2021/12/26 start MediaPreview
-                }
-            } else if (v.getId() == R.id.tv_username && !isLogin) {
-                start("/auth");
-            }
-        }
-    }
-
-    private void loadUserAvatar() {
-        User user = GitHub.appComponent().userCenter().getUser();
-        if (user == null) {
-            mTVUsername.setText(R.string.sign_in);
-            mTVEmail.setVisibility(View.GONE);
-            mIVAvatar.setImageResource(R.drawable.ic_github);
-            mProfileBackground.setBackgroundResource(R.drawable.side_nav_bar);
-        } else {
-            mTVEmail.setVisibility(View.VISIBLE);
-            RequestBuilder<Bitmap> requestBuilder = Glide.with(this).asBitmap().load(user.getAvatarUrl());
-            requestBuilder.into(new CustomViewTarget<View, Bitmap>(mProfileBackground) {
-                @Override
-                public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                }
-
-                @Override
-                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                    Bitmap bitmap;
-                    try {
-                        bitmap = BitmapUtils.renderScriptBlur(MainActivity.this, resource, 5, 1 / 64f);
-                    } catch (Exception exception) {
-                        Logan.e(TAG, "failed to blur image", exception);
-                        return;
-                    }
-                    mProfileBackground.setBackground(new BitmapDrawable(getResources(), bitmap));
-                }
-
-                @Override
-                protected void onResourceCleared(@Nullable Drawable placeholder) {
-                }
-            });
-            requestBuilder.apply(RequestOptions.circleCropTransform()).into(mIVAvatar);
-            mTVUsername.setText(user.getName());
-            mTVEmail.setText(user.getEmail());
-        }
     }
 
     @Override

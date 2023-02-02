@@ -24,6 +24,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.ivan.github.R;
+import com.ivan.github.common.Router;
 import com.ivan.github.common.UriBuilder;
 
 import java.util.Map;
@@ -58,18 +59,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void start(String path, Map<String, String> params) {
-        Uri.Builder builder = UriBuilder.with(path);
-        if (params != null) {
-            for (Map.Entry<String, String> entry : params.entrySet()) {
-                builder.appendQueryParameter(entry.getKey(), entry.getValue());
-            }
-        }
-        Intent intent = new Intent(Intent.ACTION_VIEW, builder.build());
-        try {
-            startActivity(intent);
-        } catch (ActivityNotFoundException exception) {
-            Logan.e(TAG, "failed to start Activity", exception);
-        }
+        Router.start(this, path, params);
     }
 
     @Override
