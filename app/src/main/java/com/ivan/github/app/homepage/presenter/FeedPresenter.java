@@ -9,7 +9,7 @@ import com.ivan.github.app.homepage.DaggerFeedComponent;
 import com.ivan.github.app.homepage.FeedContract;
 import com.ivan.github.app.homepage.FeedModule;
 import com.ivan.github.app.homepage.model.IFeedDataStore;
-import com.ivan.github.app.homepage.model.entity.Event;
+import com.ivan.github.app.homepage.model.entity.event.Event;
 import com.ivan.github.core.mvp.RxBasePresenter;
 import com.ivan.github.core.net.BizException;
 import com.ivan.github.core.net.TransformerHelper;
@@ -37,7 +37,6 @@ public class FeedPresenter extends RxBasePresenter<FeedContract.View>
 
     @Inject
     IFeedDataStore mDataStore;
-
     private List<Event> mData = new ArrayList<>(FeedContract.pageSize);
 
     public FeedPresenter(FeedContract.View mView) {

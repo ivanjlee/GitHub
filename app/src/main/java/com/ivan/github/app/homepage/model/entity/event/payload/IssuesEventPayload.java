@@ -1,11 +1,11 @@
-package com.ivan.github.app.homepage.model.entity.payload;
+package com.ivan.github.app.homepage.model.entity.event.payload;
 
 import com.ivan.github.account.model.User;
-import com.ivan.github.app.homepage.model.entity.Issue;
-import com.ivan.github.app.homepage.model.entity.Label;
-import com.ivan.github.app.homepage.model.entity.Milestone;
-import com.ivan.github.app.homepage.model.entity.Payload;
-import com.ivan.github.app.homepage.model.entity.Repository;
+import com.ivan.github.app.homepage.model.entity.event.Issue;
+import com.ivan.github.app.homepage.model.entity.event.Label;
+import com.ivan.github.app.homepage.model.entity.event.Milestone;
+import com.ivan.github.app.homepage.model.entity.event.Payload;
+import com.ivan.github.app.homepage.model.entity.event.Repository;
 
 import java.util.ArrayList;
 

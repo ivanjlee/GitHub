@@ -1,4 +1,4 @@
-package com.ivan.github.app.homepage.model.entity;
+package com.ivan.github.app.homepage.model.entity.event;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

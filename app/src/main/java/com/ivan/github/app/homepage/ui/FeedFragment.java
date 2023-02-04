@@ -12,7 +12,7 @@ import com.github.design.widget.PLRecyclerView;
 import com.ivan.github.R;
 import com.ivan.github.app.homepage.DaggerFeedComponent;
 import com.ivan.github.app.homepage.FeedModule;
-import com.ivan.github.app.homepage.model.entity.Event;
+import com.ivan.github.app.homepage.model.entity.event.Event;
 import com.ivan.github.app.homepage.FeedContract;
 import com.ivan.github.app.homepage.presenter.FeedPresenter;
 import com.ivan.github.core.mvp.BaseMvpFragment;

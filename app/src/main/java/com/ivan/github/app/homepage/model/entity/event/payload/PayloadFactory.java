@@ -1,4 +1,4 @@
-package com.ivan.github.app.homepage.model.entity.payload;
+package com.ivan.github.app.homepage.model.entity.event.payload;
 
 import androidx.annotation.Nullable;
 

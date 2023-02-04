@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import android.view.ViewGroup;
 
 import com.github.design.widget.BaseRecyclerViewAdapter;
-import com.ivan.github.app.homepage.model.entity.Event;
+import com.ivan.github.app.homepage.model.entity.event.Event;
 
 /**
  * FeedListAdapter

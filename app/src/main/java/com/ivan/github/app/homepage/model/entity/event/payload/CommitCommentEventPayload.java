@@ -1,9 +1,9 @@
-package com.ivan.github.app.homepage.model.entity.payload;
+package com.ivan.github.app.homepage.model.entity.event.payload;
 
 import com.ivan.github.account.model.User;
-import com.ivan.github.app.homepage.model.entity.Comment;
-import com.ivan.github.app.homepage.model.entity.Payload;
-import com.ivan.github.app.homepage.model.entity.Repository;
+import com.ivan.github.app.homepage.model.entity.event.Comment;
+import com.ivan.github.app.homepage.model.entity.event.Payload;
+import com.ivan.github.app.homepage.model.entity.event.Repository;
 
 /**
  * com.ivan.github.app.events.model.payload.CommitCommentEventPayload

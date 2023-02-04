@@ -11,7 +11,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory;
 import com.ivan.github.R;
-import com.ivan.github.app.homepage.model.entity.Event;
+import com.ivan.github.app.homepage.model.entity.event.Event;
 import com.ivan.github.app.homepage.ui.FeedViewHolder;
 import com.ivan.github.common.util.DateFormatUtils;
 

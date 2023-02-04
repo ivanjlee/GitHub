@@ -9,8 +9,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.ivan.github.R;
 import com.ivan.github.app.homepage.ui.FeedViewHolder;
-import com.ivan.github.app.homepage.model.entity.Event;
-import com.ivan.github.app.homepage.model.entity.payload.DeleteEventPayload;
+import com.ivan.github.app.homepage.model.entity.event.Event;
+import com.ivan.github.app.homepage.model.entity.event.payload.DeleteEventPayload;
 import com.ivan.github.common.util.DateFormatUtils;
 import com.ivan.github.common.util.GsonUtils;
 

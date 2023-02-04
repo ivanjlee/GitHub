@@ -1,8 +1,8 @@
-package com.ivan.github.app.homepage.model.entity.payload;
+package com.ivan.github.app.homepage.model.entity.event.payload;
 
 import com.google.gson.annotations.SerializedName;
-import com.ivan.github.app.homepage.model.entity.Commit;
-import com.ivan.github.app.homepage.model.entity.Payload;
+import com.ivan.github.app.homepage.model.entity.event.Commit;
+import com.ivan.github.app.homepage.model.entity.event.Payload;
 
 import java.util.List;
 

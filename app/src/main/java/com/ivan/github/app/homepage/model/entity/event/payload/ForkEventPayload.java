@@ -1,7 +1,7 @@
-package com.ivan.github.app.homepage.model.entity.payload;
+package com.ivan.github.app.homepage.model.entity.event.payload;
 
-import com.ivan.github.app.homepage.model.entity.Payload;
-import com.ivan.github.app.homepage.model.entity.Repository;
+import com.ivan.github.app.homepage.model.entity.event.Payload;
+import com.ivan.github.app.homepage.model.entity.event.Repository;
 
 import java.security.acl.Owner;
 

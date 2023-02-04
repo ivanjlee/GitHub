@@ -1,4 +1,4 @@
-package com.ivan.github.app.homepage.model.entity;
+package com.ivan.github.app.homepage.model.entity.event;
 
 /**
  * Payload

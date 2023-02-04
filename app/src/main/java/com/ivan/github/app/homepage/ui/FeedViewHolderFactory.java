@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import android.view.ViewGroup;
 
 import com.ivan.github.R;
-import com.ivan.github.app.homepage.model.entity.Event;
-import com.ivan.github.app.homepage.model.entity.EventType;
+import com.ivan.github.app.homepage.model.entity.event.Event;
+import com.ivan.github.app.homepage.model.entity.event.EventType;
 import com.ivan.github.app.homepage.ui.viewholder.DefaultViewHolder;
 import com.ivan.github.app.homepage.ui.viewholder.DeleteEventViewHolder;
 

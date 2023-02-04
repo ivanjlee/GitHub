@@ -3,7 +3,7 @@ package com.ivan.github.app.homepage.model.impl;
 import com.ivan.github.GitHub;
 import com.ivan.github.app.homepage.model.IFeedDataStore;
 import com.ivan.github.app.homepage.model.api.RxEventService;
-import com.ivan.github.app.homepage.model.entity.Event;
+import com.ivan.github.app.homepage.model.entity.event.Event;
 import com.ivan.github.core.net.HttpClient;
 import com.ivan.github.core.net.TransformerHelper;
 

@@ -1,6 +1,6 @@
 package com.ivan.github.app.homepage.model.api;
 
-import com.ivan.github.app.homepage.model.entity.Event;
+import com.ivan.github.app.homepage.model.entity.event.Event;
 
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.adapter.rxjava3.Result;

@@ -1,7 +1,7 @@
 package com.ivan.github.app.homepage;
 
 import com.ivan.github.app.homepage.model.IFeedDataStore;
-import com.ivan.github.app.homepage.model.entity.Event;
+import com.ivan.github.app.homepage.model.entity.event.Event;
 import com.ivan.github.core.mvp.IBaseStateView;
 import com.ivan.github.core.mvp.IPresenter;
 
