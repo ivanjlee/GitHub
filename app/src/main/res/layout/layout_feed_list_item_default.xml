@@ -60,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_normal"
-        android:textSize="@dimen/h3"
+        android:textSize="@dimen/h4"
         android:textColor="@color/gray_33"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/tv_username"

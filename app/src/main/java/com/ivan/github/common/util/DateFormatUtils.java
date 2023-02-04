@@ -4,10 +4,15 @@ import android.text.format.DateUtils;
 
 import java.util.Date;
 
+import static android.text.format.DateUtils.FORMAT_ABBREV_ALL;
 import static android.text.format.DateUtils.FORMAT_ABBREV_MONTH;
+import static android.text.format.DateUtils.FORMAT_ABBREV_RELATIVE;
 import static android.text.format.DateUtils.FORMAT_ABBREV_TIME;
+import static android.text.format.DateUtils.FORMAT_NUMERIC_DATE;
 import static android.text.format.DateUtils.FORMAT_SHOW_DATE;
+import static android.text.format.DateUtils.FORMAT_SHOW_TIME;
 import static android.text.format.DateUtils.FORMAT_SHOW_YEAR;
+import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 
 /**

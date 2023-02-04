@@ -1,6 +1,5 @@
 package com.ivan.github;
 
-
 import com.ivan.github.account.model.Authorization;
 import com.ivan.github.api.OAuthService;
 import com.ivan.github.core.net.HttpClient;
