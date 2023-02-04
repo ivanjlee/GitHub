@@ -96,6 +96,7 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-android-processor:$versions.dagger"
 
     implementation 'com.squareup.retrofit2:converter-simplexml:2.9.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
     implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
     implementation "com.squareup.okhttp3:logging-interceptor:$versions.ok_logging"
     implementation "com.squareup.retrofit2:converter-gson:$versions.converter_gson"
