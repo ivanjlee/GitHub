@@ -4,15 +4,14 @@ apply from: '../versions.gradle'
 apply from: '../graver.gradle'
 
 android {
-    def version = "0.1.0"
+    namespace 'com.ivan.github'
     compileSdkVersion rootProject.ext.config.compileSdkVersion
-    buildToolsVersion rootProject.ext.config.buildToolsVersion
     defaultConfig {
         applicationId "com.github.android.pro"
         minSdkVersion rootProject.ext.config.minSdkVersion
         targetSdkVersion rootProject.ext.config.targetSdkVersion
-        versionCode 10000
-        versionName version
+        versionCode 1
+        versionName  "0.0.1"
         buildConfigField "long", "BUILD", getBuildTime()+"L"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'

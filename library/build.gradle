@@ -2,13 +2,11 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion rootProject.ext.config.compileSdkVersion
-    buildToolsVersion rootProject.ext.config.buildToolsVersion
+    namespace 'com.github.design'
 
     defaultConfig {
         minSdkVersion rootProject.ext.config.minSdkVersion
         targetSdkVersion rootProject.ext.config.targetSdkVersion
-        versionCode rootProject.ext.config.versionCode
-        versionName rootProject.ext.config.versionName
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         multiDexEnabled true
         signingConfig signingConfigs.debug

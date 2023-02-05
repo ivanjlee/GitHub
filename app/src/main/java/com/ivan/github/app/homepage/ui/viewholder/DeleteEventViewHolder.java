@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ivan.github.R;
+import com.ivan.github.app.homepage.model.entity.event.Repository;
 import com.ivan.github.app.homepage.ui.FeedViewHolder;
 import com.ivan.github.app.homepage.model.entity.event.Event;
 import com.ivan.github.app.homepage.model.entity.event.payload.DeleteEventPayload;
@@ -64,6 +65,9 @@ public class DeleteEventViewHolder extends FeedViewHolder {
         }
         mTvTime.setText(DateFormatUtils.getTimeSpan(event.getCreatedAt()));
         mTvRef.setText(payload.getRef());
-        mTvRepository.setText(payload.getRepository().getFullName());
+        if (payload.getRepository() != null) {
+            Repository repository = payload.getRepository();
+            mTvRepository.setText(repository.getFullName());
+        }
     }
 }
