@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".app.homepage.ui.FeedFragment">
 
-    <com.github.design.widget.PLRecyclerView
+    <com.github.design.widget.SwipeRefreshRecyclerView
         android:id="@+id/pl_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,7 +14,7 @@
         tools:listitem="@layout/layout_feed_list_item_watch"
         >
 
-    </com.github.design.widget.PLRecyclerView>
+    </com.github.design.widget.SwipeRefreshRecyclerView>
 
     <TextView
         android:id="@+id/tv_empty_view"

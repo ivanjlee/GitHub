@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.github.design.widget.LoadListener;
-import com.github.design.widget.PLRecyclerView;
+import com.github.design.widget.SwipeRefreshRecyclerView;
 import com.ivan.github.R;
 import com.ivan.github.app.homepage.DaggerFeedComponent;
 import com.ivan.github.app.homepage.FeedModule;
@@ -28,7 +28,7 @@ import javax.inject.Inject;
  */
 public class FeedFragment extends BaseMvpFragment<FeedContract.Presenter> implements FeedContract.View {
 
-    private PLRecyclerView mRecyclerView;
+    private SwipeRefreshRecyclerView mRecyclerView;
     private FeedListAdapter mAdapter;
     private TextView mTvEmpty;
 
@@ -66,18 +66,8 @@ public class FeedFragment extends BaseMvpFragment<FeedContract.Presenter> implem
         mTvEmpty = rootView.findViewById(R.id.tv_empty_view);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setLoadListener(new LoadListener() {
-            @Override
-            public void onRefresh() {
-                mPresenter.refresh();
-            }
-
-            @Override
-            public void onLoadMore(RecyclerView recyclerView) {
-                super.onLoadMore(recyclerView);
-                mPresenter.loadMore();
-            }
-        });
+        mRecyclerView.addLoadMoreListener(view -> mPresenter.loadMore());
+        mRecyclerView.addRefreshListener(view -> mPresenter.refresh());
         mPresenter.listUserEvents(0);
     }
 
