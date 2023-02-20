@@ -3,11 +3,10 @@ package com.ivan.github.app.homepage.ui;
 import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 import android.widget.TextView;
 
-import com.github.design.widget.LoadListener;
 import com.github.design.widget.SwipeRefreshRecyclerView;
 import com.ivan.github.R;
 import com.ivan.github.app.homepage.DaggerFeedComponent;

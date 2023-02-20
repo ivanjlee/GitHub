@@ -37,7 +37,6 @@ public class SwipeRefreshRecyclerView extends SwipeRefreshLayout {
 
     protected RecyclerView mRecyclerView;
     protected HeaderFooterAdapter<?> mAdapter;
-    private LoadListener mListener;
     private boolean mCanLoadMore = true;
     @LoadMoreStatus
     private int mLoadMoreStatus = STATUS_NORMAL;
@@ -107,10 +106,6 @@ public class SwipeRefreshRecyclerView extends SwipeRefreshLayout {
     @Nullable
     public RecyclerView.Adapter<?> getAdapter() {
         return mAdapter == null ? null : mAdapter.mInnerAdapter;
-    }
-
-    public void setLoadListener(LoadListener listener) {
-        this.mListener = listener;
     }
 
     public void setCanLoadMore(boolean mCanLoadMore) {
