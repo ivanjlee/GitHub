@@ -37,7 +37,7 @@ public class FeedPresenter extends RxBasePresenter<FeedContract.View>
 
     @Inject
     IFeedDataStore mDataStore;
-    private List<Event> mData = new ArrayList<>(FeedContract.pageSize);
+    private final List<Event> mData = new ArrayList<>(FeedContract.pageSize);
 
     public FeedPresenter(FeedContract.View mView) {
         super(mView);
