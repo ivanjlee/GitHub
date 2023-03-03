@@ -8,6 +8,7 @@ import androidx.annotation.AnimRes;
 import androidx.annotation.ColorRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.github.log.Logan;
@@ -46,6 +47,10 @@ public class BaseActivity extends AppCompatActivity {
     protected void start(String path, @AnimRes int enterAnim, @AnimRes int exitAnim) {
         Intent intent = new Intent(Intent.ACTION_VIEW, UriBuilder.with(path).build());
         intent.setPackage(getPackageName());
+        start(intent, enterAnim, exitAnim);
+    }
+
+    protected void start(@NonNull Intent intent, @AnimRes int enterAnim, @AnimRes int exitAnim) {
         ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeCustomAnimation(this, enterAnim, exitAnim);
         try {
             ActivityCompat.startActivity(this, intent, optionsCompat.toBundle());

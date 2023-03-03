@@ -3,7 +3,6 @@ package com.ivan.github.core;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.Build;
 
 import com.github.utils.DeviceUtils;
 import com.ivan.github.BuildConfig;

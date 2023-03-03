@@ -1,7 +1,9 @@
 package com.ivan.github;
 
 import android.app.Application;
+import android.content.Context;
 
+import com.ivan.github.core.LifecycleMonitor;
 import com.ivan.github.core.init.AsyncAppInitializer;
 
 /**
@@ -13,6 +15,12 @@ import com.ivan.github.core.init.AsyncAppInitializer;
  */
 
 public class GitHubApplication extends Application {
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        this.registerActivityLifecycleCallbacks(new LifecycleMonitor());
+    }
 
     @Override
     public void onCreate() {

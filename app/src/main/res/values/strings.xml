@@ -29,6 +29,9 @@
     <string name="splash_title_04">One platform, from start to finish</string>
     <string name="splash_dec_04">With hundreds of integrations, GitHub is\n flexible enough to be at the center of your\n development process.</string>
 
+    <!-- Main -->
+    <string name="main_click_exit">Click again to exit</string>
+
     <!--notification-->
     <string name="crash_ticker">there is a crash</string>
     <string name="crash_content_title">App crashes</string>

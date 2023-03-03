@@ -27,7 +27,7 @@
         <activity android:name="com.ivan.github.app.login.LandingActivity"/>
         <activity
             android:name=".app.main.MainActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTop"/>
         <activity android:name=".app.BaseActivity" />
         <activity android:name=".web.WebActivity" />
         <activity android:name=".app.ToolbarActivity" />

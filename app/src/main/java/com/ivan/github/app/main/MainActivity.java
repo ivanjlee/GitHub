@@ -1,6 +1,8 @@
 package com.ivan.github.app.main;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +18,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.github.log.Logan;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.ivan.github.R;
 import com.ivan.github.app.BaseActivity;
 import com.ivan.github.app.main.view.ProfileView;
@@ -33,6 +37,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private static final String TAG = "MainActivity";
 
     private BridgeActionProvider mBridgeActionProvider;
+    private DrawerLayout mDrawer;
+    private boolean mExitNow = false;
+    private final Handler mMainHandler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +51,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private void initView() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new MainActionBarDrawerToggle(this, drawer, toolbar);
-        drawer.addDrawerListener(toggle);
+        mDrawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new MainActionBarDrawerToggle(this, mDrawer, toolbar);
+        mDrawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -60,6 +67,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onBackPressed() {
+        Logan.d(TAG, "onBackPress");
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);

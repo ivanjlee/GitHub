@@ -11,7 +11,7 @@
         <item name="popupTheme">@style/AppTheme.PopupOverlay</item>
         <item name="android:progressBarStyle">@style/ProgressBarStyle</item>
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
-        <item name="android:windowAnimationStyle">@style/AppAnimation.Activity</item>
+<!--        <item name="android:windowAnimationStyle">@style/AppAnimation.Activity</item>-->
         <item name="android:navigationBarColor">@color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>

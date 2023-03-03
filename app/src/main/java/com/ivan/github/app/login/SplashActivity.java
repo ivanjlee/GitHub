@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.core.app.ActivityCompat;
+
 import com.ivan.github.R;
 import com.ivan.github.app.AppSettings;
 import com.ivan.github.app.BaseActivity;
@@ -78,12 +80,6 @@ public class SplashActivity extends BaseActivity {
         } else {
             start("/homepage", R.anim.alpha_in, R.anim.alpha_out);
         }
-        SplashActivity.this.finish();
-    }
-
-    @Override
-    public void finish() {
-// ActivityCompat.finishAfterTransition(this);
-        super.finish();
+        SplashActivity.this.finishAfterTransition();
     }
 }
