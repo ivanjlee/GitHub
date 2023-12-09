@@ -3,22 +3,29 @@ apply from: 'versions.gradle'
 buildscript {
     repositories {
         mavenLocal()
+        maven {
+            url "https://mirrors.cloud.tencent.com/nexus/repository/maven-public"
+        }
         mavenCentral()
         google()
+
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.0'
+        classpath 'com.android.tools.build:gradle:7.4.2'
     }
 }
 
 allprojects {
     repositories {
         mavenLocal()
+        maven {
+            url "https://mirrors.cloud.tencent.com/nexus/repository/maven-public"
+        }
         mavenCentral()
         google()
     }
 }
 
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
